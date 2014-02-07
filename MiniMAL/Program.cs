@@ -10,8 +10,18 @@ namespace MiniMAL
     {
         static void Main(string[] args)
         {
-            Client client = new Client();
-            List<Anime>client.LoadUserList("Luxiamimi");
+            MiniMALConsole console = new MiniMALConsole();
+            if (args.Any())
+                console.Run(args);
+            else
+            {
+                bool b = true;
+                while (b)
+                {
+                    Console.Write("MiniMAL >");
+                    b = console.Run(Console.ReadLine().Split(new char[] { ' ' }));
+                }
+            }
         }
     }
 }

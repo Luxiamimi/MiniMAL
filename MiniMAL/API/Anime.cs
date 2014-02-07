@@ -7,7 +7,7 @@ using System.Xml;
 namespace MiniMAL.API
 {
 	/// <summary>
-	/// Structure contenant les informations sur un Anime
+	/// Modelize an anime entry
 	/// </summary>
     public struct Anime
     {
@@ -23,7 +23,7 @@ namespace MiniMAL.API
 
         public enum WatchingStatus
         {
-			None = 0, Watching = 1, Completed = 2, OnHold = 3, Dropped = 4, PlanToWatch = 6
+            None = 0, Watching = 1, Completed = 2, OnHold = 3, Dropped = 4, PlanToWatch = 6
         }
 
         public int ID { get; set; }
@@ -79,5 +79,10 @@ namespace MiniMAL.API
 			MyRewatchingEp = e["my_rewatching_ep"].InnerText != "" ? Int32.Parse(e["my_rewatching_ep"].InnerText) : 0;
 			MyTags = e["my_tags"].InnerText;
 		}
+
+        public override string ToString()
+        {
+            return Title;
+        }
     }
 }
