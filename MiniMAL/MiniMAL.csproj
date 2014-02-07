@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="API\Anime.cs" />
     <Compile Include="API\Client.cs" />
+    <Compile Include="MiniMALConsole.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
