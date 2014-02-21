@@ -1,6 +1,6 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual C# Express 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Express 2013 for Windows Desktop
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MiniMAL", "MiniMAL\MiniMAL.csproj", "{7E707E5E-7C69-417F-B274-E97F8B54F7E6}"
 EndProject
 Global
