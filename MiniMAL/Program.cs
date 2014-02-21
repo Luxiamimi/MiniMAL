@@ -19,7 +19,7 @@ namespace MiniMAL
                 while (b)
                 {
                     Console.Write("MiniMAL >");
-                    b = console.Run(Console.ReadLine().Split(new char[] { ' ' }));
+					b = console.Run(Console.ReadLine().Split(new char[] { ' ' }));
                 }
             }
         }
