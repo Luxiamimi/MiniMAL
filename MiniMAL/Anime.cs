@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Xml;
 
-namespace MiniMAL.API
+namespace MiniMAL
 {
 	/// <summary>
 	/// Modelize an anime entry

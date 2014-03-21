@@ -44,9 +44,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="API\Anime.cs" />
-    <Compile Include="API\Client.cs" />
-    <Compile Include="MiniMALConsole.cs" />
+    <Compile Include="Anime.cs" />
+    <Compile Include="Client.cs" />
+    <Compile Include="ConsoleInterface\Commands\AnimelistCommand.cs" />
+    <Compile Include="Diese\ConsoleInterface\Argument.cs" />
+    <Compile Include="Diese\ConsoleInterface\Command.cs" />
+    <Compile Include="Diese\ConsoleInterface\ConsoleInterface.cs" />
+    <Compile Include="ConsoleInterface\MiniMALConsole.cs" />
+    <Compile Include="Diese\ConsoleInterface\ExitCommand.cs" />
+    <Compile Include="Diese\ConsoleInterface\Request.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -2,26 +2,20 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using MiniMAL.API;
+using MiniMAL.ConsoleInterface;
 
-namespace MiniMAL
+namespace Program
 {
     class Program
     {
         static void Main(string[] args)
         {
             MiniMALConsole console = new MiniMALConsole();
+
             if (args.Any())
-                console.Run(args);
+                console.Request(args);
             else
-            {
-                bool b = true;
-                while (b)
-                {
-                    Console.Write("MiniMAL >");
-					b = console.Run(Console.ReadLine().Split(new char[] { ' ' }));
-                }
-            }
+                console.Run();
         }
     }
 }
