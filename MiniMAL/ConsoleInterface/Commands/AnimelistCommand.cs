@@ -11,10 +11,12 @@ namespace MiniMAL.ConsoleInterface.Commands
     {
         public AnimelistCommand() : base("animelist")
         {
-            Arguments.Add(new Argument(s => s != ""));
+            Description = "Display the anime list from a user.";
+
+            Arguments.Add(new Argument(s => s != "", "Username can't be empty"));
         }
 
-        protected override void Action(List<string> args)
+        protected override void Action(string[] args)
         {
             Console.WriteLine("Loading...");
             Client client = new Client();

@@ -7,11 +7,12 @@ namespace Diese.ConsoleInterface
 {
     public class ExitCommand : Command
     {
-        public ExitCommand() : base("exit")
+        public ExitCommand(string applicationName) : base("exit")
         {
+            Description = "Exit " + applicationName + ".";
         }
 
-        protected override void Action(List<string> args)
+        protected override void Action(string[] args)
         {
         }
     }

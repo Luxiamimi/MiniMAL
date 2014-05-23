@@ -7,18 +7,19 @@ namespace Diese.ConsoleInterface
 {
     public struct Request
     {
-        public string Keyword { get; set; }
-        public List<string> Arguments { get; set; }
+        public string Command { get; set; }
+        public string[] Arguments { get; set; }
 
         public Request(string[] args) : this()
         {
             if (!args.Any())
-                throw new ArgumentException("ERROR : args est vide !");
+                throw new ArgumentException("ERROR : Empty request !");
 
-            Arguments = new List<string>();
-            for (int i = 1; i < args.Length; i++)
-                Arguments.Add(args[i]);
-            Keyword = args[0];
+            Command = args[0];
+
+            Arguments = new string[args.Length - 1];
+            for (int i = 0; i < Arguments.Length; i++)
+                Arguments[i] = args[i+1];
         }
     }
 }

@@ -2,21 +2,28 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Diese.ConsoleInterface.Exceptions;
 
 namespace Diese.ConsoleInterface
 {
+    // TODO : Help command
     public abstract class ConsoleInterface
     {
         public string Name { get; set; }
         public string WelcomeMessage { get; set; }
 
         public Dictionary<string, Command> Commands { get; set; }
-        public Command ExitCommand { get; set; }
 
-        protected ConsoleInterface()
+        private static string exitKeyword = "exit";
+        private static string helpKeyword = "help";
+
+        protected ConsoleInterface(string name)
         {
+            Name = name;
+
             Commands = new Dictionary<string, Command>();
-            ExitCommand = new ExitCommand();
+            Commands.Add(exitKeyword, new ExitCommand(name));
+            Commands.Add(helpKeyword, new HelpCommand(Commands));
         }
 
         public void Run()
@@ -27,7 +34,8 @@ namespace Diese.ConsoleInterface
 
         public bool WaitRequest()
         {
-            Console.Write(Name + "> ");
+            Console.WriteLine();
+            Console.Write(Name + ">");
             return Request(Console.ReadLine().Split(new char[] { ' ' }));
         }
 
@@ -43,21 +51,27 @@ namespace Diese.ConsoleInterface
 
         public bool Request(Request request)
         {
-            if (request.Keyword == "")
-                return true;
-            if (request.Keyword == ExitCommand.Keyword)
+            try
             {
-                ExitCommand.Run(request.Arguments);
-                return false;
+                if (request.Command == "")
+                    return true;
+
+                if (request.Command == exitKeyword)
+                {
+                    Commands[exitKeyword].Run(request.Arguments);
+                    return false;
+                }
+
+                if (!Commands.Keys.Contains(request.Command))
+                    throw new UnknownCommandException(request.Command);
+
+                Commands[request.Command].Run(request.Arguments);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
             }
 
-            if (!Commands.Keys.Contains(request.Keyword))
-            {
-                Console.WriteLine("ERROR : " + request.Keyword + " is an invalid command !");
-                return true;
-            }
-
-            Commands[request.Keyword].Run(request.Arguments);
             return true;
         }
     }

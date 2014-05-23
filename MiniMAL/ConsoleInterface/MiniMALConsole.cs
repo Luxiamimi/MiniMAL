@@ -13,9 +13,8 @@ namespace MiniMAL.ConsoleInterface
     {
         private Client client = new Client();
 
-        public MiniMALConsole()
+        public MiniMALConsole() : base("MiniMal")
         {
-            Name = "MiniMal";
             WelcomeMessage = "Welcome to MiniMal !";
             Commands.Add("animelist", new AnimelistCommand());
         }
