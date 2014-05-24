@@ -19,7 +19,7 @@ namespace MiniMAL.ConsoleInterface.Commands
         protected override void Action(string[] args)
         {
             Console.WriteLine("Loading...");
-            Client client = new Client();
+            MiniMALClient client = new MiniMALClient();
             List<Anime> list = client.LoadUserList(args[0]);
 
             foreach (Anime a in list)

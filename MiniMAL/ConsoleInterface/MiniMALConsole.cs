@@ -11,7 +11,7 @@ namespace MiniMAL.ConsoleInterface
 {
     public class MiniMALConsole : Diese.ConsoleInterface.ConsoleInterface
     {
-        private Client client = new Client();
+        private MiniMALClient client = new MiniMALClient();
 
         public MiniMALConsole() : base("MiniMal")
         {

@@ -6,7 +6,7 @@ using System.Xml;
 
 namespace MiniMAL
 {
-	public class Client
+	public class MiniMALClient
     {
         // http://myanimelist.net/malappinfo.php?status=all&type=anime&u=Luxiamimi
 

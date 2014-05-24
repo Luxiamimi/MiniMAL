@@ -30,6 +30,7 @@ namespace Diese.ConsoleInterface
             for (int i = 0; i < args.Length; i++)
             {
                 // Flags
+                // Optional Arguments
                 argsCount++;
             }
 

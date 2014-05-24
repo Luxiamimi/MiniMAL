@@ -6,7 +6,6 @@ using Diese.ConsoleInterface.Exceptions;
 
 namespace Diese.ConsoleInterface
 {
-    // TODO : Help command
     public abstract class ConsoleInterface
     {
         public string Name { get; set; }
