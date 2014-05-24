@@ -20,7 +20,20 @@ namespace Diese.ConsoleInterface
         {
             foreach (Command c in Commands.Values)
             {
-                Console.WriteLine("\t" + c.Keyword + " : " + c.Description);
+                Console.WriteLine();
+                Console.Write(c.Keyword);
+
+                foreach (Argument a in c.Arguments)
+                    Console.Write(" " + a.Name);
+                Console.WriteLine();
+
+                Console.WriteLine("\tDESCRIPTION : " + c.Description);
+
+                if (c.Arguments.Any())
+                    Console.WriteLine("\tARGUMENTS :");
+
+                foreach (Argument a in c.Arguments)
+                    Console.WriteLine("\t\t" + a.Name + " : " + a.Description);
             }
         }
     }

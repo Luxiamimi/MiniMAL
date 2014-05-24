@@ -16,7 +16,7 @@ namespace Diese.ConsoleInterface.Exceptions
     {
         public ArgumentNotValidException(Argument a, int idArg)
             : base("Unvalid value for argument n°" + idArg + "."
-                    + ((a.MessageIfUnvalid != "") ? " (" + a.MessageIfUnvalid + ")" : "")) { }
+                    + ((a.getUnvalidMessage() != "") ? " (" + a.getUnvalidMessage() + ")" : "")) { }
     }
 
     public class UnknownCommandException : System.Exception

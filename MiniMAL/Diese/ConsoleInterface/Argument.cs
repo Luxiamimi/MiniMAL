@@ -5,20 +5,39 @@ using System.Text;
 
 namespace Diese.ConsoleInterface
 {
-    public class Argument
+    public struct Argument
     {
-        public Func<string, bool> Validator { get; set; }
-        public string MessageIfUnvalid { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
+        public Validator[] Validators { get; set; }
 
-        public Argument(Func<string, bool> validator, string msgIfUnvalid = "")
+        public Argument(string name, string description, params Validator[] validators) : this()
         {
-            Validator = validator;
-            MessageIfUnvalid = msgIfUnvalid;
+            Name = name;
+            Description = description;
+            Validators = validators;
         }
 
         public bool isValid(string s)
         {
-            return Validator.Invoke(s);
+            bool result = true;
+            foreach (Validator v in Validators)
+            {
+                result = result && v.Test.Invoke(s);
+            }
+            return result;
+        }
+
+        public string getUnvalidMessage()
+        {
+            string result = "";
+            bool coma = false;
+            foreach (Validator v in Validators)
+            {
+                result += (coma ? ", " : "") + v.MessageIfUnvalid;
+                coma = true;
+            }
+            return result;
         }
     }
 }
