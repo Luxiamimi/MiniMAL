@@ -12,14 +12,14 @@ namespace Diese.ConsoleInterface
     public abstract class Command
     {
         public string Keyword { get; set; }
-        public List<Argument> Arguments { get; set; }
+        public List<Argument> RequiredArguments { get; set; }
         public List<Argument> OptionalArguments { get; set; }
         public string Description { get; set; }
 
         protected Command(string keyword, string description = "*no description*")
         {
             Keyword = keyword;
-            Arguments = new List<Argument>();
+            RequiredArguments = new List<Argument>();
             OptionalArguments = new List<Argument>();
             Description = description;
         }
@@ -34,16 +34,16 @@ namespace Diese.ConsoleInterface
                 argsCount++;
             }
 
-            if (argsCount != Arguments.Count)
-                throw new NumberOfArgumentsException(argsCount, Arguments.Count);
+            if (argsCount != RequiredArguments.Count)
+                throw new NumberOfArgumentsException(argsCount, RequiredArguments.Count);
 
             int j = 0;
             for (int i = 0; i < args.Length; i++)
             {
                 // Flags
 
-                if (!Arguments[j].isValid(args[i]))
-                    throw new ArgumentNotValidException(Arguments[j], j);
+                if (!RequiredArguments[j].isValid(args[i]))
+                    throw new ArgumentNotValidException(RequiredArguments[j], j);
 
                 // Optional Arguments
 

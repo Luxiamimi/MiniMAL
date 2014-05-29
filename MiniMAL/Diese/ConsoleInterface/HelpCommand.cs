@@ -23,16 +23,16 @@ namespace Diese.ConsoleInterface
                 Console.WriteLine();
                 Console.Write(c.Keyword);
 
-                foreach (Argument a in c.Arguments)
+                foreach (Argument a in c.RequiredArguments)
                     Console.Write(" " + a.Name);
                 Console.WriteLine();
 
                 Console.WriteLine("\tDESCRIPTION : " + c.Description);
 
-                if (c.Arguments.Any())
+                if (c.RequiredArguments.Any())
                     Console.WriteLine("\tARGUMENTS :");
 
-                foreach (Argument a in c.Arguments)
+                foreach (Argument a in c.RequiredArguments)
                     Console.WriteLine("\t\t" + a.Name + " : " + a.Description);
             }
         }

@@ -13,7 +13,7 @@ namespace MiniMAL.ConsoleInterface.Commands
         {
             Description = "Display the anime list from a user.";
 
-            Arguments.Add(new Argument("user", "a MyAnimeList's username.", new Validator(s => s != "", "Username can't be empty. Exemple : animelist myUsername")));
+            RequiredArguments.Add(new Argument("user", "a MyAnimeList's username.", new Validator(s => s != "", "Username can't be empty. Exemple : animelist myUsername")));
         }
 
         protected override void Action(string[] args)

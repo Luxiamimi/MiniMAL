@@ -54,7 +54,7 @@
     <Compile Include="ConsoleInterface\MiniMALConsole.cs" />
     <Compile Include="Diese\ConsoleInterface\Exceptions\Exceptions.cs" />
     <Compile Include="Diese\ConsoleInterface\ExitCommand.cs" />
-    <Compile Include="Diese\ConsoleInterface\Flags.cs" />
+    <Compile Include="Diese\ConsoleInterface\Option.cs" />
     <Compile Include="Diese\ConsoleInterface\HelpCommand.cs" />
     <Compile Include="Diese\ConsoleInterface\Request.cs" />
     <Compile Include="Diese\ConsoleInterface\Validator.cs" />

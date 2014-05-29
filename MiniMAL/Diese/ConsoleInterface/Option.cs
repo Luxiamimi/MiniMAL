@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Diese.ConsoleInterface
 {
-    public class Flags
+    public class Option
     {
         public string Keyword { get; set; }
         public string[] Arguments { get; set; }
