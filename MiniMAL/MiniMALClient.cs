@@ -20,7 +20,6 @@ namespace MiniMAL
         /// </summary>
         /// <param name="user">Name of the user</param>
         /// <param name="type">List type : anime (by defaut)/manga)</param>
-        /// <param name="status">Status for the animes get : all (by defaut)/...)</param>
         public List<Anime> LoadUserList(string user, ListType type = ListType.Anime)
 		{
 			List<Anime> list = new List<Anime>();
@@ -28,7 +27,6 @@ namespace MiniMAL
             string typeString = type == ListType.Anime ? "anime" : "manga";
 
             string s = "http://myanimelist.net/malappinfo.php?u=" + user + "&type=" + typeString + "&status=all";
-            //string s = "myXmlList.xml";
 			XmlDocument doc = new XmlDocument();
 			doc.Load(s);
 

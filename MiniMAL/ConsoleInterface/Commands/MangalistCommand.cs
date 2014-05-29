@@ -7,20 +7,20 @@ using MiniMAL;
 
 namespace MiniMAL.ConsoleInterface.Commands
 {
-    public class AnimelistCommand : Command
+    public class MangalistCommand : Command
     {
-        public AnimelistCommand() : base("animelist")
+        public MangalistCommand() : base("mangalist")
         {
-            Description = "Display the anime list from a user.";
+            Description = "Display the manga list from a user.";
 
-            Arguments.Add(new Argument("user", "a MyAnimeList's username.", new Validator(s => s != "", "Username can't be empty. Exemple : animelist myUsername")));
+            Arguments.Add(new Argument("user", "a MyAnimeList's username.", new Validator(s => s != "", "Username can't be empty. Exemple : mangalist myUsername")));
         }
 
         protected override void Action(string[] args)
         {
             Console.WriteLine("Loading...");
             MiniMALClient client = new MiniMALClient();
-            List<Anime> list = client.LoadUserList(args[0], MiniMALClient.ListType.Anime);
+            List<Anime> list = client.LoadUserList(args[0], MiniMALClient.ListType.Manga);
 
             foreach (Anime a in list)
                 Console.WriteLine(a.Title);
