@@ -6,10 +6,7 @@ using System.Xml;
 
 namespace MiniMAL
 {
-	/// <summary>
-	/// Modelize an anime entry
-	/// </summary>
-    public struct Anime
+    public class Anime
     {
 		public enum TypeAnime
         {
@@ -55,10 +52,6 @@ namespace MiniMAL
 			}
 		}
 
-		/// <summary>
-		/// Load a anime from a XmlNode
-		/// </summary>
-		/// <param name="e">XmlNode with a anime structure</param>
 		public void LoadFromXmlNode(XmlNode e)
 		{
 			ID = e["series_animedb_id"].InnerText != "" ? Int32.Parse(e["series_animedb_id"].InnerText) : 0;

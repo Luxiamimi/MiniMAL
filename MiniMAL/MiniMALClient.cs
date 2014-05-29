@@ -10,31 +10,19 @@ namespace MiniMAL
     {
         // http://myanimelist.net/malappinfo.php?status=all&type=anime&u=Luxiamimi
 
-        public enum ListType
-        {
-            Anime, Manga
-        }
-
-        /// <summary>
-        /// Load an user anime list
-        /// </summary>
-        /// <param name="user">Name of the user</param>
-        /// <param name="type">List type : anime (by defaut)/manga)</param>
-        public List<Anime> LoadUserList(string user, ListType type = ListType.Anime)
+        public List<Anime> LoadAnimelist(string user)
 		{
-			List<Anime> list = new List<Anime>();
+            List<Anime> list = new List<Anime>();
 
-            string typeString = type == ListType.Anime ? "anime" : "manga";
-
-            string s = "http://myanimelist.net/malappinfo.php?u=" + user + "&type=" + typeString + "&status=all";
+            string s = "http://myanimelist.net/malappinfo.php?u=" + user + "&type=anime&status=all";
 			XmlDocument doc = new XmlDocument();
 			doc.Load(s);
 
 			foreach (XmlNode e in doc.DocumentElement.ChildNodes)
             {
-				if (e.Name == "anime")
+                if (e.Name == "anime")
 				{
-					Anime a = new Anime();
+                    Anime a = new Anime();
 					a.LoadFromXmlNode(e);
 					list.Add(a);
 				}
