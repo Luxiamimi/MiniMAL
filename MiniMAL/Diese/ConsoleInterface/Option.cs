@@ -5,9 +5,15 @@ using System.Text;
 
 namespace Diese.ConsoleInterface
 {
-    public class Option
+    public struct Option
     {
         public string Keyword { get; set; }
-        public string[] Arguments { get; set; }
+        public List<Argument> Arguments { get; set; }
+
+        public Option(string keyword, params Argument[] arguments) : this()
+        {
+            Keyword = keyword;
+            Arguments = arguments.ToList();
+        }
     }
 }
