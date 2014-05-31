@@ -11,9 +11,9 @@ namespace MiniMAL
         // http://myanimelist.net/malappinfo.php?status=all&type=anime&u=Luxiamimi
         // http://myanimelist.net/malappinfo.php?status=all&type=manga&u=Aeden
 
-        public List<Anime> LoadAnimelist(string user)
+        public AnimeList LoadAnimelist(string user)
 		{
-            List<Anime> list = new List<Anime>();
+            AnimeList list = new AnimeList();
 
             string s = "http://myanimelist.net/malappinfo.php?u=" + user + "&type=anime&status=all";
 			XmlDocument doc = new XmlDocument();
@@ -22,14 +22,18 @@ namespace MiniMAL
 			foreach (XmlNode e in doc.DocumentElement.ChildNodes)
             {
                 if (e.Name == "anime")
-                    list.Add(Anime.LoadFromXmlNode(e));
+				{
+                    Anime a = new Anime();
+					a.LoadFromXmlNode(e);
+					list.Add(a);
+				}
 			}
 			return list;
         }
 
-        public List<Manga> LoadMangalist(string user)
+        public MangaList LoadMangalist(string user)
         {
-            List<Manga> list = new List<Manga>();
+            MangaList list = new MangaList();
 
             string s = "http://myanimelist.net/malappinfo.php?u=" + user + "&type=manga&status=all";
             XmlDocument doc = new XmlDocument();
@@ -38,7 +42,11 @@ namespace MiniMAL
             foreach (XmlNode e in doc.DocumentElement.ChildNodes)
             {
                 if (e.Name == "manga")
-                    list.Add(Manga.LoadFromXmlNode(e));
+                {
+                    Manga m = new Manga();
+                    m.LoadFromXmlNode(e);
+                    list.Add(m);
+                }
             }
             return list;
         }

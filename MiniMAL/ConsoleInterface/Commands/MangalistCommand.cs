@@ -20,7 +20,7 @@ namespace MiniMAL.ConsoleInterface.Commands
         {
             Console.WriteLine("Loading...");
             MiniMALClient client = new MiniMALClient();
-            List<Manga> list = client.LoadMangalist(args[0]);
+            MangaList list = client.LoadMangalist(args[0]);
 
             foreach (Manga m in list)
                 Console.WriteLine(m.Title);

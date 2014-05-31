@@ -44,9 +44,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AnimeList.cs" />
+    <Compile Include="EntriesList.cs" />
+    <Compile Include="Entry.cs" />
     <Compile Include="Manga.cs" />
     <Compile Include="Anime.cs" />
     <Compile Include="ConsoleInterface\Commands\MangalistCommand.cs" />
+    <Compile Include="MangaList.cs" />
     <Compile Include="MiniMALClient.cs" />
     <Compile Include="ConsoleInterface\Commands\AnimelistCommand.cs" />
     <Compile Include="Diese\ConsoleInterface\Argument.cs" />
