@@ -7,8 +7,7 @@ using Diese.ConsoleInterface.Exceptions;
 
 namespace Diese.ConsoleInterface
 {
-    // TODO : Optional arguments
-    // TODO : Flags
+    // TODO : Check if an argument appears twice
     public abstract class Command
     {
         public string Keyword { get; set; }
@@ -46,18 +45,29 @@ namespace Diese.ConsoleInterface
             if (argsCount > RequiredArguments.Count + OptionalArguments.Count)
                 throw new NumberOfArgumentsException(argsCount, RequiredArguments.Count + OptionalArguments.Count);
 
+            ArgumentsDictionary arguments = new ArgumentsDictionary();
+            OptionsDictionary options = new OptionsDictionary();
+
             int j = 0;
             int k = 0;
             for (int i = 0; i < args.Length; i++)
             {
                 if (Options.Keys.Contains(args[i]))
                 {
-                    foreach (Argument a in Options[args[i]].Arguments)
+                    int indexOption = i;
+                    i++;
+
+                    ArgumentsDictionary optionArgs = new ArgumentsDictionary();
+                    for (int x = 0; x < Options[args[i]].Arguments.Count; x++)
                     {
-                        i++;
+                        Argument a = Options[args[i]].Arguments[x];
                         if (!a.isValid(args[i]))
-                            throw new ArgumentNotValidException(RequiredArguments[j], j);
+                            throw new ArgumentNotValidException(a, j);
+
+                        optionArgs.Add(a.Name, args[i]);
+                        i++;
                     }
+                    options.Add(args[indexOption], optionArgs);
                     continue;
                 }
 
@@ -65,19 +75,31 @@ namespace Diese.ConsoleInterface
                 {
                     if (!RequiredArguments[j].isValid(args[i]))
                         throw new ArgumentNotValidException(RequiredArguments[j], j);
+
+                    arguments.Add(RequiredArguments[j].Name, args[i]);
                     j++;
                 }
                 else
                 {
                     if (!OptionalArguments[k].isValid(args[i]))
-                        throw new ArgumentNotValidException(OptionalArguments[k], j+k);
+                        throw new ArgumentNotValidException(OptionalArguments[k], j + k);
+
+                    arguments.Add(OptionalArguments[k].Name, args[i]);
                     k++;
                 }
             }
 
-            Action(args);
+            Action(arguments, options);
         }
 
-        protected abstract void Action(string[] args);
+        protected abstract void Action(ArgumentsDictionary arguments, OptionsDictionary options);
+
+        protected class ArgumentsDictionary : Dictionary<string, string>
+        {
+        }
+
+        protected class OptionsDictionary : Dictionary<string, ArgumentsDictionary>
+        {
+        }
     }
 }

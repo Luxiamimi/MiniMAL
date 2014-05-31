@@ -16,11 +16,11 @@ namespace MiniMAL.ConsoleInterface.Commands
             RequiredArguments.Add(new Argument("user", "a MyAnimeList's username.", new Validator(s => s != "", "Username can't be empty. Exemple : mangalist myUsername")));
         }
 
-        protected override void Action(string[] args)
+        protected override void Action(ArgumentsDictionary arguments, OptionsDictionary options)
         {
             Console.WriteLine("Loading...");
             MiniMALClient client = new MiniMALClient();
-            MangaList list = client.LoadMangalist(args[0]);
+            MangaList list = client.LoadMangalist(arguments["user"]);
 
             foreach (Manga m in list)
                 Console.WriteLine(m.Title);

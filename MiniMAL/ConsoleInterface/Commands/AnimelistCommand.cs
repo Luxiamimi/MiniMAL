@@ -16,11 +16,11 @@ namespace MiniMAL.ConsoleInterface.Commands
             RequiredArguments.Add(new Argument("user", "a MyAnimeList's username.", new Validator(s => s != "", "Username can't be empty. Exemple : animelist myUsername")));
         }
 
-        protected override void Action(string[] args)
+        protected override void Action(ArgumentsDictionary arguments, OptionsDictionary options)
         {
             Console.WriteLine("Loading...");
             MiniMALClient client = new MiniMALClient();
-            AnimeList list = client.LoadAnimelist(args[0]);
+            AnimeList list = client.LoadAnimelist(arguments["user"]);
 
             foreach (Anime a in list)
                 Console.WriteLine(a.Title);

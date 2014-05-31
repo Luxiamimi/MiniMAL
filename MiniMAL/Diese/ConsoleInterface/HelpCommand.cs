@@ -16,7 +16,7 @@ namespace Diese.ConsoleInterface
             Commands = commands;
         }
 
-        protected override void Action(string[] args)
+        protected override void Action(ArgumentsDictionary arguments, OptionsDictionary options)
         {
             foreach (Command c in Commands.Values)
             {
