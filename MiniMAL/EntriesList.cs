@@ -35,6 +35,17 @@ namespace MiniMAL
             dictionary[x.MyStatus].Add(x);
         }
 
+        public List<T> this[TMyStatus key]
+        {
+            get
+            {
+                if (dictionary.ContainsKey(key))
+                    return dictionary[key];
+                else
+                    return new List<T>();
+            }
+        }
+
         public IEnumerator<T> GetEnumerator()
         {
             return ToList().GetEnumerator();

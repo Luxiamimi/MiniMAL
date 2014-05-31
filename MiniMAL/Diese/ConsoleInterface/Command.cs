@@ -55,17 +55,16 @@ namespace Diese.ConsoleInterface
                 if (Options.Keys.Contains(args[i]))
                 {
                     int indexOption = i;
-                    i++;
 
                     ArgumentsDictionary optionArgs = new ArgumentsDictionary();
-                    for (int x = 0; x < Options[args[i]].Arguments.Count; x++)
+                    for (int x = 0; x < Options[args[indexOption]].Arguments.Count; x++)
                     {
-                        Argument a = Options[args[i]].Arguments[x];
+                        i++;
+                        Argument a = Options[args[indexOption]].Arguments[x];
                         if (!a.isValid(args[i]))
                             throw new ArgumentNotValidException(a, j);
 
                         optionArgs.Add(a.Name, args[i]);
-                        i++;
                     }
                     options.Add(args[indexOption], optionArgs);
                     continue;

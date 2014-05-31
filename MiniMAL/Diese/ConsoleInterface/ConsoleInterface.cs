@@ -66,7 +66,15 @@ namespace Diese.ConsoleInterface
 
                 Commands[request.Command].Run(request.Arguments);
             }
-            catch (Exception e)
+            catch (NumberOfArgumentsException e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            catch (ArgumentNotValidException e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            catch (UnknownCommandException e)
             {
                 Console.WriteLine(e.Message);
             }
