@@ -18,13 +18,13 @@ namespace MiniMAL.ConsoleInterface.Commands
 
         protected override void Action(string[] args)
         {
-            //Console.WriteLine("Loading...");
-            //MiniMALClient client = new MiniMALClient();
-            //List<Anime> list = client.LoadMangalist(args[0]);
+            Console.WriteLine("Loading...");
+            MiniMALClient client = new MiniMALClient();
+            List<Manga> list = client.LoadMangalist(args[0]);
 
-            //foreach (Anime a in list)
-            //    Console.WriteLine(a.Title);
-            //Console.WriteLine(list.Count + " entries");
+            foreach (Manga m in list)
+                Console.WriteLine(m.Title);
+            Console.WriteLine(list.Count + " entries");
         }
     }
 }
