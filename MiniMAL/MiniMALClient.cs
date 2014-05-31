@@ -22,11 +22,7 @@ namespace MiniMAL
 			foreach (XmlNode e in doc.DocumentElement.ChildNodes)
             {
                 if (e.Name == "anime")
-				{
-                    Anime a = new Anime();
-					a.LoadFromXmlNode(e);
-					list.Add(a);
-				}
+                    list.Add(Anime.LoadFromXmlNode(e));
 			}
 			return list;
         }
@@ -42,11 +38,7 @@ namespace MiniMAL
             foreach (XmlNode e in doc.DocumentElement.ChildNodes)
             {
                 if (e.Name == "manga")
-                {
-                    Manga m = new Manga();
-                    m.LoadFromXmlNode(e);
-                    list.Add(m);
-                }
+                    list.Add(Manga.LoadFromXmlNode(e));
             }
             return list;
         }

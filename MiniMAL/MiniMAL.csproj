@@ -59,6 +59,7 @@
     <Compile Include="Diese\ConsoleInterface\HelpCommand.cs" />
     <Compile Include="Diese\ConsoleInterface\Request.cs" />
     <Compile Include="Diese\ConsoleInterface\Validator.cs" />
+    <Compile Include="MiniMALTools.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

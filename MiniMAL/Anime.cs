@@ -1,8 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Text;
 using System.Xml;
 
 namespace MiniMAL
@@ -53,60 +49,29 @@ namespace MiniMAL
 			}
 		}
 
-		public void LoadFromXmlNode(XmlNode e)
+		public static Anime LoadFromXmlNode(XmlNode e)
 		{
-			ID = e["series_animedb_id"].InnerText != "" ? Int32.Parse(e["series_animedb_id"].InnerText) : 0;
-			Title = e["series_title"].InnerText;
-			Synonyms = e["series_synonyms"].InnerText.Split(new string[] {"; "}, StringSplitOptions.RemoveEmptyEntries);
-			Type = e ["series_type"].InnerText != "" ? (TypeAnime)Int32.Parse(e ["series_type"].InnerText) : TypeAnime.None;
-			Episodes = e["series_episodes"].InnerText != "" ? Int32.Parse(e["series_episodes"].InnerText) : 0;
-			Status = e ["series_status"].InnerText != "" ? (AiringStatus)Int32.Parse(e ["series_status"].InnerText) : AiringStatus.None;
-            AiringStart = StringToDate(e["series_start"].InnerText);
-            AiringEnd = StringToDate(e["series_end"].InnerText);
-			ImageUrl = e["series_image"].InnerText;
-			MyID = e["my_id"].InnerText != "" ? Int32.Parse(e["my_id"].InnerText) : 0;
-			MyWatchedEp = e["my_watched_episodes"].InnerText != "" ? Int32.Parse(e["my_watched_episodes"].InnerText) : 0;
-			MyStartDate = StringToDate(e["my_start_date"].InnerText);
-            MyFinishDate = StringToDate(e["my_finish_date"].InnerText);
-			MyScore = e["my_score"].InnerText != "" ? Int32.Parse(e["my_score"].InnerText) : 0;
-			MyWatchingStatus = e ["my_status"].InnerText != "" ? (WatchingStatus)Int32.Parse(e ["my_status"].InnerText) : WatchingStatus.None;
-            MyRewatching = e["my_rewatching"].InnerText != "" ? Int32.Parse(e["my_rewatching_ep"].InnerText) : 0;
-            MyRewatchingEpisodes = e["my_rewatching_ep"].InnerText != "" ? Int32.Parse(e["my_rewatching_ep"].InnerText) : 0;
-			MyTags = e["my_tags"].InnerText;
+            Anime a = new Anime();
+			a.ID = e["series_animedb_id"].InnerText != "" ? Int32.Parse(e["series_animedb_id"].InnerText) : 0;
+            a.Title = e["series_title"].InnerText;
+            a.Synonyms = e["series_synonyms"].InnerText.Split(new string[] { "; " }, StringSplitOptions.RemoveEmptyEntries);
+            a.Type = e["series_type"].InnerText != "" ? (TypeAnime)Int32.Parse(e["series_type"].InnerText) : TypeAnime.None;
+            a.Episodes = e["series_episodes"].InnerText != "" ? Int32.Parse(e["series_episodes"].InnerText) : 0;
+            a.Status = e["series_status"].InnerText != "" ? (AiringStatus)Int32.Parse(e["series_status"].InnerText) : AiringStatus.None;
+            a.AiringStart = MiniMALTools.StringToDate(e["series_start"].InnerText);
+            a.AiringEnd = MiniMALTools.StringToDate(e["series_end"].InnerText);
+            a.ImageUrl = e["series_image"].InnerText;
+            a.MyID = e["my_id"].InnerText != "" ? Int32.Parse(e["my_id"].InnerText) : 0;
+            a.MyWatchedEp = e["my_watched_episodes"].InnerText != "" ? Int32.Parse(e["my_watched_episodes"].InnerText) : 0;
+            a.MyStartDate = MiniMALTools.StringToDate(e["my_start_date"].InnerText);
+            a.MyFinishDate = MiniMALTools.StringToDate(e["my_finish_date"].InnerText);
+            a.MyScore = e["my_score"].InnerText != "" ? Int32.Parse(e["my_score"].InnerText) : 0;
+            a.MyWatchingStatus = e["my_status"].InnerText != "" ? (WatchingStatus)Int32.Parse(e["my_status"].InnerText) : WatchingStatus.None;
+            a.MyRewatching = e["my_rewatching"].InnerText != "" ? Int32.Parse(e["my_rewatching_ep"].InnerText) : 0;
+            a.MyRewatchingEpisodes = e["my_rewatching_ep"].InnerText != "" ? Int32.Parse(e["my_rewatching_ep"].InnerText) : 0;
+            a.MyTags = e["my_tags"].InnerText;
+            return a;
 		}
-
-        public DateTime StringToDate(string date)
-        {
-                if (date != "0000-00-00" && date != "")
-                {
-                    try
-                    {
-                        return DateTime.ParseExact(date, "yyyy-MM-dd", CultureInfo.InvariantCulture);
-                    }
-                    catch (FormatException)
-                    {
-                        try
-                        {
-                            date = date.Substring(0, 7);
-                            return DateTime.ParseExact(date, "yyyy-MM", CultureInfo.InvariantCulture);
-                        }
-                        catch (FormatException)
-                        {
-                            try
-                            {
-                                date = date.Substring(0, 4);
-                                return DateTime.ParseExact(date, "yyyy", CultureInfo.InvariantCulture);
-                            }
-                            catch (FormatException)
-                            {
-                                return DateTime.MinValue;
-                            }
-                        }
-                    }
-                }
-                else
-                    return DateTime.MinValue;
-        }
 
         public override string ToString()
         {

@@ -1,8 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Text;
 using System.Xml;
 
 namespace MiniMAL
@@ -55,62 +51,31 @@ namespace MiniMAL
 			}
 		}
 
-		public void LoadFromXmlNode(XmlNode e)
+		public static Manga LoadFromXmlNode(XmlNode e)
 		{
-            ID = e["series_mangadb_id"].InnerText != "" ? Int32.Parse(e["series_mangadb_id"].InnerText) : 0;
-            Title = e["series_title"].InnerText;
-            Synonyms = e["series_synonyms"].InnerText.Split(new string[] { "; " }, StringSplitOptions.RemoveEmptyEntries);
-			Type = e ["series_type"].InnerText != "" ? (TypeManga)Int32.Parse(e ["series_type"].InnerText) : TypeManga.None;
-            Chapters = e["series_chapters"].InnerText != "" ? Int32.Parse(e["series_chapters"].InnerText) : 0;
-            Volumes = e["series_volumes"].InnerText != "" ? Int32.Parse(e["series_volumes"].InnerText) : 0;
-			Status = e ["series_status"].InnerText != "" ? (PublishingStatus)Int32.Parse(e ["series_status"].InnerText) : PublishingStatus.None;
-            PublishingStart = StringToDate(e["series_start"].InnerText);
-            PublishingEnd = StringToDate(e["series_end"].InnerText);
-			ImageUrl = e["series_image"].InnerText;
-			MyID = e["my_id"].InnerText != "" ? Int32.Parse(e["my_id"].InnerText) : 0;
-            MyReadChapters = e["my_read_chapters"].InnerText != "" ? Int32.Parse(e["my_read_chapters"].InnerText) : 0;
-            MyReadVolumes = e["my_read_volumes"].InnerText != "" ? Int32.Parse(e["my_read_volumes"].InnerText) : 0;
-			MyStartDate = StringToDate(e["my_start_date"].InnerText);
-            MyFinishDate = StringToDate(e["my_finish_date"].InnerText);
-			MyScore = e["my_score"].InnerText != "" ? Int32.Parse(e["my_score"].InnerText) : 0;
-            MyReadingStatus = e["my_status"].InnerText != "" ? (ReadingStatus)Int32.Parse(e["my_status"].InnerText) : ReadingStatus.None;
-            MyRereading = e["my_rereadingg"].InnerText != "" ? Int32.Parse(e["my_rereadingg"].InnerText) : 0;
-            MyRereadingChapters = e["my_rereading_chap"].InnerText != "" ? Int32.Parse(e["my_rereading_chap"].InnerText) : 0;
-			MyTags = e["my_tags"].InnerText;
+            Manga m = new Manga();
+            m.ID = e["series_mangadb_id"].InnerText != "" ? Int32.Parse(e["series_mangadb_id"].InnerText) : 0;
+            m.Title = e["series_title"].InnerText;
+            m.Synonyms = e["series_synonyms"].InnerText.Split(new string[] { "; " }, StringSplitOptions.RemoveEmptyEntries);
+            m.Type = e["series_type"].InnerText != "" ? (TypeManga)Int32.Parse(e["series_type"].InnerText) : TypeManga.None;
+            m.Chapters = e["series_chapters"].InnerText != "" ? Int32.Parse(e["series_chapters"].InnerText) : 0;
+            m.Volumes = e["series_volumes"].InnerText != "" ? Int32.Parse(e["series_volumes"].InnerText) : 0;
+            m.Status = e["series_status"].InnerText != "" ? (PublishingStatus)Int32.Parse(e["series_status"].InnerText) : PublishingStatus.None;
+            m.PublishingStart = MiniMALTools.StringToDate(e["series_start"].InnerText);
+            m.PublishingEnd = MiniMALTools.StringToDate(e["series_end"].InnerText);
+            m.ImageUrl = e["series_image"].InnerText;
+            m.MyID = e["my_id"].InnerText != "" ? Int32.Parse(e["my_id"].InnerText) : 0;
+            m.MyReadChapters = e["my_read_chapters"].InnerText != "" ? Int32.Parse(e["my_read_chapters"].InnerText) : 0;
+            m.MyReadVolumes = e["my_read_volumes"].InnerText != "" ? Int32.Parse(e["my_read_volumes"].InnerText) : 0;
+            m.MyStartDate = MiniMALTools.StringToDate(e["my_start_date"].InnerText);
+            m.MyFinishDate = MiniMALTools.StringToDate(e["my_finish_date"].InnerText);
+            m.MyScore = e["my_score"].InnerText != "" ? Int32.Parse(e["my_score"].InnerText) : 0;
+            m.MyReadingStatus = e["my_status"].InnerText != "" ? (ReadingStatus)Int32.Parse(e["my_status"].InnerText) : ReadingStatus.None;
+            m.MyRereading = e["my_rereadingg"].InnerText != "" ? Int32.Parse(e["my_rereadingg"].InnerText) : 0;
+            m.MyRereadingChapters = e["my_rereading_chap"].InnerText != "" ? Int32.Parse(e["my_rereading_chap"].InnerText) : 0;
+            m.MyTags = e["my_tags"].InnerText;
+            return m;
 		}
-
-        public DateTime StringToDate(string date)
-        {
-            if (date != "0000-00-00" && date != "")
-            {
-                try
-                {
-                    return DateTime.ParseExact(date, "yyyy-MM-dd", CultureInfo.InvariantCulture);
-                }
-                catch (FormatException)
-                {
-                    try
-                    {
-                        date = date.Substring(0, 7);
-                        return DateTime.ParseExact(date, "yyyy-MM", CultureInfo.InvariantCulture);
-                    }
-                    catch (FormatException)
-                    {
-                        try
-                        {
-                            date = date.Substring(0, 4);
-                            return DateTime.ParseExact(date, "yyyy", CultureInfo.InvariantCulture);
-                        }
-                        catch (FormatException)
-                        {
-                            return DateTime.MinValue;
-                        }
-                    }
-                }
-            }
-            else
-                return DateTime.MinValue;
-        }
 
         public override string ToString()
         {
