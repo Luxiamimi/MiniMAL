@@ -15,11 +15,11 @@ namespace MiniMAL.ConsoleInterface.Commands
 
             RequiredArguments.Add(new Argument("user", "a MyAnimeList's username.", new Validator(s => s != "", "Username can't be empty. Exemple : mangalist myUsername")));
 
-            Options.Add("-r", new Option("-r"));
-            Options.Add("-c", new Option("-c"));
-            Options.Add("-h", new Option("-h"));
-            Options.Add("-d", new Option("-d"));
-            Options.Add("-p", new Option("-p"));
+            Options.Add("-r", new Option("-r", "currently reading"));
+            Options.Add("-c", new Option("-c", "completed"));
+            Options.Add("-h", new Option("-h", "on-hold"));
+            Options.Add("-d", new Option("-d", "dropped"));
+            Options.Add("-p", new Option("-p", "plan to read"));
         }
 
         protected override void Action(ArgumentsDictionary arguments, OptionsDictionary options)
