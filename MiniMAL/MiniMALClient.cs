@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
@@ -76,7 +77,7 @@ namespace MiniMAL
             return list;
         }
 
-        public void SearchAnime(string[] search)
+        public List<AnimeSearchEntry> SearchAnime(string[] search)
         {
             string link = "http://myanimelist.net/api/anime/search.xml?q=";
 
@@ -90,17 +91,44 @@ namespace MiniMAL
 
             XmlDocument xml = LoadXMLwithCredentials(link);
 
+            List<AnimeSearchEntry> list = new List<AnimeSearchEntry>();
             foreach (XmlNode e in xml.DocumentElement.ChildNodes)
             {
                 if (e.Name == "entry")
                 {
-                    Manga m = new Manga();
+                    AnimeSearchEntry a = new AnimeSearchEntry();
+                    a.LoadFromXmlNode(e);
+                    list.Add(a);
+                }
+            }
+
+            return list;
+        }
+
+        public List<MangaSearchEntry> SearchManga(string[] search)
+        {
+            string link = "http://myanimelist.net/api/manga/search.xml?q=";
+
+            if (search.Any())
+                link += search[0];
+
+            for (int i = 1; i < search.Length; i++)
+                link += "+" + search[i];
+
+            XmlDocument xml = LoadXMLwithCredentials(link);
+
+            List<MangaSearchEntry> list = new List<MangaSearchEntry>();
+            foreach (XmlNode e in xml.DocumentElement.ChildNodes)
+            {
+                if (e.Name == "entry")
+                {
+                    MangaSearchEntry m = new MangaSearchEntry();
                     m.LoadFromXmlNode(e);
                     list.Add(m);
                 }
             }
 
-            return;
+            return list;
         }
 
         private XmlDocument LoadXML(string link)
@@ -116,7 +144,9 @@ namespace MiniMAL
             request.Credentials = new NetworkCredential(Username, Password);
 
             XmlDocument xml = new XmlDocument();
-            xml.Load(request.GetResponse().GetResponseStream());
+            StreamReader sr = new StreamReader(request.GetResponse().GetResponseStream());
+            string jrioiej = sr.ReadToEnd().Replace("&mdash;", "&#8212;");
+            xml.LoadXml(jrioiej);
             return xml;
         }
     }
