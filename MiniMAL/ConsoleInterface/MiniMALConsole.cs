@@ -11,13 +11,12 @@ namespace MiniMAL.ConsoleInterface
 {
     public class MiniMALConsole : Diese.ConsoleInterface.ConsoleInterface
     {
-        private MiniMALClient client = new MiniMALClient();
-
         public MiniMALConsole() : base("MiniMal")
         {
             WelcomeMessage = "Welcome to MiniMal !";
             Commands.Add("animelist", new AnimelistCommand());
             Commands.Add("mangalist", new MangalistCommand());
+            Commands.Add("login", new LoginCommand());
         }
     }
 }

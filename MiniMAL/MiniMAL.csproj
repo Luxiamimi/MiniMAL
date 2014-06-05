@@ -45,6 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AnimeList.cs" />
+    <Compile Include="ConsoleInterface\Commands\LoginCommand.cs" />
     <Compile Include="EntriesList.cs" />
     <Compile Include="Entry.cs" />
     <Compile Include="Manga.cs" />
