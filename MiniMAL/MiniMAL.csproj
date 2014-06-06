@@ -45,7 +45,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AnimeList.cs" />
+    <Compile Include="ConsoleInterface\Commands\MiniMALCommand.cs" />
     <Compile Include="ConsoleInterface\Commands\SearchCommand.cs" />
+    <Compile Include="Exceptions\UserNotConnectedException.cs" />
+    <Compile Include="Exceptions\UserUnauthorizedException.cs" />
     <Compile Include="MangaSearchEntry.cs" />
     <Compile Include="AnimeSearchEntry.cs" />
     <Compile Include="ConsoleInterface\Commands\LoginCommand.cs" />

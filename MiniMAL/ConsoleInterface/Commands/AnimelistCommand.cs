@@ -7,9 +7,9 @@ using MiniMAL;
 
 namespace MiniMAL.ConsoleInterface.Commands
 {
-    public class AnimelistCommand : Command
+    public class AnimelistCommand : MiniMALCommand
     {
-        public AnimelistCommand() : base("animelist")
+        public AnimelistCommand(MiniMALClient client) : base(client, "animelist")
         {
             Description = "Display the anime list from a user.";
 
@@ -24,8 +24,6 @@ namespace MiniMAL.ConsoleInterface.Commands
 
         protected override void Action(ArgumentsDictionary arguments, OptionsDictionary options)
         {
-            Console.WriteLine("Loading...");
-            MiniMALClient client = new MiniMALClient();
             AnimeList animelist = client.LoadAnimelist(arguments["user"]);
 
             IEnumerable<Anime> list = new List<Anime>();

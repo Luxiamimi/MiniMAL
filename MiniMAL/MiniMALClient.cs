@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Xml;
+using MiniMAL.Exceptions;
 
 namespace MiniMAL
 {
@@ -15,8 +16,14 @@ namespace MiniMAL
 
         private string Username;
         private string Password;
+        public bool isConnected { get; private set; }
 
-        public bool TryAuthentification(string username, string password, out string error)
+        public MiniMALClient()
+        {
+            isConnected = false;
+        }
+
+        public void Authentification(string username, string password)
         {
             string link = "http://myanimelist.net/api/account/verify_credentials.xml";
             WebRequest request = WebRequest.Create(link);
@@ -28,15 +35,17 @@ namespace MiniMAL
             }
             catch (WebException e)
             {
-                error = e.Message;
-                return false;
+                isConnected = false;
+
+                if (e.Message.Contains("401"))
+                    throw new UserUnauthorizedException();
+                else
+                    throw e;
             }
 
             Username = username;
             Password = password;
-
-            error = "";
-            return true;
+            isConnected = true;
         }
 
         public AnimeList LoadAnimelist(string user)
@@ -140,13 +149,17 @@ namespace MiniMAL
 
         private XmlDocument LoadXMLwithCredentials(string link)
         {
+            if (!isConnected)
+                throw new UserNotConnectedException();
+
             WebRequest request = WebRequest.Create(link);
             request.Credentials = new NetworkCredential(Username, Password);
 
             XmlDocument xml = new XmlDocument();
             StreamReader sr = new StreamReader(request.GetResponse().GetResponseStream());
-            string jrioiej = sr.ReadToEnd().Replace("&mdash;", "&#8212;");
-            xml.LoadXml(jrioiej);
+            string content = sr.ReadToEnd().Replace("&mdash;", "&#8212;");
+            xml.LoadXml(content);
+
             return xml;
         }
     }

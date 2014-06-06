@@ -12,39 +12,45 @@ namespace Diese.ConsoleInterface
     public abstract class Command
     {
         public string Keyword { get; set; }
+        public string Description { get; set; }
+
         public List<Argument> RequiredArguments { get; set; }
         public List<Argument> OptionalArguments { get; set; }
         public Dictionary<string, Option> Options { get; set; }
-        public string Description { get; set; }
+        public bool UnlimitedArguments { get; set; }
 
-        protected Command(string keyword, string description = "*no description*")
+        protected Command(string keyword)
         {
             Keyword = keyword;
+            Description = "*no description*";
             RequiredArguments = new List<Argument>();
             OptionalArguments = new List<Argument>();
             Options = new Dictionary<string, Option>();
-            Description = description;
+            UnlimitedArguments = false;
         }
 
         public void Run(string[] args)
         {
-            int argsCount = 0;
-            for (int i = 0; i < args.Length; i++)
+            if (!UnlimitedArguments)
             {
-                if (Options.Keys.Contains(args[i]))
+                int argsCount = 0;
+                for (int i = 0; i < args.Length; i++)
                 {
-                    i += Options[args[i]].Arguments.Count;
-                    continue;
+                    if (Options.Keys.Contains(args[i]))
+                    {
+                        i += Options[args[i]].Arguments.Count;
+                        continue;
+                    }
+
+                    argsCount++;
                 }
 
-                argsCount++;
+                if (argsCount < RequiredArguments.Count)
+                    throw new NumberOfArgumentsException(argsCount, RequiredArguments.Count);
+
+                if (argsCount > RequiredArguments.Count + OptionalArguments.Count)
+                    throw new NumberOfArgumentsException(argsCount, RequiredArguments.Count + OptionalArguments.Count);
             }
-
-            if (argsCount < RequiredArguments.Count)
-                throw new NumberOfArgumentsException(argsCount, RequiredArguments.Count);
-
-            if (argsCount > RequiredArguments.Count + OptionalArguments.Count)
-                throw new NumberOfArgumentsException(argsCount, RequiredArguments.Count + OptionalArguments.Count);
 
             ArgumentsDictionary arguments = new ArgumentsDictionary();
             OptionsDictionary options = new OptionsDictionary();
@@ -71,21 +77,29 @@ namespace Diese.ConsoleInterface
                     continue;
                 }
 
-                if (j < RequiredArguments.Count)
+                if (UnlimitedArguments)
                 {
-                    if (!RequiredArguments[j].isValid(args[i]))
-                        throw new ArgumentNotValidException(RequiredArguments[j], j);
-
-                    arguments.Add(RequiredArguments[j].Name, args[i]);
+                    arguments.Add(j.ToString(), args[i]);
                     j++;
                 }
                 else
                 {
-                    if (!OptionalArguments[k].isValid(args[i]))
-                        throw new ArgumentNotValidException(OptionalArguments[k], j + k);
+                    if (j < RequiredArguments.Count)
+                    {
+                        if (!RequiredArguments[j].isValid(args[i]))
+                            throw new ArgumentNotValidException(RequiredArguments[j], j);
 
-                    arguments.Add(OptionalArguments[k].Name, args[i]);
-                    k++;
+                        arguments.Add(RequiredArguments[j].Name, args[i]);
+                        j++;
+                    }
+                    else
+                    {
+                        if (!OptionalArguments[k].isValid(args[i]))
+                            throw new ArgumentNotValidException(OptionalArguments[k], j + k);
+
+                        arguments.Add(OptionalArguments[k].Name, args[i]);
+                        k++;
+                    }
                 }
             }
 
@@ -96,6 +110,16 @@ namespace Diese.ConsoleInterface
 
         protected class ArgumentsDictionary : Dictionary<string, string>
         {
+            public string this[int index]
+            {
+                get
+                {
+                    if (index < 0 || index >= Count)
+                        throw new IndexOutOfRangeException();
+                    else
+                        return this.ElementAt(index).Value;
+                }
+            }
         }
 
         protected class OptionsDictionary : Dictionary<string, ArgumentsDictionary>

@@ -7,16 +7,15 @@ using MiniMAL;
 
 namespace MiniMAL.ConsoleInterface.Commands
 {
-    public class LoginCommand : Command
+    public class LoginCommand : MiniMALCommand
     {
-        public LoginCommand() : base("login")
+        public LoginCommand(MiniMALClient client) : base(client, "login")
         {
             Description = "Connect a user at MyAnimeList services.";
         }
 
         protected override void Action(ArgumentsDictionary arguments, OptionsDictionary options)
         {
-            MiniMALClient client = new MiniMALClient();
             Console.Write("Enter your username : ");
 
             string username = Console.ReadLine();
@@ -43,13 +42,14 @@ namespace MiniMAL.ConsoleInterface.Commands
             while (key.Key != ConsoleKey.Enter);
             Console.WriteLine();
 
-            string error = "";
-            if (client.TryAuthentification(username, password, out error))
-                Console.WriteLine("Success");
-            else
+            try
             {
-                Console.WriteLine("Error");
-                Console.WriteLine(error);
+                client.Authentification(username, password);
+                Console.WriteLine("Success");
+            }
+            catch (UnauthorizedAccessException e)
+            {
+                Console.WriteLine(e.Message);
             }
         }
     }
