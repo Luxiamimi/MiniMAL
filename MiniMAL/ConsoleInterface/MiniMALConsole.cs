@@ -18,9 +18,9 @@ namespace MiniMAL.ConsoleInterface
             client = new MiniMALClient();
 
             WelcomeMessage = "Welcome to MiniMal !";
+            Commands.Add("login", new LoginCommand(client));
             Commands.Add("animelist", new AnimelistCommand(client));
             Commands.Add("mangalist", new MangalistCommand(client));
-            Commands.Add("login", new LoginCommand(client));
             Commands.Add("search", new SearchCommand(client));
         }
     }

@@ -7,14 +7,16 @@ namespace Diese.ConsoleInterface
 {
     public struct Option
     {
-        public string Keyword { get; set; }
+        public string ShortKey { get; set; }
+        public string LongKey { get; set; }
         public string Description { get; set; }
         public List<Argument> Arguments { get; set; }
 
-        public Option(string keyword, string description = "*no description*", params Argument[] arguments)
+        public Option(string shortKey, string longKey, string description = "*no description*", params Argument[] arguments)
             : this()
         {
-            Keyword = keyword;
+            ShortKey = shortKey;
+            LongKey = longKey;
             Description = description;
             Arguments = arguments.ToList();
         }

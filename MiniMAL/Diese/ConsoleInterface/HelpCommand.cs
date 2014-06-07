@@ -17,18 +17,28 @@ namespace Diese.ConsoleInterface
             OptionalArguments.Add(new Argument("command", "name of a command", new Validator(x => Commands.ContainsKey(x), "Unknown command")));
         }
 
-        protected override void Action(ArgumentsDictionary arguments, OptionsDictionary options)
+        protected override void Action(ArgumentsValues arguments, OptionsValues options)
         {
             if (arguments.ContainsKey("command"))
-                DisplayCommandDescription(Commands[arguments["command"]]);
+                DisplayCompleteDescription(Commands[arguments["command"]]);
             else
-                foreach (Command c in Commands.Values)
-                    DisplayCommandDescription(c, true);
+                DisplaySummaries();
         }
 
-        protected virtual void DisplayCommandDescription(Command c, bool summary = false)
+        protected virtual void DisplaySummaries()
         {
             Console.WriteLine();
+            foreach (Command c in Commands.Values)
+            {
+                Console.Write("\t" + c.Keyword + " : " + c.Description);
+                Console.WriteLine();
+            }
+        }
+
+        protected virtual void DisplayCompleteDescription(Command c)
+        {
+            Console.WriteLine();
+
             Console.Write(c.Keyword);
 
             foreach (Argument a in c.RequiredArguments)
@@ -44,29 +54,33 @@ namespace Diese.ConsoleInterface
 
             if (c.Options.Any())
             {
-                Console.Write(" [");
-                foreach (Option o in c.Options.Values)
-                    Console.Write(" " + o.Keyword);
+                Console.Write(" -[");
+                foreach (Option o in c.Options)
+                    Console.Write(" " + o.ShortKey);
                 Console.Write(" ]");
             }
             Console.WriteLine();
 
-            Console.WriteLine("\tDESCRIPTION : " + c.Description);
-
-            if (summary)
-                return;
+            Console.WriteLine("\nDESCRIPTION : ");
+            Console.WriteLine("\t" + c.Description);
 
             if (c.RequiredArguments.Any())
-                Console.WriteLine("\tARGUMENTS :");
+                Console.WriteLine("\nARGUMENTS :");
 
             foreach (Argument a in c.RequiredArguments)
-                Console.WriteLine("\t\t" + a.Name + " : " + a.Description);
+                Console.WriteLine("\t" + a.Name + " : " + a.Description);
+
+            if (c.OptionalArguments.Any())
+                Console.WriteLine("\nOPTIONAL ARGUMENTS :");
+
+            foreach (Argument a in c.OptionalArguments)
+                Console.WriteLine("\t" + a.Name + " : " + a.Description);
 
             if (c.Options.Any())
-                Console.WriteLine("\tOPTIONS :");
+                Console.WriteLine("\nOPTIONS :");
 
-            foreach (Option o in c.Options.Values)
-                Console.WriteLine("\t\t" + o.Keyword + " : " + o.Description);
+            foreach (Option o in c.Options)
+                Console.WriteLine("\t-" + o.ShortKey + "/--" + o.LongKey + " : " + o.Description);
         }
     }
 }

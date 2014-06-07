@@ -15,14 +15,14 @@ namespace MiniMAL.ConsoleInterface.Commands
 
             RequiredArguments.Add(new Argument("user", "a MyAnimeList's username.", new Validator(s => s != "", "Username can't be empty. Exemple : mangalist myUsername")));
 
-            Options.Add("-r", new Option("-r", "currently reading"));
-            Options.Add("-c", new Option("-c", "completed"));
-            Options.Add("-h", new Option("-h", "on-hold"));
-            Options.Add("-d", new Option("-d", "dropped"));
-            Options.Add("-p", new Option("-p", "plan to read"));
+            Options.Add(new Option("r", "reading", "Select currently reading entries."));
+            Options.Add(new Option("c", "completed", "Select completed entries."));
+            Options.Add(new Option("h", "hold", "Select on-hold entries."));
+            Options.Add(new Option("d", "dropped", "Select dropped entries."));
+            Options.Add(new Option("p", "planned", "Select plan to read entries."));
         }
 
-        protected override void Action(ArgumentsDictionary arguments, OptionsDictionary options)
+        protected override void Action(ArgumentsValues arguments, OptionsValues options)
         {
             MangaList mangalist = client.LoadMangalist(arguments["user"]);
 
@@ -30,11 +30,11 @@ namespace MiniMAL.ConsoleInterface.Commands
             foreach (string opt in options.Keys)
                 switch (opt)
                 {
-                    case "-r": list = list.Concat(mangalist[ReadingStatus.Reading]); break;
-                    case "-c": list = list.Concat(mangalist[ReadingStatus.Completed]); break;
-                    case "-h": list = list.Concat(mangalist[ReadingStatus.OnHold]); break;
-                    case "-d": list = list.Concat(mangalist[ReadingStatus.Dropped]); break;
-                    case "-p": list = list.Concat(mangalist[ReadingStatus.PlanToRead]); break;
+                    case "r": list = list.Concat(mangalist[ReadingStatus.Reading]); break;
+                    case "c": list = list.Concat(mangalist[ReadingStatus.Completed]); break;
+                    case "h": list = list.Concat(mangalist[ReadingStatus.OnHold]); break;
+                    case "d": list = list.Concat(mangalist[ReadingStatus.Dropped]); break;
+                    case "p": list = list.Concat(mangalist[ReadingStatus.PlanToRead]); break;
                 }
 
             if (!list.Any())

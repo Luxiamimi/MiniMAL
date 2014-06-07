@@ -12,7 +12,7 @@ namespace Diese.ConsoleInterface
             Description = "Exit " + applicationName + ".";
         }
 
-        protected override void Action(ArgumentsDictionary arguments, OptionsDictionary options)
+        protected override void Action(ArgumentsValues arguments, OptionsValues options)
         {
         }
     }
