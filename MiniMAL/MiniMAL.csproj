@@ -48,6 +48,9 @@
     <Compile Include="ConsoleInterface\Commands\MiniMALCommand.cs" />
     <Compile Include="ConsoleInterface\Commands\SearchMangaCommand.cs" />
     <Compile Include="ConsoleInterface\Commands\SearchAnimeCommand.cs" />
+    <Compile Include="Diese\ConsoleInterface\Exceptions\NumberOfArgumentsException.cs" />
+    <Compile Include="Diese\ConsoleInterface\Exceptions\UnknownCommandException.cs" />
+    <Compile Include="Diese\ConsoleInterface\Exceptions\ArgumentNotValidException.cs" />
     <Compile Include="Exceptions\UserNotConnectedException.cs" />
     <Compile Include="Exceptions\UserUnauthorizedException.cs" />
     <Compile Include="MangaSearchEntry.cs" />
@@ -65,7 +68,7 @@
     <Compile Include="Diese\ConsoleInterface\Command.cs" />
     <Compile Include="Diese\ConsoleInterface\ConsoleInterface.cs" />
     <Compile Include="ConsoleInterface\MiniMALConsole.cs" />
-    <Compile Include="Diese\ConsoleInterface\Exceptions\Exceptions.cs" />
+    <Compile Include="Diese\ConsoleInterface\Exceptions\ConsoleInterfaceException.cs" />
     <Compile Include="Diese\ConsoleInterface\ExitCommand.cs" />
     <Compile Include="Diese\ConsoleInterface\Option.cs" />
     <Compile Include="Diese\ConsoleInterface\HelpCommand.cs" />
