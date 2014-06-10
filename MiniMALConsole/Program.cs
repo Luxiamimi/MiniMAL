@@ -2,15 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using MiniMAL.ConsoleInterface;
 
-namespace Program
+namespace MiniMALConsole
 {
     class Program
     {
         static void Main(string[] args)
         {
-            MiniMALConsole console = new MiniMALConsole();
+            MiniMAL.ConsoleInterface.MiniMALConsole console = new MiniMAL.ConsoleInterface.MiniMALConsole();
 
             if (args.Any())
                 console.Request(args);
