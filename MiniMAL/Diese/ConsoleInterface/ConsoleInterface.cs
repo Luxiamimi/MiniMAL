@@ -11,7 +11,7 @@ namespace Diese.ConsoleInterface
         public string Name { get; set; }
         public string WelcomeMessage { get; set; }
 
-        public Dictionary<string, Command> Commands { get; set; }
+        public Dictionary<string, Command> Commands { get; private set; }
 
         private static string exitKeyword = "exit";
         private static string helpKeyword = "help";
@@ -23,6 +23,11 @@ namespace Diese.ConsoleInterface
             Commands = new Dictionary<string, Command>();
             Commands.Add(exitKeyword, new ExitCommand(name));
             Commands.Add(helpKeyword, new HelpCommand(Commands));
+        }
+
+        public void AddCommand(Command c)
+        {
+            Commands.Add(c.Keyword, c);
         }
 
         public void Run()
