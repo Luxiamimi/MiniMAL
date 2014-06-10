@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Xml;
 
 namespace MiniMAL
 {
+    [EditorBrowsable(EditorBrowsableState.Never)]
     public abstract class SearchEntry<TSeriesType, TSeriesStatus>
     {
         public int ID { get; set; }
@@ -19,6 +21,10 @@ namespace MiniMAL
         public DateTime EndDate { get; set; }
         public string Synopsis { get; set; }
         public string ImageUrl { get; set; }
+
+        internal SearchEntry()
+        {
+        }
 
         public abstract void LoadFromXmlNode(XmlNode e);
 

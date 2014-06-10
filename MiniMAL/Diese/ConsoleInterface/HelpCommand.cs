@@ -9,10 +9,10 @@ namespace Diese.ConsoleInterface
     {
         public Dictionary<string, Command> Commands { get; set; }
 
-        public HelpCommand(Dictionary<string, Command> commands) : base("help")
+        public HelpCommand(Dictionary<string, Command> commands)
+            : base("help", "Display a list of all the commands.")
         {
             Commands = commands;
-            Description = "Display a list of all the commands.";
 
             OptionalArguments.Add(new Argument("command", "name of a command", new Validator(x => Commands.ContainsKey(x), "Unknown command")));
         }

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace MiniMAL
 {
-    public class AnimeList : EntriesList<Anime, TypeAnime, AiringStatus, WatchingStatus>
+    public class AnimeList : UserList<Anime, TypeAnime, AiringStatus, WatchingStatus>
     {
     }
 }

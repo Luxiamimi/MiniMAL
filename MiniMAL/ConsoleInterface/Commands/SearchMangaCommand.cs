@@ -10,10 +10,9 @@ namespace MiniMAL.ConsoleInterface.Commands
 {
     public class SearchMangaCommand : MiniMALCommand
     {
-        public SearchMangaCommand(MiniMALClient client) : base(client, "search-manga")
+        public SearchMangaCommand(MiniMALClient client)
+            : base(client, "search-manga", "Search a manga in MyAnimeList database.")
         {
-            Description = "Search a manga in MyAnimeList database.";
-
             UnlimitedArguments = true;
         }
 

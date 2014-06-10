@@ -10,10 +10,9 @@ namespace MiniMAL.ConsoleInterface.Commands
 {
     public class SearchAnimeCommand : MiniMALCommand
     {
-        public SearchAnimeCommand(MiniMALClient client) : base(client, "search-anime")
+        public SearchAnimeCommand(MiniMALClient client)
+            : base(client, "search-anime", "Search an anime in MyAnimeList database.")
         {
-            Description = "Search an anime in MyAnimeList database.";
-
             UnlimitedArguments = true;
         }
 

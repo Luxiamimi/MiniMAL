@@ -9,10 +9,9 @@ namespace MiniMAL.ConsoleInterface.Commands
 {
     public class MangalistCommand : MiniMALCommand
     {
-        public MangalistCommand(MiniMALClient client) : base(client, "mangalist")
+        public MangalistCommand(MiniMALClient client)
+            : base(client, "mangalist", "Display the manga list from a user.")
         {
-            Description = "Display the manga list from a user.";
-
             RequiredArguments.Add(new Argument("user", "a MyAnimeList's username.", new Validator(s => s != "", "Username can't be empty. Exemple : mangalist myUsername")));
 
             Options.Add(new Option("r", "reading", "Select currently reading entries."));

@@ -9,6 +9,7 @@ namespace Diese.ConsoleInterface
 {
     // TODO : Check if an argument appears twice
     // TODO : Check if an argument is a mistake
+    // TODO : Handle unlimited arguments
     public abstract class Command
     {
         public string Keyword { get; set; }
@@ -19,10 +20,10 @@ namespace Diese.ConsoleInterface
         public OptionsDescriptions Options { get; set; }
         public bool UnlimitedArguments { get; set; }
 
-        protected Command(string keyword)
+        protected Command(string keyword, string description)
         {
             Keyword = keyword;
-            Description = "*no description*";
+            Description = description;
             RequiredArguments = new ArgumentsDescriptions();
             OptionalArguments = new ArgumentsDescriptions();
             Options = new OptionsDescriptions();

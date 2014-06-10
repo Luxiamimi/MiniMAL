@@ -10,7 +10,8 @@ namespace MiniMAL.ConsoleInterface.Commands
     {
         protected MiniMALClient client;
 
-        protected MiniMALCommand(MiniMALClient client, string keyword) : base(keyword)
+        protected MiniMALCommand(MiniMALClient client, string keyword, string description)
+            : base(keyword, description)
         {
             this.client = client;
         }

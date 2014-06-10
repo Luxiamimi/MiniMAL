@@ -1,14 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 
 namespace MiniMAL
 {
-    public abstract class EntriesList<T, TSeriesType, TSeriesStatus, TMyStatus> : IEnumerable<T>
+    [EditorBrowsable(EditorBrowsableState.Never)]
+    public class UserList<T, TSeriesType, TSeriesStatus, TMyStatus> : IEnumerable<T>
         where T : Entry<TSeriesType, TSeriesStatus, TMyStatus>
     {
         private Dictionary<TMyStatus, List<T>> dictionary;
+
+        internal UserList()
+        {
+            dictionary = new Dictionary<TMyStatus, List<T>>();
+        }
 
         public IEnumerable<TMyStatus> Status
         {
@@ -21,11 +28,6 @@ namespace MiniMAL
             {
                 return ToList().Count;
             }
-        }
-
-        public EntriesList()
-        {
-            dictionary = new Dictionary<TMyStatus, List<T>>();
         }
 
         public void Add(T x)

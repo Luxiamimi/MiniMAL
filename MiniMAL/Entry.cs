@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Xml;
 
 namespace MiniMAL
 {
+    [EditorBrowsable(EditorBrowsableState.Never)]
     public abstract class Entry<TSeriesType, TSeriesStatus, TMyStatus>
     {
         public int ID { get; set; }
@@ -22,6 +24,10 @@ namespace MiniMAL
         public int MyScore { get; set; }
         public TMyStatus MyStatus { get; set; }
         public string MyTags { get; set; }
+
+        internal Entry()
+        {
+        }
 
         public abstract void LoadFromXmlNode(XmlNode e);
 

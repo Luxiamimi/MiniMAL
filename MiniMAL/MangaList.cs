@@ -5,7 +5,7 @@ using System.Text;
 
 namespace MiniMAL
 {
-    public class MangaList : EntriesList<Manga, TypeManga, PublishingStatus, ReadingStatus>
+    public class MangaList : UserList<Manga, TypeManga, PublishingStatus, ReadingStatus>
     {
     }
 }
