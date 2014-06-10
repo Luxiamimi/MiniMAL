@@ -29,25 +29,25 @@ namespace MiniMAL
 
         public override void LoadFromXmlNode(XmlNode e)
 		{
-            ID = e["series_mangadb_id"].InnerText != "" ? Int32.Parse(e["series_mangadb_id"].InnerText) : 0;
+            ID = MiniMALConverter.XmlToInt(e["series_mangadb_id"]);
             Title = e["series_title"].InnerText;
             Synonyms = e["series_synonyms"].InnerText.Split(new string[] { "; " }, StringSplitOptions.RemoveEmptyEntries);
             Type = e["series_type"].InnerText != "" ? (TypeManga)Int32.Parse(e["series_type"].InnerText) : TypeManga.None;
-            Chapters = e["series_chapters"].InnerText != "" ? Int32.Parse(e["series_chapters"].InnerText) : 0;
-            Volumes = e["series_volumes"].InnerText != "" ? Int32.Parse(e["series_volumes"].InnerText) : 0;
+            Chapters = MiniMALConverter.XmlToInt(e["series_chapters"]);
+            Volumes = MiniMALConverter.XmlToInt(e["series_volumes"]);
             Status = e["series_status"].InnerText != "" ? (PublishingStatus)Int32.Parse(e["series_status"].InnerText) : PublishingStatus.None;
-            StartDate = MiniMALTools.StringToDate(e["series_start"].InnerText);
-            EndDate = MiniMALTools.StringToDate(e["series_end"].InnerText);
+            StartDate = MiniMALConverter.XmlToDate(e["series_start"]);
+            EndDate = MiniMALConverter.XmlToDate(e["series_end"]);
             ImageUrl = e["series_image"].InnerText;
-            MyID = e["my_id"].InnerText != "" ? Int32.Parse(e["my_id"].InnerText) : 0;
-            MyReadChapters = e["my_read_chapters"].InnerText != "" ? Int32.Parse(e["my_read_chapters"].InnerText) : 0;
-            MyReadVolumes = e["my_read_volumes"].InnerText != "" ? Int32.Parse(e["my_read_volumes"].InnerText) : 0;
-            MyStartDate = MiniMALTools.StringToDate(e["my_start_date"].InnerText);
-            MyEndDate = MiniMALTools.StringToDate(e["my_finish_date"].InnerText);
-            MyScore = e["my_score"].InnerText != "" ? Int32.Parse(e["my_score"].InnerText) : 0;
+            MyID = MiniMALConverter.XmlToInt(e["my_id"]);
+            MyReadChapters = MiniMALConverter.XmlToInt(e["my_read_chapters"]);
+            MyReadVolumes = MiniMALConverter.XmlToInt(e["my_read_volumes"]);
+            MyStartDate = MiniMALConverter.XmlToDate(e["my_start_date"]);
+            MyEndDate = MiniMALConverter.XmlToDate(e["my_finish_date"]);
+            MyScore = MiniMALConverter.XmlToInt(e["my_score"]);
             MyStatus = e["my_status"].InnerText != "" ? (ReadingStatus)Int32.Parse(e["my_status"].InnerText) : ReadingStatus.None;
-            MyRereadingCount = e["my_rereadingg"].InnerText != "" ? Int32.Parse(e["my_rereadingg"].InnerText) : 0;
-            MyRereadingChapters = e["my_rereading_chap"].InnerText != "" ? Int32.Parse(e["my_rereading_chap"].InnerText) : 0;
+            MyRereadingCount = MiniMALConverter.XmlToInt(e["my_rereadingg"]);
+            MyRereadingChapters = MiniMALConverter.XmlToInt(e["my_rereading_chap"]);
             MyTags = e["my_tags"].InnerText;
 		}
     }

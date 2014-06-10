@@ -8,11 +8,11 @@ using MiniMAL.Exceptions;
 
 namespace MiniMAL.ConsoleInterface.Commands
 {
-    public class SearchCommand : MiniMALCommand
+    public class SearchMangaCommand : MiniMALCommand
     {
-        public SearchCommand(MiniMALClient client) : base(client, "search")
+        public SearchMangaCommand(MiniMALClient client) : base(client, "search-manga")
         {
-            Description = "Search an anime in MyAnimeList database.";
+            Description = "Search a manga in MyAnimeList database.";
 
             UnlimitedArguments = true;
         }
@@ -21,8 +21,8 @@ namespace MiniMAL.ConsoleInterface.Commands
         {
             try
             {
-                List<AnimeSearchEntry> search = client.SearchAnime(arguments.Values.ToArray());
-                foreach (AnimeSearchEntry a in search)
+                List<MangaSearchEntry> search = client.SearchManga(arguments.Values.ToArray());
+                foreach (MangaSearchEntry a in search)
                     Console.WriteLine(a.Title);
                 Console.WriteLine(search.Count() + " entries");
             }

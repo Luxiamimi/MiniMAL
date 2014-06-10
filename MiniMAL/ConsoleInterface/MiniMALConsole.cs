@@ -21,7 +21,8 @@ namespace MiniMAL.ConsoleInterface
             Commands.Add("login", new LoginCommand(client));
             Commands.Add("animelist", new AnimelistCommand(client));
             Commands.Add("mangalist", new MangalistCommand(client));
-            Commands.Add("search", new SearchCommand(client));
+            Commands.Add("search-anime", new SearchAnimeCommand(client));
+            Commands.Add("search-manga", new SearchMangaCommand(client));
         }
     }
 }

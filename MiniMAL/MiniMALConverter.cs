@@ -3,13 +3,25 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text;
+using System.Xml;
 
 namespace MiniMAL
 {
-    internal class MiniMALTools
+    internal class MiniMALConverter
     {
-        public static DateTime StringToDate(string date)
+        public static int XmlToInt(XmlElement xml)
         {
+            return xml.InnerText != "" ? Int32.Parse(xml.InnerText) : 0;
+        }
+
+        public static double XmlToDouble(XmlElement xml)
+        {
+            return xml.InnerText != "" ? Double.Parse(xml.InnerText, CultureInfo.InvariantCulture) : 0;
+        }
+
+        public static DateTime XmlToDate(XmlElement xml)
+        {
+            string date = xml.InnerText;
             if (date != "0000-00-00" && date != "")
             {
                 try

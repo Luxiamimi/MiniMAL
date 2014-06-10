@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Xml;
@@ -13,19 +14,46 @@ namespace MiniMAL
 
         public override void LoadFromXmlNode(XmlNode e)
         {
-            ID = e["id"].InnerText != "" ? Int32.Parse(e["id"].InnerText) : 0;
+            ID = MiniMALConverter.XmlToInt(e["id"]);
             Title = e["title"].InnerText;
             EnglishTitle = e["english"].InnerText;
             Synonyms = e["synonyms"].InnerText.Split(new string[] { "; " }, StringSplitOptions.RemoveEmptyEntries);
-            Chapters = e["episodes"].InnerText != "" ? Int32.Parse(e["episodes"].InnerText) : 0;
-            Volumes = e["episodes"].InnerText != "" ? Int32.Parse(e["episodes"].InnerText) : 0;
-            Score = e["score"].InnerText != "" ? Double.Parse(e["score"].InnerText) : 0;
-            Type = e["type"].InnerText != "" ? (TypeManga)Enum.Parse(typeof(TypeManga), e["type"].InnerText, true) : TypeManga.None;
-            Status = e["status"].InnerText != "" ? (PublishingStatus)Enum.Parse(typeof(PublishingStatus), e["status"].InnerText, true) : PublishingStatus.None;
-            StartDate = MiniMALTools.StringToDate(e["start_date"].InnerText);
-            EndDate = MiniMALTools.StringToDate(e["end_date"].InnerText);
+            Chapters = MiniMALConverter.XmlToInt(e["chapters"]);
+            Volumes = MiniMALConverter.XmlToInt(e["volumes"]);
+            Score = MiniMALConverter.XmlToDouble(e["score"]);
+            Type = ParseType(e["type"]);
+            Status = ParseStatus(e["status"]);
+            StartDate = MiniMALConverter.XmlToDate(e["start_date"]);
+            EndDate = MiniMALConverter.XmlToDate(e["end_date"]);
             Synopsis = e["synopsis"].InnerText;
             ImageUrl = e["image"].InnerText;
+        }
+
+        private TypeManga ParseType(XmlNode xml)
+        {
+            switch (xml.InnerText)
+            {
+                case "": return TypeManga.None;
+                case "Manga": return TypeManga.Manga;
+                case "Novel": return TypeManga.Novel;
+                case "One Shot": return TypeManga.OneShot;
+                case "Doujin": return TypeManga.Doujin;
+                case "Manhwa": return TypeManga.Manhwa;
+                case "Manhua": return TypeManga.Manhua;
+                default: throw new InvalidOperationException();
+            }
+        }
+
+        private PublishingStatus ParseStatus(XmlNode xml)
+        {
+            switch (xml.InnerText)
+            {
+                case "": return PublishingStatus.None;
+                case "Publishing": return PublishingStatus.Publishing;
+                case "Finished": return PublishingStatus.Finished;
+                case "Not yet publishing": return PublishingStatus.NoYetPublished;
+                default: throw new InvalidOperationException();
+            }
         }
     }
 }

@@ -13,24 +13,25 @@ namespace MiniMAL
 
         public override void LoadFromXmlNode(XmlNode e)
         {
-            ID = e["id"].InnerText != "" ? Int32.Parse(e["id"].InnerText) : 0;
+            ID = MiniMALConverter.XmlToInt(e["id"]);
             Title = e["title"].InnerText;
             EnglishTitle = e["english"].InnerText;
             Synonyms = e["synonyms"].InnerText.Split(new string[] { "; " }, StringSplitOptions.RemoveEmptyEntries);
-            Episodes = e["episodes"].InnerText != "" ? Int32.Parse(e["episodes"].InnerText) : 0;
-            Score = e["score"].InnerText != "" ? Double.Parse(e["score"].InnerText, CultureInfo.InvariantCulture) : 0;
-            Type = e["type"].InnerText != "" ? ParseType(e["type"].InnerText) : TypeAnime.None;
-            Status = e["status"].InnerText != "" ? ParseStatus(e["status"].InnerText) : AiringStatus.None;
-            StartDate = MiniMALTools.StringToDate(e["start_date"].InnerText);
-            EndDate = MiniMALTools.StringToDate(e["end_date"].InnerText);
+            Episodes = MiniMALConverter.XmlToInt(e["episodes"]);
+            Score = MiniMALConverter.XmlToDouble(e["score"]);
+            Type = ParseType(e["type"]);
+            Status = ParseStatus(e["status"]);
+            StartDate = MiniMALConverter.XmlToDate(e["start_date"]);
+            EndDate = MiniMALConverter.XmlToDate(e["end_date"]);
             Synopsis = e["synopsis"].InnerText;
             ImageUrl = e["image"].InnerText;
         }
 
-        private TypeAnime ParseType(string text)
+        private TypeAnime ParseType(XmlNode xml)
         {
-            switch (text)
+            switch (xml.InnerText)
             {
+                case "": return TypeAnime.None;
                 case "TV": return TypeAnime.TV;
                 case "OVA": return TypeAnime.OVA;
                 case "Movie": return TypeAnime.Movie;
@@ -40,13 +41,14 @@ namespace MiniMAL
             }
         }
 
-        private AiringStatus ParseStatus(string text)
+        private AiringStatus ParseStatus(XmlNode xml)
         {
-            switch (text)
+            switch (xml.InnerText)
             {
-                case "Airing": return AiringStatus.Airing;
+                case "": return AiringStatus.None;
+                case "Currently Airing": return AiringStatus.Airing;
                 case "Finished Airing": return AiringStatus.Finished;
-                case "Not yet airing": return AiringStatus.NoYetAiring;
+                case "Not yet aired": return AiringStatus.NoYetAiring;
                 default: throw new InvalidOperationException();
             }
         }

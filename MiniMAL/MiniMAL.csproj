@@ -46,7 +46,8 @@
   <ItemGroup>
     <Compile Include="AnimeList.cs" />
     <Compile Include="ConsoleInterface\Commands\MiniMALCommand.cs" />
-    <Compile Include="ConsoleInterface\Commands\SearchCommand.cs" />
+    <Compile Include="ConsoleInterface\Commands\SearchMangaCommand.cs" />
+    <Compile Include="ConsoleInterface\Commands\SearchAnimeCommand.cs" />
     <Compile Include="Exceptions\UserNotConnectedException.cs" />
     <Compile Include="Exceptions\UserUnauthorizedException.cs" />
     <Compile Include="MangaSearchEntry.cs" />
@@ -70,7 +71,7 @@
     <Compile Include="Diese\ConsoleInterface\HelpCommand.cs" />
     <Compile Include="Diese\ConsoleInterface\Request.cs" />
     <Compile Include="Diese\ConsoleInterface\Validator.cs" />
-    <Compile Include="MiniMALTools.cs" />
+    <Compile Include="MiniMALConverter.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SearchEntry.cs" />

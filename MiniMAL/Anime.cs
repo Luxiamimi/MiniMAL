@@ -27,23 +27,23 @@ namespace MiniMAL
 
 		public override void LoadFromXmlNode(XmlNode e)
 		{
-			ID = e["series_animedb_id"].InnerText != "" ? Int32.Parse(e["series_animedb_id"].InnerText) : 0;
+            ID = MiniMALConverter.XmlToInt(e["series_animedb_id"]);
             Title = e["series_title"].InnerText;
             Synonyms = e["series_synonyms"].InnerText.Split(new string[] { "; " }, StringSplitOptions.RemoveEmptyEntries);
             Type = e["series_type"].InnerText != "" ? (TypeAnime)Int32.Parse(e["series_type"].InnerText) : TypeAnime.None;
-            Episodes = e["series_episodes"].InnerText != "" ? Int32.Parse(e["series_episodes"].InnerText) : 0;
+            Episodes = MiniMALConverter.XmlToInt(e["series_episodes"]);
             Status = e["series_status"].InnerText != "" ? (AiringStatus)Int32.Parse(e["series_status"].InnerText) : AiringStatus.None;
-            StartDate = MiniMALTools.StringToDate(e["series_start"].InnerText);
-            EndDate = MiniMALTools.StringToDate(e["series_end"].InnerText);
+            StartDate = MiniMALConverter.XmlToDate(e["series_start"]);
+            EndDate = MiniMALConverter.XmlToDate(e["series_end"]);
             ImageUrl = e["series_image"].InnerText;
-            MyID = e["my_id"].InnerText != "" ? Int32.Parse(e["my_id"].InnerText) : 0;
-            MyWatchedEp = e["my_watched_episodes"].InnerText != "" ? Int32.Parse(e["my_watched_episodes"].InnerText) : 0;
-            MyStartDate = MiniMALTools.StringToDate(e["my_start_date"].InnerText);
-            MyEndDate = MiniMALTools.StringToDate(e["my_finish_date"].InnerText);
-            MyScore = e["my_score"].InnerText != "" ? Int32.Parse(e["my_score"].InnerText) : 0;
+            MyID = MiniMALConverter.XmlToInt(e["my_id"]);
+            MyWatchedEp = MiniMALConverter.XmlToInt(e["my_watched_episodes"]);
+            MyStartDate = MiniMALConverter.XmlToDate(e["my_start_date"]);
+            MyEndDate = MiniMALConverter.XmlToDate(e["my_finish_date"]);
+            MyScore = MiniMALConverter.XmlToInt(e["my_score"]);
             MyStatus = e["my_status"].InnerText != "" ? (WatchingStatus)Int32.Parse(e["my_status"].InnerText) : WatchingStatus.None;
-            MyRewatchingCount = e["my_rewatching"].InnerText != "" ? Int32.Parse(e["my_rewatching_ep"].InnerText) : 0;
-            MyRewatchingEpisodes = e["my_rewatching_ep"].InnerText != "" ? Int32.Parse(e["my_rewatching_ep"].InnerText) : 0;
+            MyRewatchingCount = MiniMALConverter.XmlToInt(e["my_rewatching"]);
+            MyRewatchingEpisodes = MiniMALConverter.XmlToInt(e["my_rewatching_ep"]);
             MyTags = e["my_tags"].InnerText;
 		}
     }

@@ -53,7 +53,7 @@ namespace MiniMAL
             AnimeList list = new AnimeList();
 
             string link = "http://myanimelist.net/malappinfo.php?u=" + user + "&type=anime&status=all";
-            XmlDocument xml = LoadXML(link);
+            XmlDocument xml = LoadXml(link);
 
             foreach (XmlNode e in xml.DocumentElement.ChildNodes)
             {
@@ -72,7 +72,7 @@ namespace MiniMAL
             MangaList list = new MangaList();
 
             string link = "http://myanimelist.net/malappinfo.php?u=" + user + "&type=manga&status=all";
-            XmlDocument xml = LoadXML(link);
+            XmlDocument xml = LoadXml(link);
 
             foreach (XmlNode e in xml.DocumentElement.ChildNodes)
             {
@@ -96,9 +96,7 @@ namespace MiniMAL
             for (int i = 1; i < search.Length; i++)
                 link += "+" + search[i];
 
-            //XmlDocument xml = LoadXML(link);
-
-            XmlDocument xml = LoadXMLwithCredentials(link);
+            XmlDocument xml = LoadXmlWithCredentials(link);
 
             List<AnimeSearchEntry> list = new List<AnimeSearchEntry>();
             foreach (XmlNode e in xml.DocumentElement.ChildNodes)
@@ -124,7 +122,7 @@ namespace MiniMAL
             for (int i = 1; i < search.Length; i++)
                 link += "+" + search[i];
 
-            XmlDocument xml = LoadXMLwithCredentials(link);
+            XmlDocument xml = LoadXmlWithCredentials(link);
 
             List<MangaSearchEntry> list = new List<MangaSearchEntry>();
             foreach (XmlNode e in xml.DocumentElement.ChildNodes)
@@ -140,14 +138,14 @@ namespace MiniMAL
             return list;
         }
 
-        private XmlDocument LoadXML(string link)
+        private XmlDocument LoadXml(string link)
         {
             XmlDocument xml = new XmlDocument();
             xml.Load(link);
             return xml;
         }
 
-        private XmlDocument LoadXMLwithCredentials(string link)
+        private XmlDocument LoadXmlWithCredentials(string link)
         {
             if (!isConnected)
                 throw new UserNotConnectedException();
