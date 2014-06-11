@@ -47,6 +47,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\AnimelistCommand.cs" />
+    <Compile Include="Commands\LoginCommand.cs" />
+    <Compile Include="Commands\MangalistCommand.cs" />
+    <Compile Include="Commands\MiniMALCommand.cs" />
+    <Compile Include="Commands\SearchAnimeCommand.cs" />
+    <Compile Include="Commands\SearchMangaCommand.cs" />
+    <Compile Include="MiniMALConsole.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -54,9 +61,9 @@
     <None Include="app.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Glyph.ConsoleInterface\Glyph.ConsoleInterface.csproj">
-      <Project>{74557c8b-32ae-45fc-bd79-c09bda8f3a29}</Project>
-      <Name>Glyph.ConsoleInterface</Name>
+    <ProjectReference Include="..\..\Diese\ConsoleInterface\Diese.ConsoleInterface.csproj">
+      <Project>{fb5c3656-a30f-4db0-88f3-af744a5abd59}</Project>
+      <Name>Diese.ConsoleInterface</Name>
     </ProjectReference>
     <ProjectReference Include="..\MiniMAL\MiniMAL.csproj">
       <Project>{102bfc84-17fe-4619-99f4-7ebf8c7d8daf}</Project>

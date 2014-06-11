@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Linq;
 
 namespace MiniMALConsole
 {
@@ -9,7 +6,7 @@ namespace MiniMALConsole
     {
         static void Main(string[] args)
         {
-            MiniMAL.ConsoleInterface.MiniMALConsole console = new MiniMAL.ConsoleInterface.MiniMALConsole();
+            MiniMALConsole console = new MiniMALConsole();
 
             if (args.Any())
                 console.Request(args);
