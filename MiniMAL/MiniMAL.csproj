@@ -30,9 +30,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Glyph.ConsoleInterface">
-      <HintPath>..\ConsoleInterface\bin\Release\Glyph.ConsoleInterface.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -63,6 +60,12 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SearchEntry.cs" />
     <Compile Include="UserList.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Glyph.ConsoleInterface\Glyph.ConsoleInterface.csproj">
+      <Project>{74557c8b-32ae-45fc-bd79-c09bda8f3a29}</Project>
+      <Name>Glyph.ConsoleInterface</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

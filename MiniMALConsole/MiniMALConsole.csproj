@@ -38,12 +38,6 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Glyph.ConsoleInterface">
-      <HintPath>..\ConsoleInterface\bin\Release\Glyph.ConsoleInterface.dll</HintPath>
-    </Reference>
-    <Reference Include="MiniMAL">
-      <HintPath>..\MiniMAL\bin\Release\MiniMAL.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -58,6 +52,16 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Glyph.ConsoleInterface\Glyph.ConsoleInterface.csproj">
+      <Project>{74557c8b-32ae-45fc-bd79-c09bda8f3a29}</Project>
+      <Name>Glyph.ConsoleInterface</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MiniMAL\MiniMAL.csproj">
+      <Project>{102bfc84-17fe-4619-99f4-7ebf8c7d8daf}</Project>
+      <Name>MiniMAL</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

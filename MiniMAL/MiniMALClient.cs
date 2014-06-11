@@ -155,7 +155,7 @@ namespace MiniMAL
 
             XmlDocument xml = new XmlDocument();
             StreamReader sr = new StreamReader(request.GetResponse().GetResponseStream());
-            string content = sr.ReadToEnd().Replace("&mdash;", "&#8212;");
+            string content = sr.ReadToEnd().Replace("&mdash;", "&#8212;").Replace("&forall;", "&#8704;");
             xml.LoadXml(content);
 
             return xml;

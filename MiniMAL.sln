@@ -4,16 +4,10 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 12.0.30501.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MiniMALConsole", "MiniMALConsole\MiniMALConsole.csproj", "{7E707E5E-7C69-417F-B274-E97F8B54F7E6}"
-	ProjectSection(ProjectDependencies) = postProject
-		{102BFC84-17FE-4619-99F4-7EBF8C7D8DAF} = {102BFC84-17FE-4619-99F4-7EBF8C7D8DAF}
-	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Glyph.ConsoleInterface", "Glyph.ConsoleInterface\Glyph.ConsoleInterface.csproj", "{74557C8B-32AE-45FC-BD79-C09BDA8F3A29}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MiniMAL", "MiniMAL\MiniMAL.csproj", "{102BFC84-17FE-4619-99F4-7EBF8C7D8DAF}"
-	ProjectSection(ProjectDependencies) = postProject
-		{74557C8B-32AE-45FC-BD79-C09BDA8F3A29} = {74557C8B-32AE-45FC-BD79-C09BDA8F3A29}
-	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
