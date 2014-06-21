@@ -4,19 +4,18 @@ using MiniMAL.Exceptions;
 
 namespace MiniMAL.Console.Commands
 {
-    public class SearchAnimeCommand : MiniMALCommand
+    public class SearchAnimeCommand : MiniMALUnlimitedCommand
     {
         public SearchAnimeCommand(MiniMALClient client)
             : base(client, "search-anime", "Search an anime in MyAnimeList database.")
         {
-            UnlimitedArguments = true;
         }
 
         protected override void Action(ArgumentsValues arguments, OptionsValues options)
         {
             try
             {
-                List<AnimeSearchEntry> search = client.SearchAnime(arguments.Values.ToArray());
+                List<AnimeSearchEntry> search = _client.SearchAnime(arguments.Values.ToArray());
                 foreach (AnimeSearchEntry a in search)
                     System.Console.WriteLine(a.Title);
                 System.Console.WriteLine(search.Count() + " entries");

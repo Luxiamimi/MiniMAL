@@ -4,20 +4,20 @@ namespace MiniMAL.Console
 {
     public class MiniMALConsole : StarLess.ConsoleInterface
     {
-        private MiniMALClient client;
+        private MiniMALClient _client;
 
         public MiniMALConsole()
             : base("MiniMal")
         {
-            client = new MiniMALClient();
+            _client = new MiniMALClient();
 
             WelcomeMessage = "Welcome to MiniMal !";
 
-            AddCommand(new LoginCommand(client));
-            AddCommand(new AnimelistCommand(client));
-            AddCommand(new MangalistCommand(client));
-            AddCommand(new SearchAnimeCommand(client));
-            AddCommand(new SearchMangaCommand(client));
+            AddCommand(new LoginCommand(_client));
+            AddCommand(new AnimelistCommand(_client));
+            AddCommand(new MangalistCommand(_client));
+            AddCommand(new SearchAnimeCommand(_client));
+            AddCommand(new SearchMangaCommand(_client));
         }
     }
 }

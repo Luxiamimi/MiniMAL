@@ -39,7 +39,7 @@ namespace MiniMAL.Console.Commands
 
             try
             {
-                client.Authentification(username, password);
+                _client.Authentification(username, password);
                 System.Console.WriteLine("Success");
             }
             catch (UnauthorizedAccessException e)

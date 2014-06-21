@@ -20,7 +20,7 @@ namespace MiniMAL.Console.Commands
 
         protected override void Action(ArgumentsValues arguments, OptionsValues options)
         {
-            MangaList mangalist = client.LoadMangalist(arguments["user"]);
+            MangaList mangalist = _client.LoadMangalist(arguments["user"]);
 
             IEnumerable<Manga> list = new List<Manga>();
             foreach (string opt in options.Keys)

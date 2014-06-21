@@ -20,7 +20,7 @@ namespace MiniMAL.Console.Commands
 
         protected override void Action(ArgumentsValues arguments, OptionsValues options)
         {
-            AnimeList animelist = client.LoadAnimelist(arguments["user"]);
+            AnimeList animelist = _client.LoadAnimelist(arguments["user"]);
 
             IEnumerable<Anime> list = new List<Anime>();
             foreach (string opt in options.Keys)
