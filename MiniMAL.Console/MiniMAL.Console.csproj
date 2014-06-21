@@ -8,8 +8,8 @@
     <ProjectGuid>{7E707E5E-7C69-417F-B274-E97F8B54F7E6}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>MiniMALConsole</RootNamespace>
-    <AssemblyName>MiniMALConsole</AssemblyName>
+    <RootNamespace>MiniMAL.Console</RootNamespace>
+    <AssemblyName>MiniMAL.Console</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>
