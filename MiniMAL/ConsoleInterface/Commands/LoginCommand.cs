@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Diese.ConsoleInterface;
-using MiniMAL;
 
 namespace MiniMAL.ConsoleInterface.Commands
 {
@@ -31,7 +26,7 @@ namespace MiniMAL.ConsoleInterface.Commands
                 if (key.Key != ConsoleKey.Backspace && key.Key != ConsoleKey.Enter)
                 {
                     password += key.KeyChar;
-                   Console.Write("*");
+                    Console.Write("*");
                 }
                 else if (key.Key == ConsoleKey.Backspace && password.Length > 0)
                 {

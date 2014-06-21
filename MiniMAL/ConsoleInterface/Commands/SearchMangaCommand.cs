@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using Diese.ConsoleInterface;
-using MiniMAL;
 using MiniMAL.Exceptions;
 
 namespace MiniMAL.ConsoleInterface.Commands

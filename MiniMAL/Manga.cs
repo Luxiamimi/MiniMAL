@@ -28,7 +28,7 @@ namespace MiniMAL
         public int MyRereadingChapters { get; set; }
 
         public override void LoadFromXmlNode(XmlNode e)
-		{
+        {
             ID = MiniMALConverter.XmlToInt(e["series_mangadb_id"]);
             Title = e["series_title"].InnerText;
             Synonyms = e["series_synonyms"].InnerText.Split(new string[] { "; " }, StringSplitOptions.RemoveEmptyEntries);
@@ -49,6 +49,6 @@ namespace MiniMAL
             MyRereadingCount = MiniMALConverter.XmlToInt(e["my_rereadingg"]);
             MyRereadingChapters = MiniMALConverter.XmlToInt(e["my_rereading_chap"]);
             MyTags = e["my_tags"].InnerText;
-		}
+        }
     }
 }

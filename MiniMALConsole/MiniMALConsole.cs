@@ -7,7 +7,8 @@ namespace MiniMALConsole
     {
         private MiniMALClient client;
 
-        public MiniMALConsole() : base("MiniMal")
+        public MiniMALConsole()
+            : base("MiniMal")
         {
             client = new MiniMALClient();
 

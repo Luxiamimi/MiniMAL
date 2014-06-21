@@ -61,10 +61,6 @@
     <None Include="app.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Diese\ConsoleInterface\Diese.ConsoleInterface.csproj">
-      <Project>{fb5c3656-a30f-4db0-88f3-af744a5abd59}</Project>
-      <Name>Diese.ConsoleInterface</Name>
-    </ProjectReference>
     <ProjectReference Include="..\MiniMAL\MiniMAL.csproj">
       <Project>{102bfc84-17fe-4619-99f4-7ebf8c7d8daf}</Project>
       <Name>MiniMAL</Name>

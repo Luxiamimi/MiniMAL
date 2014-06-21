@@ -61,12 +61,6 @@
     <Compile Include="SearchEntry.cs" />
     <Compile Include="UserList.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\Diese\ConsoleInterface\Diese.ConsoleInterface.csproj">
-      <Project>{fb5c3656-a30f-4db0-88f3-af744a5abd59}</Project>
-      <Name>Diese.ConsoleInterface</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

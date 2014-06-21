@@ -1,15 +1,13 @@
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
-using System.Text;
 using System.Xml;
 using MiniMAL.Exceptions;
 
 namespace MiniMAL
 {
-	public class MiniMALClient
+    public class MiniMALClient
     {
         // http://myanimelist.net/malappinfo.php?status=all&type=anime&u=Luxiamimi
         // http://myanimelist.net/malappinfo.php?status=all&type=manga&u=Aeden
@@ -49,7 +47,7 @@ namespace MiniMAL
         }
 
         public AnimeList LoadAnimelist(string user)
-		{
+        {
             AnimeList list = new AnimeList();
 
             string link = "http://myanimelist.net/malappinfo.php?u=" + user + "&type=anime&status=all";
@@ -58,13 +56,13 @@ namespace MiniMAL
             foreach (XmlNode e in xml.DocumentElement.ChildNodes)
             {
                 if (e.Name == "anime")
-				{
+                {
                     Anime a = new Anime();
-					a.LoadFromXmlNode(e);
-					list.Add(a);
-				}
-			}
-			return list;
+                    a.LoadFromXmlNode(e);
+                    list.Add(a);
+                }
+            }
+            return list;
         }
 
         public MangaList LoadMangalist(string user)

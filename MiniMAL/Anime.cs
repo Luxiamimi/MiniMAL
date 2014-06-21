@@ -25,8 +25,8 @@ namespace MiniMAL
         public int MyRewatchingCount { get; set; }
         public int MyRewatchingEpisodes { get; set; }
 
-		public override void LoadFromXmlNode(XmlNode e)
-		{
+        public override void LoadFromXmlNode(XmlNode e)
+        {
             ID = MiniMALConverter.XmlToInt(e["series_animedb_id"]);
             Title = e["series_title"].InnerText;
             Synonyms = e["series_synonyms"].InnerText.Split(new string[] { "; " }, StringSplitOptions.RemoveEmptyEntries);
@@ -45,6 +45,6 @@ namespace MiniMAL
             MyRewatchingCount = MiniMALConverter.XmlToInt(e["my_rewatching"]);
             MyRewatchingEpisodes = MiniMALConverter.XmlToInt(e["my_rewatching_ep"]);
             MyTags = e["my_tags"].InnerText;
-		}
+        }
     }
 }

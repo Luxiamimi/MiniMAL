@@ -1,11 +1,4 @@
-﻿﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using MiniMAL;
-using System.Xml;
-using System.Net;
-using MiniMAL.ConsoleInterface.Commands;
+﻿﻿using MiniMAL.ConsoleInterface.Commands;
 
 namespace MiniMAL.ConsoleInterface
 {
@@ -13,7 +6,8 @@ namespace MiniMAL.ConsoleInterface
     {
         private MiniMALClient client;
 
-        public MiniMALConsole() : base("MiniMal")
+        public MiniMALConsole()
+            : base("MiniMal")
         {
             client = new MiniMALClient();
 
