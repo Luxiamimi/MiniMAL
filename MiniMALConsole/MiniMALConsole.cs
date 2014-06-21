@@ -1,9 +1,8 @@
-﻿﻿using MiniMAL;
-using MiniMALConsole.Commands;
+﻿﻿using MiniMAL.Console.Commands;
 
-namespace MiniMALConsole
+namespace MiniMAL.Console
 {
-    public class MiniMALConsole : Diese.ConsoleInterface.ConsoleInterface
+    public class MiniMALConsole : StarLess.ConsoleInterface
     {
         private MiniMALClient client;
 

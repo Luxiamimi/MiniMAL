@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 
-namespace MiniMALConsole
+namespace MiniMAL.Console
 {
     internal class Program
     {

@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using Diese.ConsoleInterface;
-using MiniMAL;
+using StarLess;
 
-namespace MiniMALConsole.Commands
+namespace MiniMAL.Console.Commands
 {
     public class AnimelistCommand : MiniMALCommand
     {
@@ -39,8 +37,8 @@ namespace MiniMALConsole.Commands
                 list = animelist.ToList();
 
             foreach (Anime a in list)
-                Console.WriteLine(a.Title);
-            Console.WriteLine(list.Count() + " entries");
+                System.Console.WriteLine(a.Title);
+            System.Console.WriteLine(list.Count() + " entries");
         }
     }
 }

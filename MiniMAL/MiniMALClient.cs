@@ -12,20 +12,21 @@ namespace MiniMAL
         // http://myanimelist.net/malappinfo.php?status=all&type=anime&u=Luxiamimi
         // http://myanimelist.net/malappinfo.php?status=all&type=manga&u=Aeden
 
-        private string Username;
-        private string Password;
-        public bool isConnected { get; private set; }
+        private string _username;
+        private string _password;
+
+        public bool IsConnected { get; private set; }
 
         public MiniMALClient()
         {
-            isConnected = false;
+            IsConnected = false;
         }
 
         public void Authentification(string username, string password)
         {
             string link = "http://myanimelist.net/api/account/verify_credentials.xml";
             WebRequest request = WebRequest.Create(link);
-            request.Credentials = new NetworkCredential(username, password);
+            request.Credentials = new NetworkCredential(_username, _password);
 
             try
             {
@@ -33,7 +34,7 @@ namespace MiniMAL
             }
             catch (WebException e)
             {
-                isConnected = false;
+                IsConnected = false;
 
                 if (e.Message.Contains("401"))
                     throw new UserUnauthorizedException();
@@ -41,9 +42,9 @@ namespace MiniMAL
                     throw e;
             }
 
-            Username = username;
-            Password = password;
-            isConnected = true;
+            _username = username;
+            _password = password;
+            IsConnected = true;
         }
 
         public AnimeList LoadAnimelist(string user)
@@ -145,11 +146,11 @@ namespace MiniMAL
 
         private XmlDocument LoadXmlWithCredentials(string link)
         {
-            if (!isConnected)
+            if (!IsConnected)
                 throw new UserNotConnectedException();
 
             WebRequest request = WebRequest.Create(link);
-            request.Credentials = new NetworkCredential(Username, Password);
+            request.Credentials = new NetworkCredential(_username, _password);
 
             XmlDocument xml = new XmlDocument();
             StreamReader sr = new StreamReader(request.GetResponse().GetResponseStream());

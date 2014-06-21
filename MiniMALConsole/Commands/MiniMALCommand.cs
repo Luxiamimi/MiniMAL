@@ -1,7 +1,6 @@
-﻿using Diese.ConsoleInterface;
-using MiniMAL;
+﻿using StarLess;
 
-namespace MiniMALConsole.Commands
+namespace MiniMAL.Console.Commands
 {
     public abstract class MiniMALCommand : Command
     {

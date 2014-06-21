@@ -42,13 +42,6 @@
     <Compile Include="Anime.cs" />
     <Compile Include="AnimeList.cs" />
     <Compile Include="AnimeSearchEntry.cs" />
-    <Compile Include="ConsoleInterface\Commands\AnimelistCommand.cs" />
-    <Compile Include="ConsoleInterface\Commands\LoginCommand.cs" />
-    <Compile Include="ConsoleInterface\Commands\MangalistCommand.cs" />
-    <Compile Include="ConsoleInterface\Commands\MiniMALCommand.cs" />
-    <Compile Include="ConsoleInterface\Commands\SearchAnimeCommand.cs" />
-    <Compile Include="ConsoleInterface\Commands\SearchMangaCommand.cs" />
-    <Compile Include="ConsoleInterface\MiniMALConsole.cs" />
     <Compile Include="Entry.cs" />
     <Compile Include="Exceptions\UserNotConnectedException.cs" />
     <Compile Include="Exceptions\UserUnauthorizedException.cs" />

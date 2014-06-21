@@ -1,7 +1,6 @@
 ﻿using System;
-using MiniMAL;
 
-namespace MiniMALConsole.Commands
+namespace MiniMAL.Console.Commands
 {
     public class LoginCommand : MiniMALCommand
     {
@@ -12,40 +11,40 @@ namespace MiniMALConsole.Commands
 
         protected override void Action(ArgumentsValues arguments, OptionsValues options)
         {
-            Console.Write("Enter your username : ");
+            System.Console.Write("Enter your username : ");
 
-            string username = Console.ReadLine();
+            string username = System.Console.ReadLine();
 
-            Console.Write("Enter your password : ");
+            System.Console.Write("Enter your password : ");
 
             string password = "";
             ConsoleKeyInfo key;
             do
             {
-                key = Console.ReadKey(true);
+                key = System.Console.ReadKey(true);
 
                 if (key.Key != ConsoleKey.Backspace && key.Key != ConsoleKey.Enter)
                 {
                     password += key.KeyChar;
-                    Console.Write("*");
+                    System.Console.Write("*");
                 }
                 else if (key.Key == ConsoleKey.Backspace && password.Length > 0)
                 {
                     password = password.Substring(0, (password.Length - 1));
-                    Console.Write("\b \b");
+                    System.Console.Write("\b \b");
                 }
             }
             while (key.Key != ConsoleKey.Enter);
-            Console.WriteLine();
+            System.Console.WriteLine();
 
             try
             {
                 client.Authentification(username, password);
-                Console.WriteLine("Success");
+                System.Console.WriteLine("Success");
             }
             catch (UnauthorizedAccessException e)
             {
-                Console.WriteLine(e.Message);
+                System.Console.WriteLine(e.Message);
             }
         }
     }

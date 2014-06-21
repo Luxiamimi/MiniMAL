@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using Diese.ConsoleInterface;
-using MiniMAL;
+using StarLess;
 
-namespace MiniMALConsole.Commands
+namespace MiniMAL.Console.Commands
 {
     public class MangalistCommand : MiniMALCommand
     {
@@ -39,8 +37,8 @@ namespace MiniMALConsole.Commands
                 list = mangalist.ToList();
 
             foreach (Manga m in list)
-                Console.WriteLine(m.Title);
-            Console.WriteLine(list.Count() + " entries");
+                System.Console.WriteLine(m.Title);
+            System.Console.WriteLine(list.Count() + " entries");
         }
     }
 }

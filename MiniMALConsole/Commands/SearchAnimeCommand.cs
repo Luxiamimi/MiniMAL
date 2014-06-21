@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using MiniMAL;
 using MiniMAL.Exceptions;
 
-namespace MiniMALConsole.Commands
+namespace MiniMAL.Console.Commands
 {
     public class SearchAnimeCommand : MiniMALCommand
     {
@@ -20,12 +18,12 @@ namespace MiniMALConsole.Commands
             {
                 List<AnimeSearchEntry> search = client.SearchAnime(arguments.Values.ToArray());
                 foreach (AnimeSearchEntry a in search)
-                    Console.WriteLine(a.Title);
-                Console.WriteLine(search.Count() + " entries");
+                    System.Console.WriteLine(a.Title);
+                System.Console.WriteLine(search.Count() + " entries");
             }
             catch (UserNotConnectedException e)
             {
-                Console.WriteLine(e.Message);
+                System.Console.WriteLine(e.Message);
             }
         }
     }
