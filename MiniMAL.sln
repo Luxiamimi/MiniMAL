@@ -7,7 +7,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MiniMAL.Console", "MiniMALC
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MiniMAL", "MiniMAL\MiniMAL.csproj", "{102BFC84-17FE-4619-99F4-7EBF8C7D8DAF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StarLess", "StarLess\StarLess\StarLess.csproj", "{745634E7-9B3B-468F-8735-D98775E78E08}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StarLess", "External\StarLess\StarLess\StarLess.csproj", "{745634E7-9B3B-468F-8735-D98775E78E08}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "External", "External", "{5D06637F-663E-48B4-8D6B-70AA92597D9E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -52,5 +54,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{745634E7-9B3B-468F-8735-D98775E78E08} = {5D06637F-663E-48B4-8D6B-70AA92597D9E}
 	EndGlobalSection
 EndGlobal

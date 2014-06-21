@@ -61,13 +61,13 @@
     <None Include="app.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\External\StarLess\StarLess\StarLess.csproj">
+      <Project>{745634e7-9b3b-468f-8735-d98775e78e08}</Project>
+      <Name>StarLess</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MiniMAL\MiniMAL.csproj">
       <Project>{102bfc84-17fe-4619-99f4-7ebf8c7d8daf}</Project>
       <Name>MiniMAL</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\StarLess\StarLess\StarLess.csproj">
-      <Project>{745634e7-9b3b-468f-8735-d98775e78e08}</Project>
-      <Name>StarLess</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

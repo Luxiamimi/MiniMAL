@@ -1,4 +1,3 @@
-[submodule "StarLess"]
-	path = StarLess
+[submodule "External/StarLess"]
+	path = External/StarLess
 	url = https://github.com/ReMinoer/StarLess.git
-	branch = master
