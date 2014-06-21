@@ -1,4 +1,4 @@
 MiniMAL
 =======
 
-API & console interface for MyAnimeList
+API & console interface for MyAnimeList.
