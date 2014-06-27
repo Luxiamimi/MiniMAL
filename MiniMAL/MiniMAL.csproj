@@ -44,6 +44,8 @@
     <Compile Include="AnimeList.cs" />
     <Compile Include="AnimeSearchEntry.cs" />
     <Compile Include="Entry.cs" />
+    <Compile Include="Exceptions\ConfigFileCorrupt.cs" />
+    <Compile Include="Exceptions\ConfigFileNotFoundException.cs" />
     <Compile Include="Exceptions\MiniMALException.cs" />
     <Compile Include="Exceptions\UserNotConnectedException.cs" />
     <Compile Include="Exceptions\UserUnauthorizedException.cs" />

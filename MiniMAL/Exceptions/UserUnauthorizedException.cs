@@ -3,7 +3,7 @@
     public class UserUnauthorizedException : MiniMALException
     {
         public UserUnauthorizedException()
-            : base("User is unauthorized. Please verify your username and password.")
+            : base("User unauthorized. Please verify your credentials and retry.")
         {
         }
     }

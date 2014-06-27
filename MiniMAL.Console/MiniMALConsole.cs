@@ -1,5 +1,6 @@
 ﻿﻿using System;
 using MiniMAL.Console.Commands;
+using MiniMAL.Exceptions;
 
 namespace MiniMAL.Console
 {
@@ -25,13 +26,36 @@ namespace MiniMAL.Console
         {
             try
             {
-                System.Console.WriteLine("Load config...");
+                System.Console.WriteLine("Load configuration...");
                 _client.LoadConfig();
                 System.Console.WriteLine("Connected as " + _client.Username);
             }
             catch (Exception e)
             {
+                System.Console.WriteLine();
                 System.Console.WriteLine(e.Message);
+                if (e is ConfigFileNotFoundException)
+                {
+                    System.Console.WriteLine("Please enter your MyAnimeList's credentials.");
+                }
+                else if (e is ConfigFileCorruptException)
+                {
+                    System.Console.WriteLine("Please enter your MyAnimeList's credentials.");
+                }
+                System.Console.WriteLine();
+
+                while (true)
+                {
+                    try
+                    {
+                        Commands["login"].Run();
+                        break;
+                    }
+                    catch (Exception ee)
+                    {
+                        System.Console.WriteLine(ee.Message + "\n");
+                    }
+                }
             }
         }
     }

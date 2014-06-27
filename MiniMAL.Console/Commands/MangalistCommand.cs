@@ -7,7 +7,7 @@ namespace MiniMAL.Console.Commands
     public class MangalistCommand : MiniMALCommand
     {
         public MangalistCommand(MiniMALClient client)
-            : base(client, "mangalist", "Display the manga list from a user. If no name is specified, loads the list of the user connected to the client.")
+            : base(client, "mangalist", "Display the manga list from a user.\nIf no name is specified, loads the list of the user connected to the client.")
         {
             OptionalArguments.Add(new Argument("user", "a MyAnimeList's username."));
 

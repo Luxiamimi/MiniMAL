@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -20,6 +21,29 @@ namespace MiniMAL
         public MiniMALClient()
         {
             IsConnected = false;
+        }
+
+        public void SaveConfig()
+        {
+            UserData.Save(_userData, configFilename);
+        }
+
+        public void LoadConfig()
+        {
+            try
+            {
+                _userData = UserData.Load(configFilename);
+            }
+            catch (FileNotFoundException)
+            {
+                throw new ConfigFileNotFoundException();
+            }
+            catch (InvalidOperationException)
+            {
+                throw new ConfigFileCorruptException();
+            }
+
+            Authentification(_userData.Username, _userData.DecryptedPassword);
         }
 
         public void Authentification(string username, string password)
@@ -45,17 +69,6 @@ namespace MiniMAL
             _userData.Username = username;
             _userData.DecryptedPassword = password;
             IsConnected = true;
-        }
-
-        public void SaveConfig()
-        {
-            UserData.Save(_userData, configFilename);
-        }
-
-        public void LoadConfig()
-        {
-            _userData = UserData.Load(configFilename);
-            Authentification(_userData.Username, _userData.DecryptedPassword);
         }
 
         public AnimeList LoadAnimelist()

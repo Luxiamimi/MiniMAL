@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Security.Cryptography;
 using System.Text;
 using System.Xml.Serialization;
@@ -36,17 +37,21 @@ namespace MiniMAL
         public static UserData Load(string filename)
         {
             if (!File.Exists(filename))
-            {
-                UserData newData = new UserData();
-                Save(newData, filename);
-                return newData;
-            }
+                throw new FileNotFoundException();
 
             XmlSerializer serializer = new XmlSerializer(typeof(UserData));
             StreamReader sr = new StreamReader(filename);
-            UserData data = (UserData)serializer.Deserialize(sr);
+            UserData data;
+            try
+            {
+                data = (UserData)serializer.Deserialize(sr);
+            }
+            catch (Exception e)
+            {
+                sr.Close();
+                throw e;
+            }
 
-            sr.Close();
             return data;
         }
     }

@@ -1,10 +1,8 @@
 ﻿using System;
-using System.ComponentModel;
 using System.Xml;
 
 namespace MiniMAL
 {
-    [EditorBrowsable(EditorBrowsableState.Never)]
     public abstract class SearchEntry<TSeriesType, TSeriesStatus>
     {
         public int ID { get; set; }

@@ -1,11 +1,9 @@
 ﻿using System;
-using System.ComponentModel;
 using System.Globalization;
 using System.Xml;
 
 namespace MiniMAL
 {
-    [EditorBrowsable(EditorBrowsableState.Never)]
     internal class MiniMALConverter
     {
         public static int XmlToInt(XmlElement xml)

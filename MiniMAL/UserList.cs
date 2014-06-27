@@ -1,10 +1,8 @@
 ﻿using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 
 namespace MiniMAL
 {
-    [EditorBrowsable(EditorBrowsableState.Never)]
     public class UserList<T, TSeriesType, TSeriesStatus, TMyStatus> : IEnumerable<T>
         where T : Entry<TSeriesType, TSeriesStatus, TMyStatus>
     {
