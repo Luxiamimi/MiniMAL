@@ -8,13 +8,12 @@ using MiniMAL.Exceptions;
 
 namespace MiniMAL
 {
+    // TODO : add anime/edit a list
     // TODO : handle re-watching
     public class MiniMALClient
     {
         public bool IsConnected { get; private set; }
-        public string Username { get { return _userData.Username; } }
-
-        private UserData _userData;
+        public MiniMALClientData ClientData { get; private set; }
 
         private static string configFilename = "config.xml";
 
@@ -25,14 +24,14 @@ namespace MiniMAL
 
         public void SaveConfig()
         {
-            UserData.Save(_userData, configFilename);
+            MiniMALClientData.Save(ClientData, configFilename);
         }
 
         public void LoadConfig()
         {
             try
             {
-                _userData = UserData.Load(configFilename);
+                ClientData = MiniMALClientData.Load(configFilename);
             }
             catch (FileNotFoundException)
             {
@@ -43,7 +42,7 @@ namespace MiniMAL
                 throw new ConfigFileCorruptException();
             }
 
-            Authentification(_userData.Username, _userData.DecryptedPassword);
+            Authentification(ClientData.Username, ClientData.DecryptedPassword);
         }
 
         public void Authentification(string username, string password)
@@ -66,15 +65,14 @@ namespace MiniMAL
                     throw e;
             }
 
-            _userData.Username = username;
-            _userData.DecryptedPassword = password;
+            ClientData = new MiniMALClientData(username, password);
             IsConnected = true;
         }
 
         public AnimeList LoadAnimelist()
         {
             if (IsConnected)
-                return LoadAnimelist(_userData.Username);
+                return LoadAnimelist(ClientData.Username);
             else
                 throw new UserNotConnectedException();
         }
@@ -101,7 +99,7 @@ namespace MiniMAL
         public MangaList LoadMangalist()
         {
             if (IsConnected)
-                return LoadMangalist(_userData.Username);
+                return LoadMangalist(ClientData.Username);
             else
                 throw new UserNotConnectedException();
         }
@@ -190,7 +188,7 @@ namespace MiniMAL
                 throw new UserNotConnectedException();
 
             WebRequest request = WebRequest.Create(link);
-            request.Credentials = new NetworkCredential(_userData.Username, _userData.DecryptedPassword);
+            request.Credentials = new NetworkCredential(ClientData.Username, ClientData.DecryptedPassword);
 
             XmlDocument xml = new XmlDocument();
             StreamReader sr = new StreamReader(request.GetResponse().GetResponseStream());

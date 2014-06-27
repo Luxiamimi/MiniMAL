@@ -28,7 +28,7 @@ namespace MiniMAL.Console
             {
                 System.Console.WriteLine("Load configuration...");
                 _client.LoadConfig();
-                System.Console.WriteLine("Connected as " + _client.Username);
+                System.Console.WriteLine("Connected as " + _client.ClientData.Username);
             }
             catch (Exception e)
             {
