@@ -2,7 +2,7 @@
 using System.Globalization;
 using System.Xml;
 
-namespace MiniMAL
+namespace MiniMAL.Internal
 {
     internal class MiniMALConverter
     {

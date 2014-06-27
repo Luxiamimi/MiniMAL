@@ -43,21 +43,21 @@
     <Compile Include="Anime.cs" />
     <Compile Include="AnimeList.cs" />
     <Compile Include="AnimeSearchEntry.cs" />
-    <Compile Include="Entry.cs" />
+    <Compile Include="Internal\Entry.cs" />
     <Compile Include="Exceptions\ConfigFileCorrupt.cs" />
     <Compile Include="Exceptions\ConfigFileNotFoundException.cs" />
     <Compile Include="Exceptions\MiniMALException.cs" />
     <Compile Include="Exceptions\UserNotConnectedException.cs" />
     <Compile Include="Exceptions\UserUnauthorizedException.cs" />
-    <Compile Include="UserData.cs" />
+    <Compile Include="MiniMALClientData.cs" />
     <Compile Include="Manga.cs" />
     <Compile Include="MangaList.cs" />
     <Compile Include="MangaSearchEntry.cs" />
     <Compile Include="MiniMALClient.cs" />
-    <Compile Include="MiniMALConverter.cs" />
+    <Compile Include="Internal\MiniMALConverter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SearchEntry.cs" />
-    <Compile Include="UserList.cs" />
+    <Compile Include="Internal\SearchEntry.cs" />
+    <Compile Include="Internal\UserList.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

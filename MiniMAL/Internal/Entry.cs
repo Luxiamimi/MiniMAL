@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Xml;
 
-namespace MiniMAL
+namespace MiniMAL.Internal
 {
     public abstract class Entry<TSeriesType, TSeriesStatus, TMyStatus>
     {
