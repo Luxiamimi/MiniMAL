@@ -9,7 +9,6 @@ using MiniMAL.Exceptions;
 namespace MiniMAL
 {
     // TODO : add anime/edit a list
-    // TODO : handle re-watching
     public class MiniMALClient
     {
         public bool IsConnected { get; private set; }

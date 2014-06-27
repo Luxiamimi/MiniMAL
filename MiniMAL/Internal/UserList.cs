@@ -33,7 +33,7 @@ namespace MiniMAL.Internal
             dictionary[x.MyStatus].Add(x);
         }
 
-        public List<T> this[TMyStatus key]
+        public virtual List<T> this[TMyStatus key]
         {
             get
             {

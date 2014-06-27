@@ -22,7 +22,7 @@ namespace MiniMAL
     public class Anime : Entry<TypeAnime, AiringStatus, WatchingStatus>
     {
         public int Episodes { get; set; }
-        public int MyWatchedEp { get; set; }
+        public int MyWatchedEpisodes { get; set; }
         public int MyRewatchingCount { get; set; }
         public int MyRewatchingEpisodes { get; set; }
 
@@ -38,7 +38,7 @@ namespace MiniMAL
             EndDate = MiniMALConverter.XmlToDate(e["series_end"]);
             ImageUrl = e["series_image"].InnerText;
             MyID = MiniMALConverter.XmlToInt(e["my_id"]);
-            MyWatchedEp = MiniMALConverter.XmlToInt(e["my_watched_episodes"]);
+            MyWatchedEpisodes = MiniMALConverter.XmlToInt(e["my_watched_episodes"]);
             MyStartDate = MiniMALConverter.XmlToDate(e["my_start_date"]);
             MyEndDate = MiniMALConverter.XmlToDate(e["my_finish_date"]);
             MyScore = MiniMALConverter.XmlToInt(e["my_score"]);
