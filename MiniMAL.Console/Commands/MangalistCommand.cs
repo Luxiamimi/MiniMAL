@@ -7,9 +7,9 @@ namespace MiniMAL.Console.Commands
     public class MangalistCommand : MiniMALCommand
     {
         public MangalistCommand(MiniMALClient client)
-            : base(client, "mangalist", "Display the manga list from a user.")
+            : base(client, "mangalist", "Display the manga list from a user. If no name is specified, loads the list of the user connected to the client.")
         {
-            RequiredArguments.Add(new Argument("user", "a MyAnimeList's username.", new Validator(s => s != "", "Username can't be empty. Exemple : mangalist myUsername")));
+            OptionalArguments.Add(new Argument("user", "a MyAnimeList's username."));
 
             Options.Add(new Option("r", "reading", "Select currently reading entries."));
             Options.Add(new Option("c", "completed", "Select completed entries."));
@@ -20,7 +20,11 @@ namespace MiniMAL.Console.Commands
 
         protected override void Action(ArgumentsValues arguments, OptionsValues options)
         {
-            MangaList mangalist = _client.LoadMangalist(arguments["user"]);
+            MangaList mangalist;
+            if (arguments.ContainsKey("user"))
+                mangalist = _client.LoadMangalist(arguments["user"]);
+            else
+                mangalist = _client.LoadMangalist();
 
             IEnumerable<Manga> list = new List<Manga>();
             foreach (string opt in options.Keys)

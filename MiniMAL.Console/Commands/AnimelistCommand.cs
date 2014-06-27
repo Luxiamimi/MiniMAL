@@ -7,9 +7,9 @@ namespace MiniMAL.Console.Commands
     public class AnimelistCommand : MiniMALCommand
     {
         public AnimelistCommand(MiniMALClient client)
-            : base(client, "animelist", "Display the anime list from a user.")
+            : base(client, "animelist", "Display the anime list from a user. If no name is specified, loads the list of the user connected to the client.")
         {
-            RequiredArguments.Add(new Argument("user", "a MyAnimeList's username.", new Validator(s => s != "", "Username can't be empty. Exemple : animelist myUsername")));
+            OptionalArguments.Add(new Argument("user", "a MyAnimeList's username."));
 
             Options.Add(new Option("w", "watching", "Select currently watching entries."));
             Options.Add(new Option("c", "completed", "Select completed entries."));
@@ -20,7 +20,11 @@ namespace MiniMAL.Console.Commands
 
         protected override void Action(ArgumentsValues arguments, OptionsValues options)
         {
-            AnimeList animelist = _client.LoadAnimelist(arguments["user"]);
+            AnimeList animelist;
+            if (arguments.ContainsKey("user"))
+                animelist = _client.LoadAnimelist(arguments["user"]);
+            else
+                animelist = _client.LoadAnimelist();
 
             IEnumerable<Anime> list = new List<Anime>();
             foreach (string opt in options.Keys)

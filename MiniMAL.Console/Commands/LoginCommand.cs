@@ -46,6 +46,8 @@ namespace MiniMAL.Console.Commands
             {
                 System.Console.WriteLine(e.Message);
             }
+
+            _client.SaveConfig();
         }
     }
 }

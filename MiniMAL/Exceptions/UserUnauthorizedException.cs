@@ -1,8 +1,6 @@
-﻿using System.Net;
-
-namespace MiniMAL.Exceptions
+﻿namespace MiniMAL.Exceptions
 {
-    public class UserUnauthorizedException : WebException
+    public class UserUnauthorizedException : MiniMALException
     {
         public UserUnauthorizedException()
             : base("User is unauthorized. Please verify your username and password.")

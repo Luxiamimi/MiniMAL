@@ -1,4 +1,5 @@
-﻿﻿using MiniMAL.Console.Commands;
+﻿﻿using System;
+using MiniMAL.Console.Commands;
 
 namespace MiniMAL.Console
 {
@@ -18,6 +19,20 @@ namespace MiniMAL.Console
             AddCommand(new MangalistCommand(_client));
             AddCommand(new SearchAnimeCommand(_client));
             AddCommand(new SearchMangaCommand(_client));
+        }
+
+        protected override void Initialize()
+        {
+            try
+            {
+                System.Console.WriteLine("Load config...");
+                _client.LoadConfig();
+                System.Console.WriteLine("Connected as " + _client.Username);
+            }
+            catch (Exception e)
+            {
+                System.Console.WriteLine(e.Message);
+            }
         }
     }
 }

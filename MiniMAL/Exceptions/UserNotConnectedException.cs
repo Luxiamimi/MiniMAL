@@ -1,8 +1,6 @@
-﻿using System;
-
-namespace MiniMAL.Exceptions
+﻿namespace MiniMAL.Exceptions
 {
-    public class UserNotConnectedException : Exception
+    public class UserNotConnectedException : MiniMALException
     {
         public UserNotConnectedException()
             : base("User is not connected to MiniMAL client. Please log in and retry.")
