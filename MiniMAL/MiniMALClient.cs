@@ -4,13 +4,13 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
+using System.Web;
 using System.Xml;
 using MiniMAL.Exceptions;
 
 namespace MiniMAL
 {
     // TODO : add anime/edit a list
-    // TODO : use string.Format()
     public class MiniMALClient
     {
         public bool IsConnected { get; private set; }
@@ -83,7 +83,7 @@ namespace MiniMAL
         {
             AnimeList list = new AnimeList();
 
-            string link = "http://myanimelist.net/malappinfo.php?u=" + user + "&type=anime&status=all";
+            string link = string.Format("http://myanimelist.net/malappinfo.php?u={0]&type=anime&status=all", user);
             XmlDocument xml = LoadXml(link);
 
             foreach (XmlNode e in xml.DocumentElement.ChildNodes)
@@ -100,13 +100,13 @@ namespace MiniMAL
 
         public bool AddAnime(int id, AnimeRequestData data)
         {
-            string link = "http://myanimelist.net/api/animelist/add/" + id + ".xml";
+            string link = string.Format("http://myanimelist.net/api/animelist/add/{0}.xml", id);
 
             Dictionary<string, string> requestData = new Dictionary<string, string>();
             requestData.Add("data", data.SerializeToString());
 
             HttpWebResponse response;
-            LoadXmlWithCredentials(link, "POST", requestData, out response);
+            Request<object>(link, requestData, out response);
 
             return true;
         }
@@ -123,7 +123,7 @@ namespace MiniMAL
         {
             MangaList list = new MangaList();
 
-            string link = "http://myanimelist.net/malappinfo.php?u=" + user + "&type=manga&status=all";
+            string link = string.Format("http://myanimelist.net/malappinfo.php?u={0}&type=manga&status=all", user);
             XmlDocument xml = LoadXml(link);
 
             foreach (XmlNode e in xml.DocumentElement.ChildNodes)
@@ -140,17 +140,20 @@ namespace MiniMAL
 
         public List<AnimeSearchEntry> SearchAnime(string[] search)
         {
+            List<AnimeSearchEntry> list = new List<AnimeSearchEntry>();
+
             string link = "http://myanimelist.net/api/anime/search.xml?q=";
 
             if (search.Any())
+            {
                 link += search[0];
+                for (int i = 1; i < search.Length; i++)
+                    link += "+" + search[i];
+            }
+            else return list;
 
-            for (int i = 1; i < search.Length; i++)
-                link += "+" + search[i];
+            XmlDocument xml = Request<XmlDocument>(link);
 
-            XmlDocument xml = LoadXmlWithCredentials(link, "GET");
-
-            List<AnimeSearchEntry> list = new List<AnimeSearchEntry>();
             foreach (XmlNode e in xml.DocumentElement.ChildNodes)
             {
                 if (e.Name == "entry")
@@ -166,17 +169,20 @@ namespace MiniMAL
 
         public List<MangaSearchEntry> SearchManga(string[] search)
         {
+            List<MangaSearchEntry> list = new List<MangaSearchEntry>();
+
             string link = "http://myanimelist.net/api/manga/search.xml?q=";
 
             if (search.Any())
+            {
                 link += search[0];
+                for (int i = 1; i < search.Length; i++)
+                    link += "+" + search[i];
+            }
+            else return list;
 
-            for (int i = 1; i < search.Length; i++)
-                link += "+" + search[i];
+            XmlDocument xml = Request<XmlDocument>(link);
 
-            XmlDocument xml = LoadXmlWithCredentials(link, "GET");
-
-            List<MangaSearchEntry> list = new List<MangaSearchEntry>();
             foreach (XmlNode e in xml.DocumentElement.ChildNodes)
             {
                 if (e.Name == "entry")
@@ -197,18 +203,18 @@ namespace MiniMAL
             return xml;
         }
 
-        private XmlDocument LoadXmlWithCredentials(string link, string method)
+        private T Request<T>(string link) where T : new()
         {
-            return LoadXmlWithCredentials(link, method, new Dictionary<string, string>());
+            return Request<T>(link, new Dictionary<string, string>());
         }
 
-        private XmlDocument LoadXmlWithCredentials(string link, string method, Dictionary<string, string> data)
+        private T Request<T>(string link, Dictionary<string, string> data) where T : new()
         {
             HttpWebResponse response;
-            return LoadXmlWithCredentials(link, method, data, out response);
+            return Request<T>(link, data, out response);
         }
 
-        private XmlDocument LoadXmlWithCredentials(string link, string method, Dictionary<string, string> data, out HttpWebResponse response)
+        private T Request<T>(string link, Dictionary<string, string> data, out HttpWebResponse response) where T : new()
         {
             if (!IsConnected)
                 throw new UserNotConnectedException();
@@ -216,8 +222,10 @@ namespace MiniMAL
             if (data.Any())
             {
                 link += "?";
+                List<string> dataInline = new List<string>();
                 foreach (KeyValuePair<string, string> s in data)
-                    link += s.Key + "=" + s.Value;
+                    dataInline.Add(string.Format("{0}={1}", s.Key, s.Value));
+                link += string.Join("&", dataInline);
             }
 
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(link);
@@ -239,18 +247,38 @@ namespace MiniMAL
                 throw e;
             }
 
-            if (response.ContentType.Contains("xml"))
-            {
-                XmlDocument xml = new XmlDocument();
-                StreamReader sr = new StreamReader(response.GetResponseStream());
-                string content = sr.ReadToEnd().Replace("&mdash;", "&#8212;").Replace("&forall;", "&#8704;");
-                xml.LoadXml(content);
+            StreamReader sr = new StreamReader(response.GetResponseStream());
 
-                response.Close();
-                return xml;
-            }
+            T result = new T();
+            if (result is XmlDocument)
+                (result as XmlDocument).LoadXml(HtmlDecodeAdvanced(sr.ReadToEnd()));
             else
-                return new XmlDocument();
+                result = default(T);
+
+            sr.Close();
+            response.Close();
+            return result;
+        }
+
+        private string HtmlDecodeAdvanced(string content)
+        {
+            StringBuilder output = new StringBuilder(content.Length);
+            for (int i = 0; i < content.Length; i++)
+            {
+                if (content[i] == '&')
+                {
+                    int startOfEntity = i;
+                    int endOfEntity = content.IndexOf(';', startOfEntity);
+                    string entity = content.Substring(startOfEntity, endOfEntity - startOfEntity);
+                    int unicodeNumber = (int)(HttpUtility.HtmlDecode(entity)[0]);
+                    output.Append("&#" + unicodeNumber + ";");
+                    i = endOfEntity;
+                }
+                else
+                    output.Append(content[i]);
+            }
+
+            return output.ToString();
         }
     }
 }

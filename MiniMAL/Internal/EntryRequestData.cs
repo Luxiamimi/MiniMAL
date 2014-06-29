@@ -9,25 +9,18 @@ namespace MiniMAL.Internal
     {
         [XmlElement(ElementName = "status")]
         public int Status { get; set; }
-        [XmlIgnore]
         [XmlElement(ElementName = "score")]
         public int? Score { get; set; }
-        [XmlIgnore]
         [XmlElement(ElementName = "date_start")]
         public MiniMALDate? DateStart { get; set; }
-        [XmlIgnore]
         [XmlElement(ElementName = "date_finish")]
         public MiniMALDate? DateFinish { get; set; }
-        [XmlIgnore]
         [XmlElement(ElementName = "priority")]
         public int? Priority { get; set; }
-        [XmlIgnore]
         [XmlElement(ElementName = "enable_discussion")]
         public int? EnableDiscussion { get; set; }
-        [XmlIgnore]
         [XmlElement(ElementName = "comments")]
         public string Comments { get; set; }
-        [XmlIgnore]
         [XmlElement(ElementName = "tags")]
         public string[] Tags { get; set; }
 

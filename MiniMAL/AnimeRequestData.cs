@@ -31,25 +31,18 @@ namespace MiniMAL
     {
         [XmlElement(ElementName = "episode")]
         public int? Episode { get; set; }
-        [XmlIgnore]
-        [XmlElement(ElementName = "downloaded_episodes", IsNullable = true)]
+        [XmlElement(ElementName = "downloaded_episodes")]
         public int? DownloadedEpisodes { get; set; }
-        [XmlIgnore]
         [XmlElement(ElementName = "storage_type")]
         public int? StorageType { get; set; }
-        [XmlIgnore]
         [XmlElement(ElementName = "storage_value")]
         public float? StorageValue { get; set; }
-        [XmlIgnore]
         [XmlElement(ElementName = "times_rewatched")]
         public int? TimesRewatched { get; set; }
-        [XmlIgnore]
         [XmlElement(ElementName = "rewatch_value")]
         public int? RewatchValue { get; set; }
-        [XmlIgnore]
         [XmlElement(ElementName = "enable_rewatching")]
         public int? EnableRewatching { get; set; }
-        [XmlIgnore]
         [XmlElement(ElementName = "fansub_group")]
         public string FansubGroup { get; set; }
 
@@ -86,7 +79,7 @@ namespace MiniMAL
             ns.Add("", "");
             serializer.Serialize(xml, this, ns);
 
-            return result.ToString().Replace("d2p1:nil=\"true\" xmlns:d2p1=\"http://www.w3.org/2001/XMLSchema-instance\"", "").Replace("<?xml version=\"1.0\" encoding=\"utf-8\"?>", "");
+            return result.ToString().Replace("d2p1:nil=\"true\" xmlns:d2p1=\"http://www.w3.org/2001/XMLSchema-instance\"", "");
         }
     }
 }
