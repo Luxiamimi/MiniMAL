@@ -18,7 +18,7 @@ namespace MiniMAL.Internal
         public DateTime MyEndDate { get; set; }
         public int MyScore { get; set; }
         public TMyStatus MyStatus { get; set; }
-        public string MyTags { get; set; }
+        public string[] MyTags { get; set; }
 
         internal Entry()
         {

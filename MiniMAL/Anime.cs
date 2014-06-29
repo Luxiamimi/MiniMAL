@@ -4,21 +4,6 @@ using MiniMAL.Internal;
 
 namespace MiniMAL
 {
-    public enum TypeAnime
-    {
-        None = 0, TV = 1, OVA = 2, Movie = 3, Special = 4, ONA = 5
-    }
-
-    public enum AiringStatus
-    {
-        None = 0, Airing = 1, Finished = 2, NoYetAiring = 3
-    }
-
-    public enum WatchingStatus
-    {
-        None = 0, Watching = 1, Completed = 2, OnHold = 3, Dropped = 4, PlanToWatch = 6
-    }
-
     public class Anime : Entry<TypeAnime, AiringStatus, WatchingStatus>
     {
         public int Episodes { get; set; }
@@ -45,7 +30,7 @@ namespace MiniMAL
             MyStatus = e["my_status"].InnerText != "" ? (WatchingStatus)Int32.Parse(e["my_status"].InnerText) : WatchingStatus.None;
             MyRewatchingCount = MiniMALConverter.XmlToInt(e["my_rewatching"]);
             MyRewatchingEpisodes = MiniMALConverter.XmlToInt(e["my_rewatching_ep"]);
-            MyTags = e["my_tags"].InnerText;
+            MyTags = e["my_tags"].InnerText.Split(',');
         }
     }
 }

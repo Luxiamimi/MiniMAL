@@ -59,6 +59,7 @@ namespace MiniMAL
                 throw e;
             }
 
+            sr.Close();
             return data;
         }
     }

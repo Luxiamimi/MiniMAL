@@ -4,6 +4,7 @@ using MiniMAL.Exceptions;
 
 namespace MiniMAL.Console
 {
+    // TODO : Add a resource file for translation
     public class MiniMALConsole : StarLess.ConsoleInterface
     {
         private MiniMALClient _client;
@@ -20,6 +21,7 @@ namespace MiniMAL.Console
             AddCommand(new MangalistCommand(_client));
             AddCommand(new SearchAnimeCommand(_client));
             AddCommand(new SearchMangaCommand(_client));
+            AddCommand(new AddAnimeCommand(_client));
         }
 
         protected override void Initialize()

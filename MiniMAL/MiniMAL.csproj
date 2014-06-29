@@ -41,7 +41,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Anime.cs" />
+    <Compile Include="AnimeEnum.cs" />
     <Compile Include="AnimeList.cs" />
+    <Compile Include="AnimeRequestData.cs" />
     <Compile Include="AnimeSearchEntry.cs" />
     <Compile Include="Internal\Entry.cs" />
     <Compile Include="Exceptions\ConfigFileCorrupt.cs" />
@@ -49,16 +51,21 @@
     <Compile Include="Exceptions\MiniMALException.cs" />
     <Compile Include="Exceptions\UserNotConnectedException.cs" />
     <Compile Include="Exceptions\UserUnauthorizedException.cs" />
+    <Compile Include="Internal\EntryRequestData.cs" />
+    <Compile Include="MangaEnum.cs" />
+    <Compile Include="MangaRequestData.cs" />
     <Compile Include="MiniMALClientData.cs" />
     <Compile Include="Manga.cs" />
     <Compile Include="MangaList.cs" />
     <Compile Include="MangaSearchEntry.cs" />
     <Compile Include="MiniMALClient.cs" />
     <Compile Include="Internal\MiniMALConverter.cs" />
+    <Compile Include="MiniMALDate.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Internal\SearchEntry.cs" />
     <Compile Include="Internal\UserList.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
