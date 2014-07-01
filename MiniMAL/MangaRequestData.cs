@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Xml.Serialization;
 using MiniMAL.Internal;
+
 namespace MiniMAL
 {
     [XmlRoot(ElementName = "entry", Namespace = "")]

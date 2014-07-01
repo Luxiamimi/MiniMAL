@@ -71,7 +71,7 @@ namespace MiniMAL.Internal
 
         public class CustomStringWriter : StringWriter
         {
-            Encoding _encoding;
+            private Encoding _encoding;
 
             public CustomStringWriter(Encoding encoding)
                 : base()
