@@ -7,9 +7,9 @@ namespace MiniMAL.Console.Commands
     public class AnimelistCommand : MiniMALCommand
     {
         public AnimelistCommand(MiniMALClient client)
-            : base(client, "animelist", "Display the anime list from a user.\nIf no name is specified, loads the list of the user connected to the client.")
+            : base(client, "animelist", "Display the anime list from a user.")
         {
-            OptionalArguments.Add(new Argument("user", "a MyAnimeList's username."));
+            OptionalArguments.Add(new Argument("user", "a MyAnimeList's username. (connected user if not stated)"));
 
             Options.Add(new Option("w", "watching", "Select currently watching entries."));
             Options.Add(new Option("c", "completed", "Select completed entries."));
