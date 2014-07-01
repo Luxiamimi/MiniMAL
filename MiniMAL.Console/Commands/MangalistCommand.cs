@@ -9,7 +9,7 @@ namespace MiniMAL.Console.Commands
         public MangalistCommand(MiniMALClient client)
             : base(client, "mangalist", "Display the manga list from a user.")
         {
-            OptionalArguments.Add(new Argument("user", "a MyAnimeList's username. (connected user if not stated)"));
+            OptionalArguments.Add(new Argument("user", typeof(string), "a MyAnimeList's username. (connected user if not stated)"));
 
             Options.Add(new Option("r", "reading", "Select currently reading entries."));
             Options.Add(new Option("c", "completed", "Select completed entries."));
@@ -22,7 +22,7 @@ namespace MiniMAL.Console.Commands
         {
             MangaList mangalist;
             if (arguments.ContainsKey("user"))
-                mangalist = _client.LoadMangalist(arguments["user"]);
+                mangalist = _client.LoadMangalist((string)arguments["user"]);
             else
                 mangalist = _client.LoadMangalist();
 

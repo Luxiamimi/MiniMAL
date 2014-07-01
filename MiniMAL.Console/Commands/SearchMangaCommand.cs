@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using MiniMAL.Exceptions;
+using StarLess;
 
 namespace MiniMAL.Console.Commands
 {
@@ -9,6 +10,7 @@ namespace MiniMAL.Console.Commands
         public SearchMangaCommand(MiniMALClient client)
             : base(client, "search-manga", "Search a manga in MyAnimeList database.")
         {
+            Argument = new Argument("query", typeof(string), "query for the manga search");
         }
 
         protected override void Action(ArgumentsValues arguments, OptionsValues options)
