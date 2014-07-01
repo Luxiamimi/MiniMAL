@@ -47,6 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\AddMangaCommand.cs" />
     <Compile Include="Commands\AddAnimeCommand.cs" />
     <Compile Include="Commands\AnimelistCommand.cs" />
     <Compile Include="Commands\LoginCommand.cs" />

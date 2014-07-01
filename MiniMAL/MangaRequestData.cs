@@ -1,26 +1,69 @@
-﻿namespace MiniMAL
+﻿using System;
+using System.Xml.Serialization;
+using MiniMAL.Internal;
+namespace MiniMAL
 {
-    //<?xml version="1.0" encoding="UTF-8"?>
-    //<entry>
-    //    <chapter>6</chapter>
-    //    <volume>1</volume>
-    //    <status>1</status>
-    //    <score>8</score>
-    //    <downloaded_chapters></downloaded_chapters>
-    //    <times_reread></times_reread>
-    //    <reread_value></reread_value>
-    //    <date_start></date_start>
-    //    <date_finish></date_finish>
-    //    <priority></priority>
-    //    <enable_discussion></enable_discussion>
-    //    <enable_rereading></enable_rereading>
-    //    <comments></comments>
-    //    <scan_group></scan_group>
-    //    <tags></tags>
-    //    <retail_volumes></retail_volumes>
-    //</entry>
-
-    public class MangaRequestData
+    [XmlRoot(ElementName = "entry", Namespace = "")]
+    public class MangaRequestData : EntryRequestData<ReadingStatus>
     {
+        [XmlElement(ElementName = "chapter")]
+        public int? Chapter { get; set; }
+        [XmlElement(ElementName = "volume")]
+        public int? Volume { get; set; }
+        [XmlElement(ElementName = "downloaded_chapters")]
+        public int? DownloadedChapters { get; set; }
+        [XmlElement(ElementName = "times_reread")]
+        public int? TimesReread { get; set; }
+        [XmlElement(ElementName = "reread_value")]
+        public int? RereadValue { get; set; }
+        [XmlElement(ElementName = "enable_rereading")]
+        public int? EnableRereading { get; set; }
+        [XmlElement(ElementName = "scan_group")]
+        public string ScanGroup { get; set; }
+        [XmlElement(ElementName = "retail_volumes")]
+        public int? RetailVolumes { get; set; }
+
+        [XmlIgnore]
+        public bool ChapterSpecified { get { return Chapter.HasValue; } }
+        [XmlIgnore]
+        public bool VolumeSpecified { get { return Volume.HasValue; } }
+        [XmlIgnore]
+        public bool DownloadedChaptersSpecified { get { return DownloadedChapters.HasValue; } }
+        [XmlIgnore]
+        public bool TimesRereadSpecified { get { return TimesReread.HasValue; } }
+        [XmlIgnore]
+        public bool RereadValueSpecified { get { return RereadValue.HasValue; } }
+        [XmlIgnore]
+        public bool EnableRereadingSpecified { get { return EnableRereading.HasValue; } }
+        [XmlIgnore]
+        public bool ScanGroupSpecified { get { return ScanGroup == ""; } }
+        [XmlIgnore]
+        public bool RetailVolumesSpecified { get { return RetailVolumes.HasValue; } }
+
+        public MangaRequestData()
+        {
+        }
+
+        public MangaRequestData(Manga m)
+        {
+            Chapter = m.MyReadChapters;
+            Volume = m.MyReadVolumes;
+            Status = (int)m.MyStatus;
+            Score = m.MyScore;
+            DateStart = m.MyStartDate;
+            DateFinish = m.MyEndDate;
+            Tags = string.Join(",", m.MyTags);
+        }
+
+        public static MangaRequestData DefaultAddRequest(ReadingStatus status)
+        {
+            MangaRequestData result = new MangaRequestData();
+            result.Status = (int)status;
+            result.Chapter = 1;
+            result.Volume = 1;
+            result.Score = 0;
+            result.DateStart = DateTime.Now;
+            return result;
+        }
     }
 }

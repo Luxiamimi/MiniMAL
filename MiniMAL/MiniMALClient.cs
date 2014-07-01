@@ -10,7 +10,7 @@ using MiniMAL.Exceptions;
 
 namespace MiniMAL
 {
-    // TODO : add anime/edit a list
+    // TODO : update/edit a list
     public class MiniMALClient
     {
         public bool IsConnected { get; private set; }
@@ -136,6 +136,19 @@ namespace MiniMAL
                 }
             }
             return list;
+        }
+
+        public bool AddManga(int id, MangaRequestData data)
+        {
+            string link = string.Format("http://myanimelist.net/api/mangalist/add/{0}.xml", id);
+
+            Dictionary<string, string> requestData = new Dictionary<string, string>();
+            requestData.Add("data", data.SerializeToString());
+
+            HttpWebResponse response;
+            Request(link, requestData, out response);
+
+            return true;
         }
 
         public List<AnimeSearchEntry> SearchAnime(string[] search)

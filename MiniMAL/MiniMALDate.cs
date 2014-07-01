@@ -8,7 +8,8 @@ namespace MiniMAL
     {
         public DateTime Data { get; set; }
 
-        public MiniMALDate(DateTime dateTime) : this()
+        public MiniMALDate(DateTime dateTime)
+            : this()
         {
             Data = dateTime;
         }
