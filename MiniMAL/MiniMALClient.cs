@@ -79,11 +79,11 @@ namespace MiniMAL
                 throw new UserNotConnectedException();
         }
 
-        public AnimeList LoadAnimelist(string user = "")
+        public AnimeList LoadAnimelist(string user)
         {
             AnimeList list = new AnimeList();
 
-            string link = string.Format("http://myanimelist.net/malappinfo.php?u={0]&type=anime&status=all", user);
+            string link = string.Format("http://myanimelist.net/malappinfo.php?u={0}&type=anime&status=all", user);
             XmlDocument xml = LoadXml(link);
 
             foreach (XmlNode e in xml.DocumentElement.ChildNodes)
@@ -106,7 +106,7 @@ namespace MiniMAL
             requestData.Add("data", data.SerializeToString());
 
             HttpWebResponse response;
-            Request<object>(link, requestData, out response);
+            Request(link, requestData, out response);
 
             return true;
         }
@@ -152,7 +152,7 @@ namespace MiniMAL
             }
             else return list;
 
-            XmlDocument xml = Request<XmlDocument>(link);
+            XmlDocument xml = RequestXml(link);
 
             foreach (XmlNode e in xml.DocumentElement.ChildNodes)
             {
@@ -181,7 +181,7 @@ namespace MiniMAL
             }
             else return list;
 
-            XmlDocument xml = Request<XmlDocument>(link);
+            XmlDocument xml = RequestXml(link);
 
             foreach (XmlNode e in xml.DocumentElement.ChildNodes)
             {
@@ -203,18 +203,18 @@ namespace MiniMAL
             return xml;
         }
 
-        private T Request<T>(string link) where T : new()
+        private StreamReader Request(string link)
         {
-            return Request<T>(link, new Dictionary<string, string>());
+            return Request(link, new Dictionary<string, string>());
         }
 
-        private T Request<T>(string link, Dictionary<string, string> data) where T : new()
+        private StreamReader Request(string link, Dictionary<string, string> data)
         {
             HttpWebResponse response;
-            return Request<T>(link, data, out response);
+            return Request(link, data, out response);
         }
 
-        private T Request<T>(string link, Dictionary<string, string> data, out HttpWebResponse response) where T : new()
+        private StreamReader Request(string link, Dictionary<string, string> data, out HttpWebResponse response)
         {
             if (!IsConnected)
                 throw new UserNotConnectedException();
@@ -247,16 +247,29 @@ namespace MiniMAL
                 throw e;
             }
 
-            StreamReader sr = new StreamReader(response.GetResponseStream());
+            StreamReader result = new StreamReader(response.GetResponseStream());
 
-            T result = new T();
-            if (result is XmlDocument)
-                (result as XmlDocument).LoadXml(HtmlDecodeAdvanced(sr.ReadToEnd()));
-            else
-                result = default(T);
-
-            sr.Close();
             response.Close();
+            return result;
+        }
+
+        private XmlDocument RequestXml(string link)
+        {
+            return RequestXml(link, new Dictionary<string, string>());
+        }
+
+        private XmlDocument RequestXml(string link, Dictionary<string, string> data)
+        {
+            HttpWebResponse response;
+            return RequestXml(link, data, out response);
+        }
+
+        private XmlDocument RequestXml(string link, Dictionary<string, string> data, out HttpWebResponse response)
+        {
+            XmlDocument result = new XmlDocument();
+            StreamReader sr = Request(link, data, out response);
+            result.LoadXml(HtmlDecodeAdvanced(sr.ReadToEnd()));
+            sr.Close();
             return result;
         }
 
