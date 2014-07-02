@@ -53,7 +53,7 @@ namespace MiniMAL
             Score = a.MyScore;
             DateStart = a.MyStartDate;
             DateFinish = a.MyEndDate;
-            Tags = string.Join(",", a.MyTags);
+            Tags = a.MyTags;
         }
 
         public static AnimeRequestData DefaultAddRequest(WatchingStatus status)

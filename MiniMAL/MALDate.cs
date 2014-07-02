@@ -4,24 +4,29 @@ using System.Xml.Serialization;
 
 namespace MiniMAL
 {
-    public struct MiniMALDate : IXmlSerializable
+    public struct MALDate : IXmlSerializable
     {
-        public DateTime Data { get; set; }
+        private DateTime _date;
 
-        public MiniMALDate(DateTime dateTime)
+        public MALDate(DateTime dateTime)
             : this()
         {
-            Data = dateTime;
+            _date = dateTime;
         }
 
-        public static implicit operator DateTime(MiniMALDate x)
+        public override string ToString()
         {
-            return x.Data;
+            return _date.ToString("MM-dd-yyyy");
         }
 
-        public static implicit operator MiniMALDate(DateTime x)
+        public static implicit operator DateTime(MALDate x)
         {
-            return new MiniMALDate(x);
+            return x._date;
+        }
+
+        public static implicit operator MALDate(DateTime x)
+        {
+            return new MALDate(x);
         }
 
         public System.Xml.Schema.XmlSchema GetSchema()
@@ -36,7 +41,7 @@ namespace MiniMAL
 
         public void WriteXml(System.Xml.XmlWriter writer)
         {
-            writer.WriteValue(Data.ToString("MMddyyyy"));
+            writer.WriteValue(_date.ToString("MMddyyyy"));
         }
     }
 }

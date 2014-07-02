@@ -62,10 +62,11 @@
     <Compile Include="MangaSearchEntry.cs" />
     <Compile Include="MiniMALClient.cs" />
     <Compile Include="Internal\MiniMALConverter.cs" />
-    <Compile Include="MiniMALDate.cs" />
+    <Compile Include="MALDate.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Internal\SearchEntry.cs" />
     <Compile Include="Internal\UserList.cs" />
+    <Compile Include="MALTags.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -53,7 +53,7 @@ namespace MiniMAL
             Score = m.MyScore;
             DateStart = m.MyStartDate;
             DateFinish = m.MyEndDate;
-            Tags = string.Join(",", m.MyTags);
+            Tags = m.MyTags;
         }
 
         public static MangaRequestData DefaultAddRequest(ReadingStatus status)

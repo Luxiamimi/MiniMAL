@@ -13,9 +13,9 @@ namespace MiniMAL.Internal
         [XmlElement(ElementName = "score")]
         public int? Score { get; set; }
         [XmlElement(ElementName = "date_start")]
-        public MiniMALDate? DateStart { get; set; }
+        public MALDate? DateStart { get; set; }
         [XmlElement(ElementName = "date_finish")]
-        public MiniMALDate? DateFinish { get; set; }
+        public MALDate? DateFinish { get; set; }
         [XmlElement(ElementName = "priority")]
         public int? Priority { get; set; }
         [XmlElement(ElementName = "enable_discussion")]
@@ -23,7 +23,7 @@ namespace MiniMAL.Internal
         [XmlElement(ElementName = "comments")]
         public string Comments { get; set; }
         [XmlElement(ElementName = "tags")]
-        public string Tags { get; set; }
+        public MALTags? Tags { get; set; }
 
         [XmlIgnore]
         public bool ScoreSpecified { get { return Score.HasValue; } }
@@ -38,7 +38,7 @@ namespace MiniMAL.Internal
         [XmlIgnore]
         public bool CommentsSpecified { get { return Comments == ""; } }
         [XmlIgnore]
-        public bool TagsSpecified { get { return Tags == ""; } }
+        public bool TagsSpecified { get { return Tags.HasValue; } }
 
         internal EntryRequestData()
         {
