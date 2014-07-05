@@ -20,14 +20,10 @@ namespace MiniMAL.Console.Commands
 
         protected override void Action(ArgumentsValues arguments, OptionsValues options)
         {
-            AnimeList animelist;
-            if (arguments.ContainsKey("user"))
-                animelist = _client.LoadAnimelist((string)arguments["user"]);
-            else
-                animelist = _client.LoadAnimelist();
+            var animelist = arguments.ContainsKey("user") ? MiniMALClient.LoadAnimelist((string)arguments["user"]) : Client.LoadAnimelist();
 
             IEnumerable<Anime> list = new List<Anime>();
-            foreach (string opt in options.Keys)
+            foreach (var opt in options.Keys)
                 switch (opt)
                 {
                     case "w": list = list.Concat(animelist[WatchingStatus.Watching]); break;
@@ -37,12 +33,14 @@ namespace MiniMAL.Console.Commands
                     case "p": list = list.Concat(animelist[WatchingStatus.PlanToWatch]); break;
                 }
 
-            if (!list.Any())
-                list = animelist.ToList();
+            var enumerable = list as IList<Anime> ?? list.ToList();
 
-            foreach (Anime a in list)
+            if (!enumerable.Any())
+                enumerable = animelist.ToList();
+
+            foreach (var a in enumerable)
                 System.Console.WriteLine(a.Title);
-            System.Console.WriteLine(list.Count() + " entries");
+            System.Console.WriteLine(enumerable.Count() + " entries");
         }
     }
 }

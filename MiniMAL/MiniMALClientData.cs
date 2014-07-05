@@ -8,8 +8,8 @@ namespace MiniMAL
 {
     public struct MiniMALClientData
     {
-        public string Username;
-        public byte[] Password;
+        public string Username { get; set; }
+        public byte[] Password { get; set; }
 
         [XmlIgnore]
         public string DecryptedPassword
@@ -24,7 +24,7 @@ namespace MiniMAL
             }
         }
 
-        private static ASCIIEncoding Encoding = new ASCIIEncoding();
+        private static readonly ASCIIEncoding Encoding = new ASCIIEncoding();
 
         public MiniMALClientData(string username, string password)
             : this()
@@ -35,8 +35,8 @@ namespace MiniMAL
 
         public static void Save(MiniMALClientData data, string filename)
         {
-            XmlSerializer serializer = new XmlSerializer(typeof(MiniMALClientData));
-            StreamWriter sw = new StreamWriter(filename);
+            var serializer = new XmlSerializer(typeof(MiniMALClientData));
+            var sw = new StreamWriter(filename);
             serializer.Serialize(sw, data);
             sw.Close();
         }
@@ -46,17 +46,17 @@ namespace MiniMAL
             if (!File.Exists(filename))
                 throw new FileNotFoundException();
 
-            XmlSerializer serializer = new XmlSerializer(typeof(MiniMALClientData));
-            StreamReader sr = new StreamReader(filename);
+            var serializer = new XmlSerializer(typeof(MiniMALClientData));
+            var sr = new StreamReader(filename);
             MiniMALClientData data;
             try
             {
                 data = (MiniMALClientData)serializer.Deserialize(sr);
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 sr.Close();
-                throw e;
+                throw;
             }
 
             sr.Close();

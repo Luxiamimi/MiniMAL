@@ -1,12 +1,11 @@
 ﻿using System;
-using System.Xml;
 using System.Xml.Serialization;
 using MiniMAL.Internal;
 
 namespace MiniMAL
 {
     [XmlRoot(ElementName = "entry", Namespace = "")]
-    public class AnimeRequestData : EntryRequestData<WatchingStatus>
+    public class AnimeRequestData : EntryRequestData
     {
         [XmlElement(ElementName = "episode")]
         public int? Episode { get; set; }
@@ -58,11 +57,7 @@ namespace MiniMAL
 
         public static AnimeRequestData DefaultAddRequest(WatchingStatus status)
         {
-            AnimeRequestData result = new AnimeRequestData();
-            result.Status = (int)status;
-            result.Episode = 1;
-            result.Score = 0;
-            result.DateStart = DateTime.Now;
+            var result = new AnimeRequestData {Status = (int) status, Episode = 1, Score = 0, DateStart = DateTime.Now};
             return result;
         }
     }

@@ -13,7 +13,7 @@ namespace MiniMAL.Console.Commands
 
         protected override void Action(ArgumentsValues arguments, OptionsValues options)
         {
-            _client.AddAnime((int)arguments["id"], AnimeRequestData.DefaultAddRequest((WatchingStatus)arguments["status"]));
+            Client.AddAnime((int)arguments["id"], AnimeRequestData.DefaultAddRequest((WatchingStatus)arguments["status"]));
         }
     }
 }

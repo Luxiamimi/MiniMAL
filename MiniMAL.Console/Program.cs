@@ -2,11 +2,11 @@
 
 namespace MiniMAL.Console
 {
-    internal class Program
+    internal static class Program
     {
         private static void Main(string[] args)
         {
-            MiniMALConsole console = new MiniMALConsole();
+            var console = new MiniMALConsole();
 
             if (args.Any())
                 console.Request(args);

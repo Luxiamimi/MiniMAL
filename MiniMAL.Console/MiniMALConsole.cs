@@ -7,7 +7,7 @@ namespace MiniMAL.Console
     // TODO : Add a resource file for translation
     public class MiniMALConsole : StarLess.ConsoleInterface
     {
-        private MiniMALClient _client;
+        private readonly MiniMALClient _client;
 
         public MiniMALConsole()
             : base("MiniMal")

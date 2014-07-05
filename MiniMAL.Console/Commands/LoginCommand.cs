@@ -13,11 +13,11 @@ namespace MiniMAL.Console.Commands
         {
             System.Console.Write("Enter your username : ");
 
-            string username = System.Console.ReadLine();
+            var username = System.Console.ReadLine();
 
             System.Console.Write("Enter your password : ");
 
-            string password = "";
+            var password = "";
             ConsoleKeyInfo key;
             do
             {
@@ -39,7 +39,7 @@ namespace MiniMAL.Console.Commands
 
             try
             {
-                _client.Authentification(username, password);
+                Client.Authentification(username, password);
                 System.Console.WriteLine("Success");
             }
             catch (UnauthorizedAccessException e)
@@ -47,7 +47,7 @@ namespace MiniMAL.Console.Commands
                 System.Console.WriteLine(e.Message);
             }
 
-            _client.SaveConfig();
+            Client.SaveConfig();
         }
     }
 }

@@ -9,12 +9,12 @@ namespace MiniMAL
         {
             get
             {
-                List<Manga> result = base[key];
+                var result = base[key];
 
-                if (key == ReadingStatus.Reading)
-                    foreach (Manga m in base[ReadingStatus.Completed])
-                        if (m.MyReadChapters < m.Chapters)
-                            result.Add(m);
+                if (key != ReadingStatus.Reading) return result;
+                foreach (var m in base[ReadingStatus.Completed])
+                    if (m.MyReadChapters < m.Chapters)
+                        result.Add(m);
 
                 return result;
             }

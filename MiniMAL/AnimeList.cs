@@ -9,12 +9,12 @@ namespace MiniMAL
         {
             get
             {
-                List<Anime> result = base[key];
+                var result = base[key];
 
-                if (key == WatchingStatus.Watching)
-                    foreach (Anime a in base[WatchingStatus.Completed])
-                        if (a.MyWatchedEpisodes < a.Episodes)
-                            result.Add(a);
+                if (key != WatchingStatus.Watching) return result;
+                foreach (var a in base[WatchingStatus.Completed])
+                    if (a.MyWatchedEpisodes < a.Episodes)
+                        result.Add(a);
 
                 return result;
             }

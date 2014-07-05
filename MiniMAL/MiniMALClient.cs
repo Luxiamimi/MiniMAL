@@ -16,7 +16,7 @@ namespace MiniMAL
         public bool IsConnected { get; private set; }
         public MiniMALClientData ClientData { get; private set; }
 
-        private static string configFilename = "configMiniMAL.xml";
+        private const string ConfigFilename = "configMiniMAL.xml";
 
         public MiniMALClient()
         {
@@ -25,14 +25,14 @@ namespace MiniMAL
 
         public void SaveConfig()
         {
-            MiniMALClientData.Save(ClientData, configFilename);
+            MiniMALClientData.Save(ClientData, ConfigFilename);
         }
 
         public void LoadConfig()
         {
             try
             {
-                ClientData = MiniMALClientData.Load(configFilename);
+                ClientData = MiniMALClientData.Load(ConfigFilename);
             }
             catch (FileNotFoundException)
             {
@@ -48,23 +48,22 @@ namespace MiniMAL
 
         public void Authentification(string username, string password)
         {
-            string link = "http://myanimelist.net/api/account/verify_credentials.xml";
-            WebRequest request = WebRequest.Create(link);
+            const string link = "http://myanimelist.net/api/account/verify_credentials.xml";
+            var request = WebRequest.Create(link);
             request.Credentials = new NetworkCredential(username, password);
 
             try
             {
-                WebResponse response = request.GetResponse();
+                request.GetResponse();
             }
             catch (WebException e)
             {
                 IsConnected = false;
-                HttpWebResponse error = (HttpWebResponse)e.Response;
+                var error = (HttpWebResponse)e.Response;
 
                 if (error.StatusCode == HttpStatusCode.Unauthorized)
                     throw new UserUnauthorizedException();
-                else
-                    throw e;
+                throw;
             }
 
             ClientData = new MiniMALClientData(username, password);
@@ -75,106 +74,96 @@ namespace MiniMAL
         {
             if (IsConnected)
                 return LoadAnimelist(ClientData.Username);
-            else
-                throw new UserNotConnectedException();
+            throw new UserNotConnectedException();
         }
 
-        public AnimeList LoadAnimelist(string user)
+        public static AnimeList LoadAnimelist(string user)
         {
-            AnimeList list = new AnimeList();
+            var list = new AnimeList();
 
-            string link = string.Format("http://myanimelist.net/malappinfo.php?u={0}&type=anime&status=all", user);
-            XmlDocument xml = LoadXml(link);
+            var link = string.Format("http://myanimelist.net/malappinfo.php?u={0}&type=anime&status=all", user);
+            var xml = LoadXml(link);
 
+            if (xml.DocumentElement == null) return list;
             foreach (XmlNode e in xml.DocumentElement.ChildNodes)
             {
-                if (e.Name == "anime")
-                {
-                    Anime a = new Anime();
-                    a.LoadFromXmlNode(e);
-                    list.Add(a);
-                }
+                if (e.Name != "anime") continue;
+                var a = new Anime();
+                a.LoadFromXmlNode(e);
+                list.Add(a);
             }
             return list;
         }
 
-        public bool AddAnime(int id, AnimeRequestData data)
+        public void AddAnime(int id, AnimeRequestData data)
         {
-            string link = string.Format("http://myanimelist.net/api/animelist/add/{0}.xml", id);
+            var link = string.Format("http://myanimelist.net/api/animelist/add/{0}.xml", id);
 
-            Dictionary<string, string> requestData = new Dictionary<string, string>();
-            requestData.Add("data", data.SerializeToString());
+            var requestData = new Dictionary<string, string> {{"data", data.SerializeToString()}};
 
             HttpWebResponse response;
             Request(link, requestData, out response);
-
-            return true;
         }
 
         public MangaList LoadMangalist()
         {
             if (IsConnected)
                 return LoadMangalist(ClientData.Username);
-            else
-                throw new UserNotConnectedException();
+            throw new UserNotConnectedException();
         }
 
-        public MangaList LoadMangalist(string user = "")
+        public static MangaList LoadMangalist(string user)
         {
-            MangaList list = new MangaList();
+            if (user == null) throw new ArgumentNullException("user");
+            var list = new MangaList();
 
-            string link = string.Format("http://myanimelist.net/malappinfo.php?u={0}&type=manga&status=all", user);
-            XmlDocument xml = LoadXml(link);
+            var link = string.Format("http://myanimelist.net/malappinfo.php?u={0}&type=manga&status=all", user);
+            var xml = LoadXml(link);
 
+            if (xml.DocumentElement == null) return list;
             foreach (XmlNode e in xml.DocumentElement.ChildNodes)
             {
-                if (e.Name == "manga")
-                {
-                    Manga m = new Manga();
-                    m.LoadFromXmlNode(e);
-                    list.Add(m);
-                }
+                if (e.Name != "manga") continue;
+                var m = new Manga();
+                m.LoadFromXmlNode(e);
+                list.Add(m);
             }
             return list;
         }
 
-        public bool AddManga(int id, MangaRequestData data)
+        public void AddManga(int id, MangaRequestData data)
         {
-            string link = string.Format("http://myanimelist.net/api/mangalist/add/{0}.xml", id);
+            var link = string.Format("http://myanimelist.net/api/mangalist/add/{0}.xml", id);
 
-            Dictionary<string, string> requestData = new Dictionary<string, string>();
-            requestData.Add("data", data.SerializeToString());
+            var requestData = new Dictionary<string, string> {{"data", data.SerializeToString()}};
 
             HttpWebResponse response;
             Request(link, requestData, out response);
-
-            return true;
         }
 
         public List<AnimeSearchEntry> SearchAnime(string[] search)
         {
-            List<AnimeSearchEntry> list = new List<AnimeSearchEntry>();
+            var list = new List<AnimeSearchEntry>();
 
-            string link = "http://myanimelist.net/api/anime/search.xml?q=";
+            var link = "http://myanimelist.net/api/anime/search.xml?q=";
 
             if (search.Any())
             {
                 link += search[0];
-                for (int i = 1; i < search.Length; i++)
+                for (var i = 1; i < search.Length; i++)
                     link += "+" + search[i];
             }
             else return list;
 
-            XmlDocument xml = RequestXml(link);
+            var xml = RequestXml(link);
 
+            if (xml.DocumentElement == null) return list;
             foreach (XmlNode e in xml.DocumentElement.ChildNodes)
             {
-                if (e.Name == "entry")
-                {
-                    AnimeSearchEntry a = new AnimeSearchEntry();
-                    a.LoadFromXmlNode(e);
-                    list.Add(a);
-                }
+                if (e.Name != "entry") continue;
+                var a = new AnimeSearchEntry();
+                a.LoadFromXmlNode(e);
+                list.Add(a);
             }
 
             return list;
@@ -182,49 +171,37 @@ namespace MiniMAL
 
         public List<MangaSearchEntry> SearchManga(string[] search)
         {
-            List<MangaSearchEntry> list = new List<MangaSearchEntry>();
+            var list = new List<MangaSearchEntry>();
 
-            string link = "http://myanimelist.net/api/manga/search.xml?q=";
+            var link = "http://myanimelist.net/api/manga/search.xml?q=";
 
             if (search.Any())
             {
                 link += search[0];
-                for (int i = 1; i < search.Length; i++)
+                for (var i = 1; i < search.Length; i++)
                     link += "+" + search[i];
             }
             else return list;
 
-            XmlDocument xml = RequestXml(link);
+            var xml = RequestXml(link);
 
+            if (xml.DocumentElement == null) return list;
             foreach (XmlNode e in xml.DocumentElement.ChildNodes)
             {
-                if (e.Name == "entry")
-                {
-                    MangaSearchEntry m = new MangaSearchEntry();
-                    m.LoadFromXmlNode(e);
-                    list.Add(m);
-                }
+                if (e.Name != "entry") continue;
+                var m = new MangaSearchEntry();
+                m.LoadFromXmlNode(e);
+                list.Add(m);
             }
 
             return list;
         }
 
-        private XmlDocument LoadXml(string link)
+        private static XmlDocument LoadXml(string link)
         {
-            XmlDocument xml = new XmlDocument();
+            var xml = new XmlDocument();
             xml.Load(link);
             return xml;
-        }
-
-        private StreamReader Request(string link)
-        {
-            return Request(link, new Dictionary<string, string>());
-        }
-
-        private StreamReader Request(string link, Dictionary<string, string> data)
-        {
-            HttpWebResponse response;
-            return Request(link, data, out response);
         }
 
         private StreamReader Request(string link, Dictionary<string, string> data, out HttpWebResponse response)
@@ -235,13 +212,13 @@ namespace MiniMAL
             if (data.Any())
             {
                 link += "?";
-                List<string> dataInline = new List<string>();
-                foreach (KeyValuePair<string, string> s in data)
+                var dataInline = new List<string>();
+                foreach (var s in data)
                     dataInline.Add(string.Format("{0}={1}", s.Key, s.Value));
                 link += string.Join("&", dataInline);
             }
 
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(link);
+            var request = (HttpWebRequest)WebRequest.Create(link);
             request.Credentials = new NetworkCredential(ClientData.Username, ClientData.DecryptedPassword);
             request.PreAuthenticate = true;
             request.Timeout = 10 * 1000;
@@ -252,16 +229,21 @@ namespace MiniMAL
             }
             catch (WebException e)
             {
-                HttpWebResponse error = (HttpWebResponse)e.Response;
-                StreamReader readStream = new StreamReader(error.GetResponseStream(), Encoding.UTF8);
+                var error = (HttpWebResponse)e.Response;
+                if (error == null) throw;
+                var baseStream = error.GetResponseStream();
+                if (baseStream == null) throw;
+                var readStream = new StreamReader(baseStream, Encoding.UTF8);
                 Console.WriteLine(readStream.ReadToEnd());
 
                 readStream.Close();
-                throw e;
+                throw;
             }
 
-            StreamReader result = new StreamReader(response.GetResponseStream());
-
+            var responseStream = response.GetResponseStream();
+            StreamReader result = null;
+            if (responseStream != null)
+                result = new StreamReader(responseStream);
             response.Close();
             return result;
         }
@@ -279,24 +261,24 @@ namespace MiniMAL
 
         private XmlDocument RequestXml(string link, Dictionary<string, string> data, out HttpWebResponse response)
         {
-            XmlDocument result = new XmlDocument();
-            StreamReader sr = Request(link, data, out response);
+            var result = new XmlDocument();
+            var sr = Request(link, data, out response);
             result.LoadXml(HtmlDecodeAdvanced(sr.ReadToEnd()));
             sr.Close();
             return result;
         }
 
-        private string HtmlDecodeAdvanced(string content)
+        private static string HtmlDecodeAdvanced(string content)
         {
-            StringBuilder output = new StringBuilder(content.Length);
-            for (int i = 0; i < content.Length; i++)
+            var output = new StringBuilder(content.Length);
+            for (var i = 0; i < content.Length; i++)
             {
                 if (content[i] == '&')
                 {
-                    int startOfEntity = i;
-                    int endOfEntity = content.IndexOf(';', startOfEntity);
-                    string entity = content.Substring(startOfEntity, endOfEntity - startOfEntity);
-                    int unicodeNumber = (int)(HttpUtility.HtmlDecode(entity)[0]);
+                    var startOfEntity = i;
+                    var endOfEntity = content.IndexOf(';', startOfEntity);
+                    var entity = content.Substring(startOfEntity, endOfEntity - startOfEntity);
+                    int unicodeNumber = HttpUtility.HtmlDecode(entity)[0];
                     output.Append("&#" + unicodeNumber + ";");
                     i = endOfEntity;
                 }

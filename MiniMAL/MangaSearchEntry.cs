@@ -6,15 +6,15 @@ namespace MiniMAL
 {
     public class MangaSearchEntry : SearchEntry<TypeManga, PublishingStatus>
     {
-        public int Chapters { get; set; }
-        public int Volumes { get; set; }
+        public int Chapters { get; protected set; }
+        public int Volumes { get; protected set; }
 
-        public override void LoadFromXmlNode(XmlNode e)
+        public void LoadFromXmlNode(XmlNode e)
         {
-            ID = MiniMALConverter.XmlToInt(e["id"]);
-            Title = e["title"].InnerText;
-            EnglishTitle = e["english"].InnerText;
-            Synonyms = e["synonyms"].InnerText.Split(new string[] { "; " }, StringSplitOptions.RemoveEmptyEntries);
+            Id = MiniMALConverter.XmlToInt(e["id"]);
+            Title = MiniMALConverter.XmlToString(e["title"]);
+            EnglishTitle = MiniMALConverter.XmlToString(e["english"]);
+            Synonyms = MiniMALConverter.XmlToString(e["synonyms"]).Split(new[] { "; " }, StringSplitOptions.RemoveEmptyEntries);
             Chapters = MiniMALConverter.XmlToInt(e["chapters"]);
             Volumes = MiniMALConverter.XmlToInt(e["volumes"]);
             Score = MiniMALConverter.XmlToDouble(e["score"]);
@@ -22,11 +22,11 @@ namespace MiniMAL
             Status = ParseStatus(e["status"]);
             StartDate = MiniMALConverter.XmlToDate(e["start_date"]);
             EndDate = MiniMALConverter.XmlToDate(e["end_date"]);
-            Synopsis = e["synopsis"].InnerText;
-            ImageUrl = e["image"].InnerText;
+            Synopsis = MiniMALConverter.XmlToString(e["synopsis"]);
+            ImageUrl = MiniMALConverter.XmlToString(e["image"]);
         }
 
-        private TypeManga ParseType(XmlNode xml)
+        private static TypeManga ParseType(XmlNode xml)
         {
             switch (xml.InnerText)
             {
@@ -41,7 +41,7 @@ namespace MiniMAL
             }
         }
 
-        private PublishingStatus ParseStatus(XmlNode xml)
+        private static PublishingStatus ParseStatus(XmlNode xml)
         {
             switch (xml.InnerText)
             {

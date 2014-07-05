@@ -5,7 +5,7 @@ using MiniMAL.Internal;
 namespace MiniMAL
 {
     [XmlRoot(ElementName = "entry", Namespace = "")]
-    public class MangaRequestData : EntryRequestData<ReadingStatus>
+    public class MangaRequestData : EntryRequestData
     {
         [XmlElement(ElementName = "chapter")]
         public int? Chapter { get; set; }
@@ -58,12 +58,14 @@ namespace MiniMAL
 
         public static MangaRequestData DefaultAddRequest(ReadingStatus status)
         {
-            MangaRequestData result = new MangaRequestData();
-            result.Status = (int)status;
-            result.Chapter = 1;
-            result.Volume = 1;
-            result.Score = 0;
-            result.DateStart = DateTime.Now;
+            var result = new MangaRequestData
+            {
+                Status = (int) status,
+                Chapter = 1,
+                Volume = 1,
+                Score = 0,
+                DateStart = DateTime.Now
+            };
             return result;
         }
     }

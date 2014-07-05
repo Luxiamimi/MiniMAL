@@ -1,27 +1,24 @@
 ﻿using System;
-using System.Xml;
 
 namespace MiniMAL.Internal
 {
     public abstract class SearchEntry<TSeriesType, TSeriesStatus>
     {
-        public int ID { get; set; }
-        public string Title { get; set; }
-        public string EnglishTitle { get; set; }
-        public string[] Synonyms { get; set; }
-        public double Score { get; set; }
-        public TSeriesType Type { get; set; }
-        public TSeriesStatus Status { get; set; }
-        public DateTime StartDate { get; set; }
-        public DateTime EndDate { get; set; }
-        public string Synopsis { get; set; }
-        public string ImageUrl { get; set; }
+        public int Id { get; protected set; }
+        public string Title { get; protected set; }
+        public string EnglishTitle { get; protected set; }
+        public string[] Synonyms { get; protected set; }
+        public double Score { get; protected set; }
+        public TSeriesType Type { get; protected set; }
+        public TSeriesStatus Status { get; protected set; }
+        public DateTime StartDate { get; protected set; }
+        public DateTime EndDate { get; protected set; }
+        public string Synopsis { get; protected set; }
+        public string ImageUrl { get; protected set; }
 
         internal SearchEntry()
         {
         }
-
-        public abstract void LoadFromXmlNode(XmlNode e);
 
         public override string ToString()
         {
@@ -32,8 +29,8 @@ namespace MiniMAL.Internal
         {
             get
             {
-                string result = Title.Replace(" ", "_").Replace("?", "").Replace(",", "").Replace("\x27", "");
-                return String.Join("_", result.Split(new char[] { '_' }
+                var result = Title.Replace(" ", "_").Replace("?", "").Replace(",", "").Replace("\x27", "");
+                return String.Join("_", result.Split(new[] { '_' }
                     , StringSplitOptions.RemoveEmptyEntries));
             }
         }

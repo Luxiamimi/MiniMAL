@@ -13,7 +13,7 @@ namespace MiniMAL.Console.Commands
 
         protected override void Action(ArgumentsValues arguments, OptionsValues options)
         {
-            _client.AddManga((int)arguments["id"], MangaRequestData.DefaultAddRequest((ReadingStatus)arguments["status"]));
+            Client.AddManga((int)arguments["id"], MangaRequestData.DefaultAddRequest((ReadingStatus)arguments["status"]));
         }
     }
 }

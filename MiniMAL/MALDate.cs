@@ -8,7 +8,7 @@ namespace MiniMAL
     {
         private DateTime _date;
 
-        public MALDate(DateTime dateTime)
+        private MALDate(DateTime dateTime)
             : this()
         {
             _date = dateTime;
@@ -36,7 +36,7 @@ namespace MiniMAL
 
         public void ReadXml(System.Xml.XmlReader reader)
         {
-            DateTime.ParseExact(reader.Value, "MMddyyyy", CultureInfo.CreateSpecificCulture("en"));
+            _date = DateTime.ParseExact(reader.Value, "MMddyyyy", CultureInfo.CreateSpecificCulture("en"));
         }
 
         public void WriteXml(System.Xml.XmlWriter writer)

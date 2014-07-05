@@ -20,14 +20,12 @@ namespace MiniMAL.Console.Commands
 
         protected override void Action(ArgumentsValues arguments, OptionsValues options)
         {
-            MangaList mangalist;
-            if (arguments.ContainsKey("user"))
-                mangalist = _client.LoadMangalist((string)arguments["user"]);
-            else
-                mangalist = _client.LoadMangalist();
+            var mangalist = arguments.ContainsKey("user")
+                ? MiniMALClient.LoadMangalist((string)arguments["user"])
+                : Client.LoadMangalist();
 
             IEnumerable<Manga> list = new List<Manga>();
-            foreach (string opt in options.Keys)
+            foreach (var opt in options.Keys)
                 switch (opt)
                 {
                     case "r": list = list.Concat(mangalist[ReadingStatus.Reading]); break;
@@ -37,12 +35,14 @@ namespace MiniMAL.Console.Commands
                     case "p": list = list.Concat(mangalist[ReadingStatus.PlanToRead]); break;
                 }
 
-            if (!list.Any())
-                list = mangalist.ToList();
+            var enumerable = list as IList<Manga> ?? list.ToList();
 
-            foreach (Manga m in list)
+            if (!enumerable.Any())
+                enumerable = mangalist.ToList();
+
+            foreach (var m in enumerable)
                 System.Console.WriteLine(m.Title);
-            System.Console.WriteLine(list.Count() + " entries");
+            System.Console.WriteLine(enumerable.Count() + " entries");
         }
     }
 }

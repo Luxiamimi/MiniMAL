@@ -5,8 +5,8 @@ using System.Xml.Serialization;
 
 namespace MiniMAL.Internal
 {
-    // TO-DO : Fix tags
-    public abstract class EntryRequestData<TMyStatus> where TMyStatus : struct
+    // TODO : Fix tags
+    public abstract class EntryRequestData
     {
         [XmlElement(ElementName = "status")]
         public int Status { get; set; }
@@ -46,10 +46,10 @@ namespace MiniMAL.Internal
 
         public string SerializeToString()
         {
-            CustomStringWriter result = new CustomStringWriter(new UTF8Encoding());
-            CustomXmlWriter xml = new CustomXmlWriter(result);
-            XmlSerializer serializer = new XmlSerializer(this.GetType());
-            XmlSerializerNamespaces ns = new XmlSerializerNamespaces();
+            var result = new CustomStringWriter(new UTF8Encoding());
+            var xml = new CustomXmlWriter(result);
+            var serializer = new XmlSerializer(GetType());
+            var ns = new XmlSerializerNamespaces();
             ns.Add("", "");
             serializer.Serialize(xml, this, ns);
 
@@ -58,7 +58,7 @@ namespace MiniMAL.Internal
 
         public class CustomXmlWriter : XmlTextWriter
         {
-            public CustomXmlWriter(CustomStringWriter stringWriter)
+            public CustomXmlWriter(TextWriter stringWriter)
                 : base(stringWriter)
             {
             }
@@ -71,10 +71,9 @@ namespace MiniMAL.Internal
 
         public class CustomStringWriter : StringWriter
         {
-            private Encoding _encoding;
+            private readonly Encoding _encoding;
 
             public CustomStringWriter(Encoding encoding)
-                : base()
             {
                 _encoding = encoding;
             }

@@ -6,25 +6,25 @@ namespace MiniMAL
 {
     public class AnimeSearchEntry : SearchEntry<TypeAnime, AiringStatus>
     {
-        public int Episodes { get; set; }
+        public int Episodes { get; protected set; }
 
-        public override void LoadFromXmlNode(XmlNode e)
+        public void LoadFromXmlNode(XmlNode e)
         {
-            ID = MiniMALConverter.XmlToInt(e["id"]);
-            Title = e["title"].InnerText;
-            EnglishTitle = e["english"].InnerText;
-            Synonyms = e["synonyms"].InnerText.Split(new string[] { "; " }, StringSplitOptions.RemoveEmptyEntries);
+            Id = MiniMALConverter.XmlToInt(e["id"]);
+            Title = MiniMALConverter.XmlToString(e["title"]);
+            EnglishTitle = MiniMALConverter.XmlToString(e["english"]);
+            Synonyms = MiniMALConverter.XmlToString(e["synonyms"]).Split(new[] { "; " }, StringSplitOptions.RemoveEmptyEntries);
             Episodes = MiniMALConverter.XmlToInt(e["episodes"]);
             Score = MiniMALConverter.XmlToDouble(e["score"]);
             Type = ParseType(e["type"]);
             Status = ParseStatus(e["status"]);
             StartDate = MiniMALConverter.XmlToDate(e["start_date"]);
             EndDate = MiniMALConverter.XmlToDate(e["end_date"]);
-            Synopsis = e["synopsis"].InnerText;
-            ImageUrl = e["image"].InnerText;
+            Synopsis = MiniMALConverter.XmlToString(e["synopsis"]);
+            ImageUrl = MiniMALConverter.XmlToString(e["image"]);
         }
 
-        private TypeAnime ParseType(XmlNode xml)
+        private static TypeAnime ParseType(XmlNode xml)
         {
             switch (xml.InnerText)
             {
@@ -38,7 +38,7 @@ namespace MiniMAL
             }
         }
 
-        private AiringStatus ParseStatus(XmlNode xml)
+        private static AiringStatus ParseStatus(XmlNode xml)
         {
             switch (xml.InnerText)
             {

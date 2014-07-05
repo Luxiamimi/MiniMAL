@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using MiniMAL.Exceptions;
 using StarLess;
 
@@ -17,8 +16,8 @@ namespace MiniMAL.Console.Commands
         {
             try
             {
-                List<MangaSearchEntry> search = _client.SearchManga(arguments.Values.ToArray());
-                foreach (MangaSearchEntry a in search)
+                var search = Client.SearchManga(arguments.Values.ToArray());
+                foreach (var a in search)
                     System.Console.WriteLine(a.Title);
                 System.Console.WriteLine(search.Count() + " entries");
             }

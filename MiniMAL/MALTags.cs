@@ -6,7 +6,7 @@ namespace MiniMAL
     {
         private string[] _tags;
 
-        public MALTags(string[] tags)
+        private MALTags(string[] tags)
             : this()
         {
             _tags = tags;
