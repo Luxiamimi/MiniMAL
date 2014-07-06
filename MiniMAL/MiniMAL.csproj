@@ -49,6 +49,7 @@
     <Compile Include="Exceptions\UserNotConnectedException.cs" />
     <Compile Include="Exceptions\UserUnauthorizedException.cs" />
     <Compile Include="Internal\EntryRequestData.cs" />
+    <Compile Include="Internal\RequestLink.cs" />
     <Compile Include="MangaEnum.cs" />
     <Compile Include="MangaRequestData.cs" />
     <Compile Include="MiniMALClientData.cs" />

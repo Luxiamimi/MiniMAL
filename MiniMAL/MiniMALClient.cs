@@ -7,6 +7,7 @@ using System.Text;
 using System.Web;
 using System.Xml;
 using MiniMAL.Exceptions;
+using MiniMAL.Internal;
 
 namespace MiniMAL
 {
@@ -47,7 +48,7 @@ namespace MiniMAL
 
         public void Authentification(string username, string password)
         {
-            const string link = "http://myanimelist.net/api/account/verify_credentials.xml";
+            string link = RequestLink.VerifyCredentials();
             WebRequest request = WebRequest.Create(link);
             request.Credentials = new NetworkCredential(username, password);
 
@@ -80,9 +81,7 @@ namespace MiniMAL
         {
             var list = new AnimeList();
 
-            string link =
-                string.Format("http://myanimelist.net/malappinfo.php?u={0}&type=anime&status=all",
-                    user);
+            string link = RequestLink.Animelist(user);
             XmlDocument xml = LoadXml(link);
 
             if (xml.DocumentElement == null)
@@ -100,8 +99,7 @@ namespace MiniMAL
 
         public void AddAnime(int id, AnimeRequestData data)
         {
-            string link = string.Format("http://myanimelist.net/api/animelist/add/{0}.xml", id);
-
+            string link = RequestLink.AddAnime(id);
             var requestData = new Dictionary<string, string> {{"data", data.SerializeToString()}};
 
             HttpWebResponse response;
@@ -121,9 +119,7 @@ namespace MiniMAL
                 throw new ArgumentNullException("user");
             var list = new MangaList();
 
-            string link =
-                string.Format("http://myanimelist.net/malappinfo.php?u={0}&type=manga&status=all",
-                    user);
+            string link = RequestLink.Mangalist(user);
             XmlDocument xml = LoadXml(link);
 
             if (xml.DocumentElement == null)
@@ -142,8 +138,7 @@ namespace MiniMAL
 
         public void AddManga(int id, MangaRequestData data)
         {
-            string link = string.Format("http://myanimelist.net/api/mangalist/add/{0}.xml", id);
-
+            string link = RequestLink.AddManga(id);
             var requestData = new Dictionary<string, string> {{"data", data.SerializeToString()}};
 
             HttpWebResponse response;
@@ -154,17 +149,7 @@ namespace MiniMAL
         {
             var list = new List<AnimeSearchEntry>();
 
-            string link = "http://myanimelist.net/api/anime/search.xml?q=";
-
-            if (search.Any())
-            {
-                link += search[0];
-                for (int i = 1; i < search.Length; i++)
-                    link += "+" + search[i];
-            }
-            else
-                return list;
-
+            string link = RequestLink.SearchAnime(search);
             XmlDocument xml = RequestXml(link);
 
             if (xml.DocumentElement == null)
@@ -186,17 +171,7 @@ namespace MiniMAL
         {
             var list = new List<MangaSearchEntry>();
 
-            string link = "http://myanimelist.net/api/manga/search.xml?q=";
-
-            if (search.Any())
-            {
-                link += search[0];
-                for (int i = 1; i < search.Length; i++)
-                    link += "+" + search[i];
-            }
-            else
-                return list;
-
+            string link = RequestLink.SearchManga(search);
             XmlDocument xml = RequestXml(link);
 
             if (xml.DocumentElement == null)
