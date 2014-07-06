@@ -6,7 +6,7 @@ using StarLess;
 namespace MiniMAL.Console
 {
     // TODO : Add a resource file for translation
-    public class MiniMALConsole : ConsoleInterface
+    internal class MiniMALConsole : ConsoleInterface
     {
         private readonly MiniMALClient _client;
 

@@ -4,7 +4,7 @@ using System.Xml;
 
 namespace MiniMAL.Internal
 {
-    static class MiniMALConverter
+    static internal class MALConverter
     {
         static public string XmlToString(XmlElement xml)
         {

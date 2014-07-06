@@ -5,7 +5,7 @@ using StarLess;
 
 namespace MiniMAL.Console.Commands
 {
-    public class SearchMangaCommand : MiniMALUnlimitedCommand
+    internal class SearchMangaCommand : MiniMALUnlimitedCommand
     {
         public SearchMangaCommand(MiniMALClient client)
             : base(client, "search-manga", "Search a manga in MyAnimeList database.")

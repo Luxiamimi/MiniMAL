@@ -53,6 +53,8 @@ namespace MiniMAL.Internal
         [XmlIgnore]
         public bool TagsSpecified { get { return Tags.HasValue; } }
 
+        internal EntryRequestData() {}
+
         public string SerializeToString()
         {
             var result = new CustomStringWriter(new UTF8Encoding());

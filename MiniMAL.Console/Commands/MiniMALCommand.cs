@@ -2,7 +2,7 @@
 
 namespace MiniMAL.Console.Commands
 {
-    public abstract class MiniMALCommand : Command
+    internal abstract class MiniMALCommand : Command
     {
         protected readonly MiniMALClient Client;
 

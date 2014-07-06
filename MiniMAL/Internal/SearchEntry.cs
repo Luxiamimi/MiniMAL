@@ -16,6 +16,8 @@ namespace MiniMAL.Internal
         public string Synopsis { get; protected set; }
         public string ImageUrl { get; protected set; }
 
+        internal SearchEntry() {}
+
         public string TitleForUrl
         {
             get

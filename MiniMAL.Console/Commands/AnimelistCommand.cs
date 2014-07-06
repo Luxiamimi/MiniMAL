@@ -4,7 +4,7 @@ using StarLess;
 
 namespace MiniMAL.Console.Commands
 {
-    public class AnimelistCommand : MiniMALCommand
+    internal class AnimelistCommand : MiniMALCommand
     {
         public AnimelistCommand(MiniMALClient client)
             : base(client, "animelist", "Display the anime list from a user.")

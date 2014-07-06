@@ -2,12 +2,15 @@
 {
     static internal class RequestLink
     {
-        private const string VerifyCredentialsFormat = "http://myanimelist.net/api/account/verify_credentials.xml";
+        private const string VerifyCredentialsFormat =
+            "http://myanimelist.net/api/account/verify_credentials.xml";
 
-        private const string AnimelistFormat = "http://myanimelist.net/malappinfo.php?u={0}&type=anime&status=all";
+        private const string AnimelistFormat =
+            "http://myanimelist.net/malappinfo.php?u={0}&type=anime&status=all";
         private const string AddAnimeFormat = "http://myanimelist.net/api/animelist/add/{0}.xml";
 
-        private const string MangalistFormat = "http://myanimelist.net/malappinfo.php?u={0}&type=manga&status=all";
+        private const string MangalistFormat =
+            "http://myanimelist.net/malappinfo.php?u={0}&type=manga&status=all";
         private const string AddMangaFormat = "http://myanimelist.net/api/mangalist/add/{0}.xml";
 
         private const string SearchAnimeFormat = "http://myanimelist.net/api/anime/search.xml?q={0}";

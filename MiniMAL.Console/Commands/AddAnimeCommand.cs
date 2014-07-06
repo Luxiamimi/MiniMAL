@@ -2,7 +2,7 @@
 
 namespace MiniMAL.Console.Commands
 {
-    public class AddAnimeCommand : MiniMALCommand
+    internal class AddAnimeCommand : MiniMALCommand
     {
         public AddAnimeCommand(MiniMALClient client)
             : base(client, "add-anime", "Add an anime in the user's animelist")

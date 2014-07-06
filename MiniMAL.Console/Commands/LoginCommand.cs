@@ -2,7 +2,7 @@
 
 namespace MiniMAL.Console.Commands
 {
-    public class LoginCommand : MiniMALCommand
+    internal class LoginCommand : MiniMALCommand
     {
         public LoginCommand(MiniMALClient client)
             : base(client, "login", "Connect a user at MyAnimeList services.") {}

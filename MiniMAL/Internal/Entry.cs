@@ -19,6 +19,8 @@ namespace MiniMAL.Internal
         public TMyStatus MyStatus { get; set; }
         public MALTags MyTags { get; set; }
 
+        internal Entry() {}
+
         public string TitleForUrl
         {
             get

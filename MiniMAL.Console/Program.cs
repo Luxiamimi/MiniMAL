@@ -2,7 +2,7 @@
 
 namespace MiniMAL.Console
 {
-    static class Program
+    static internal class Program
     {
         static private void Main(string[] args)
         {

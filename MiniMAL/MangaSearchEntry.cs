@@ -11,20 +11,20 @@ namespace MiniMAL
 
         public void LoadFromXmlNode(XmlNode e)
         {
-            Id = MiniMALConverter.XmlToInt(e["id"]);
-            Title = MiniMALConverter.XmlToString(e["title"]);
-            EnglishTitle = MiniMALConverter.XmlToString(e["english"]);
-            Synonyms = MiniMALConverter.XmlToString(e["synonyms"]).
-                                        Split(new[] {"; "}, StringSplitOptions.RemoveEmptyEntries);
-            Chapters = MiniMALConverter.XmlToInt(e["chapters"]);
-            Volumes = MiniMALConverter.XmlToInt(e["volumes"]);
-            Score = MiniMALConverter.XmlToDouble(e["score"]);
+            Id = MALConverter.XmlToInt(e["id"]);
+            Title = MALConverter.XmlToString(e["title"]);
+            EnglishTitle = MALConverter.XmlToString(e["english"]);
+            Synonyms = MALConverter.XmlToString(e["synonyms"]).
+                                    Split(new[] {"; "}, StringSplitOptions.RemoveEmptyEntries);
+            Chapters = MALConverter.XmlToInt(e["chapters"]);
+            Volumes = MALConverter.XmlToInt(e["volumes"]);
+            Score = MALConverter.XmlToDouble(e["score"]);
             Type = ParseType(e["type"]);
             Status = ParseStatus(e["status"]);
-            StartDate = MiniMALConverter.XmlToDate(e["start_date"]);
-            EndDate = MiniMALConverter.XmlToDate(e["end_date"]);
-            Synopsis = MiniMALConverter.XmlToString(e["synopsis"]);
-            ImageUrl = MiniMALConverter.XmlToString(e["image"]);
+            StartDate = MALConverter.XmlToDate(e["start_date"]);
+            EndDate = MALConverter.XmlToDate(e["end_date"]);
+            Synopsis = MALConverter.XmlToString(e["synopsis"]);
+            ImageUrl = MALConverter.XmlToString(e["image"]);
         }
 
         static private TypeManga ParseType(XmlNode xml)

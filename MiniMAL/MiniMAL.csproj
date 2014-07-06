@@ -57,7 +57,7 @@
     <Compile Include="MangaList.cs" />
     <Compile Include="MangaSearchEntry.cs" />
     <Compile Include="MiniMALClient.cs" />
-    <Compile Include="Internal\MiniMALConverter.cs" />
+    <Compile Include="Internal\MALConverter.cs" />
     <Compile Include="MALDate.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Internal\SearchEntry.cs" />
