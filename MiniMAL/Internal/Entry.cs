@@ -19,23 +19,20 @@ namespace MiniMAL.Internal
         public TMyStatus MyStatus { get; set; }
         public MALTags MyTags { get; set; }
 
-        internal Entry()
+        public string TitleForUrl
         {
+            get
+            {
+                string result =
+                    Title.Replace(" ", "_").Replace("?", "").Replace(",", "").Replace("\x27", "");
+                return String.Join("_",
+                    result.Split(new[] {'_'}, StringSplitOptions.RemoveEmptyEntries));
+            }
         }
 
         public override string ToString()
         {
             return Title;
-        }
-
-        public string TitleForUrl
-        {
-            get
-            {
-                var result = Title.Replace(" ", "_").Replace("?", "").Replace(",", "").Replace("\x27", "");
-                return String.Join("_", result.Split(new[] { '_' }
-                    , StringSplitOptions.RemoveEmptyEntries));
-            }
         }
     }
 }

@@ -13,7 +13,8 @@ namespace MiniMAL
             Id = MiniMALConverter.XmlToInt(e["id"]);
             Title = MiniMALConverter.XmlToString(e["title"]);
             EnglishTitle = MiniMALConverter.XmlToString(e["english"]);
-            Synonyms = MiniMALConverter.XmlToString(e["synonyms"]).Split(new[] { "; " }, StringSplitOptions.RemoveEmptyEntries);
+            Synonyms = MiniMALConverter.XmlToString(e["synonyms"]).
+                                        Split(new[] {"; "}, StringSplitOptions.RemoveEmptyEntries);
             Episodes = MiniMALConverter.XmlToInt(e["episodes"]);
             Score = MiniMALConverter.XmlToDouble(e["score"]);
             Type = ParseType(e["type"]);
@@ -24,29 +25,41 @@ namespace MiniMAL
             ImageUrl = MiniMALConverter.XmlToString(e["image"]);
         }
 
-        private static TypeAnime ParseType(XmlNode xml)
+        static private TypeAnime ParseType(XmlNode xml)
         {
             switch (xml.InnerText)
             {
-                case "": return TypeAnime.None;
-                case "TV": return TypeAnime.TV;
-                case "OVA": return TypeAnime.OVA;
-                case "Movie": return TypeAnime.Movie;
-                case "Special": return TypeAnime.Special;
-                case "ONA": return TypeAnime.ONA;
-                default: throw new InvalidOperationException();
+                case "":
+                    return TypeAnime.None;
+                case "TV":
+                    return TypeAnime.TV;
+                case "OVA":
+                    return TypeAnime.OVA;
+                case "Movie":
+                    return TypeAnime.Movie;
+                case "Special":
+                    return TypeAnime.Special;
+                case "ONA":
+                    return TypeAnime.ONA;
+                default:
+                    throw new InvalidOperationException();
             }
         }
 
-        private static AiringStatus ParseStatus(XmlNode xml)
+        static private AiringStatus ParseStatus(XmlNode xml)
         {
             switch (xml.InnerText)
             {
-                case "": return AiringStatus.None;
-                case "Currently Airing": return AiringStatus.Airing;
-                case "Finished Airing": return AiringStatus.Finished;
-                case "Not yet aired": return AiringStatus.NoYetAiring;
-                default: throw new InvalidOperationException();
+                case "":
+                    return AiringStatus.None;
+                case "Currently Airing":
+                    return AiringStatus.Airing;
+                case "Finished Airing":
+                    return AiringStatus.Finished;
+                case "Not yet aired":
+                    return AiringStatus.NoYetAiring;
+                default:
+                    throw new InvalidOperationException();
             }
         }
     }

@@ -32,13 +32,8 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.Web" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
@@ -48,7 +43,7 @@
     <Compile Include="AnimeRequestData.cs" />
     <Compile Include="AnimeSearchEntry.cs" />
     <Compile Include="Internal\Entry.cs" />
-    <Compile Include="Exceptions\ConfigFileCorrupt.cs" />
+    <Compile Include="Exceptions\ConfigFileCorruptException.cs" />
     <Compile Include="Exceptions\ConfigFileNotFoundException.cs" />
     <Compile Include="Exceptions\MiniMALException.cs" />
     <Compile Include="Exceptions\UserNotConnectedException.cs" />

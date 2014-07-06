@@ -16,15 +16,18 @@ namespace MiniMAL
         {
             get
             {
-                return Encoding.GetString(ProtectedData.Unprotect(Password, null, DataProtectionScope.CurrentUser));
+                return
+                    Encoding.GetString(ProtectedData.Unprotect(Password, null,
+                        DataProtectionScope.CurrentUser));
             }
+
             set
             {
-                Password = ProtectedData.Protect(Encoding.GetBytes(value), null, DataProtectionScope.CurrentUser);
+                Password = ProtectedData.Protect(Encoding.GetBytes(value), null,
+                    DataProtectionScope.CurrentUser);
             }
         }
-
-        private static readonly ASCIIEncoding Encoding = new ASCIIEncoding();
+        static private readonly ASCIIEncoding Encoding = new ASCIIEncoding();
 
         public MiniMALClientData(string username, string password)
             : this()
@@ -33,7 +36,7 @@ namespace MiniMAL
             DecryptedPassword = password;
         }
 
-        public static void Save(MiniMALClientData data, string filename)
+        static public void Save(MiniMALClientData data, string filename)
         {
             var serializer = new XmlSerializer(typeof(MiniMALClientData));
             var sw = new StreamWriter(filename);
@@ -41,7 +44,7 @@ namespace MiniMAL
             sw.Close();
         }
 
-        public static MiniMALClientData Load(string filename)
+        static public MiniMALClientData Load(string filename)
         {
             if (!File.Exists(filename))
                 throw new FileNotFoundException();

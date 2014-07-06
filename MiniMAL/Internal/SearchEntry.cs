@@ -16,23 +16,20 @@ namespace MiniMAL.Internal
         public string Synopsis { get; protected set; }
         public string ImageUrl { get; protected set; }
 
-        internal SearchEntry()
+        public string TitleForUrl
         {
+            get
+            {
+                string result =
+                    Title.Replace(" ", "_").Replace("?", "").Replace(",", "").Replace("\x27", "");
+                return String.Join("_",
+                    result.Split(new[] {'_'}, StringSplitOptions.RemoveEmptyEntries));
+            }
         }
 
         public override string ToString()
         {
             return Title;
-        }
-
-        public string TitleForUrl
-        {
-            get
-            {
-                var result = Title.Replace(" ", "_").Replace("?", "").Replace(",", "").Replace("\x27", "");
-                return String.Join("_", result.Split(new[] { '_' }
-                    , StringSplitOptions.RemoveEmptyEntries));
-            }
         }
     }
 }

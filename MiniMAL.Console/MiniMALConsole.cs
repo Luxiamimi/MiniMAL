@@ -1,11 +1,12 @@
-﻿﻿using System;
+﻿using System;
 using MiniMAL.Console.Commands;
 using MiniMAL.Exceptions;
+using StarLess;
 
 namespace MiniMAL.Console
 {
     // TODO : Add a resource file for translation
-    public class MiniMALConsole : StarLess.ConsoleInterface
+    public class MiniMALConsole : ConsoleInterface
     {
         private readonly MiniMALClient _client;
 
@@ -38,17 +39,12 @@ namespace MiniMAL.Console
                 System.Console.WriteLine();
                 System.Console.WriteLine(e.Message);
                 if (e is ConfigFileNotFoundException)
-                {
                     System.Console.WriteLine("Please enter your MyAnimeList's credentials.");
-                }
                 else if (e is ConfigFileCorruptException)
-                {
                     System.Console.WriteLine("Please enter your MyAnimeList's credentials.");
-                }
                 System.Console.WriteLine();
 
                 while (true)
-                {
                     try
                     {
                         Commands["login"].Run();
@@ -58,7 +54,6 @@ namespace MiniMAL.Console
                     {
                         System.Console.WriteLine(ee.Message + "\n");
                     }
-                }
             }
         }
     }

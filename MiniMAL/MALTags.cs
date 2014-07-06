@@ -1,4 +1,6 @@
-﻿using System.Xml.Serialization;
+﻿using System.Xml;
+using System.Xml.Schema;
+using System.Xml.Serialization;
 
 namespace MiniMAL
 {
@@ -18,44 +20,44 @@ namespace MiniMAL
             _tags = textToSplit.Split(',');
         }
 
+        public XmlSchema GetSchema()
+        {
+            return null;
+        }
+
+        public void ReadXml(XmlReader reader)
+        {
+            _tags = reader.Value.Split(',');
+        }
+
+        public void WriteXml(XmlWriter writer)
+        {
+            writer.WriteValue(ToString());
+        }
+
         public override string ToString()
         {
             return string.Join(",", _tags);
         }
 
-        public static implicit operator string(MALTags x)
+        static public implicit operator string(MALTags x)
         {
             return x.ToString();
         }
 
-        public static implicit operator MALTags(string x)
+        static public implicit operator MALTags(string x)
         {
             return new MALTags(x);
         }
 
-        public static implicit operator string[](MALTags x)
+        static public implicit operator string[](MALTags x)
         {
             return x._tags;
         }
 
-        public static implicit operator MALTags(string[] x)
+        static public implicit operator MALTags(string[] x)
         {
             return new MALTags(x);
-        }
-
-        public System.Xml.Schema.XmlSchema GetSchema()
-        {
-            return null;
-        }
-
-        public void ReadXml(System.Xml.XmlReader reader)
-        {
-            _tags = reader.Value.Split(',');
-        }
-
-        public void WriteXml(System.Xml.XmlWriter writer)
-        {
-            writer.WriteValue(ToString());
         }
     }
 }

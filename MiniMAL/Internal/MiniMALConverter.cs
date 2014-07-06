@@ -4,27 +4,30 @@ using System.Xml;
 
 namespace MiniMAL.Internal
 {
-    internal static class MiniMALConverter
+    static class MiniMALConverter
     {
-        public static string XmlToString(XmlElement xml)
+        static public string XmlToString(XmlElement xml)
         {
             return xml.InnerText;
         }
 
-        public static int XmlToInt(XmlElement xml)
+        static public int XmlToInt(XmlElement xml)
         {
             return xml.InnerText != "" ? Int32.Parse(xml.InnerText) : 0;
         }
 
-        public static double XmlToDouble(XmlElement xml)
+        static public double XmlToDouble(XmlElement xml)
         {
-            return xml.InnerText != "" ? Double.Parse(xml.InnerText, CultureInfo.InvariantCulture) : 0;
+            return xml.InnerText != ""
+                       ? Double.Parse(xml.InnerText, CultureInfo.InvariantCulture)
+                       : 0;
         }
 
-        public static DateTime XmlToDate(XmlElement xml)
+        static public DateTime XmlToDate(XmlElement xml)
         {
-            var date = xml.InnerText;
-            if (date == "0000-00-00" || date == "") return DateTime.MinValue;
+            string date = xml.InnerText;
+            if (date == "0000-00-00" || date == "")
+                return DateTime.MinValue;
             try
             {
                 return DateTime.ParseExact(date, "yyyy-MM-dd", CultureInfo.InvariantCulture);

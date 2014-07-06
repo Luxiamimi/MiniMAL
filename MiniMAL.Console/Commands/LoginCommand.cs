@@ -5,19 +5,17 @@ namespace MiniMAL.Console.Commands
     public class LoginCommand : MiniMALCommand
     {
         public LoginCommand(MiniMALClient client)
-            : base(client, "login", "Connect a user at MyAnimeList services.")
-        {
-        }
+            : base(client, "login", "Connect a user at MyAnimeList services.") {}
 
         protected override void Action(ArgumentsValues arguments, OptionsValues options)
         {
             System.Console.Write("Enter your username : ");
 
-            var username = System.Console.ReadLine();
+            string username = System.Console.ReadLine();
 
             System.Console.Write("Enter your password : ");
 
-            var password = "";
+            string password = "";
             ConsoleKeyInfo key;
             do
             {
@@ -33,8 +31,8 @@ namespace MiniMAL.Console.Commands
                     password = password.Substring(0, (password.Length - 1));
                     System.Console.Write("\b \b");
                 }
-            }
-            while (key.Key != ConsoleKey.Enter);
+            } while (key.Key != ConsoleKey.Enter);
+
             System.Console.WriteLine();
 
             try

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace MiniMAL.Internal
@@ -6,6 +7,15 @@ namespace MiniMAL.Internal
     public class UserList<T, TSeriesType, TSeriesStatus, TMyStatus> : IEnumerable<T>
         where T : Entry<TSeriesType, TSeriesStatus, TMyStatus>
     {
+        public IEnumerable<TMyStatus> Status { get { return _dictionary.Keys; } }
+
+        public int Count { get { return ToList().Count; } }
+
+        public virtual List<T> this[TMyStatus key]
+        {
+            get { return _dictionary.ContainsKey(key) ? _dictionary[key] : new List<T>(); }
+        }
+
         private readonly Dictionary<TMyStatus, List<T>> _dictionary;
 
         internal UserList()
@@ -13,17 +23,14 @@ namespace MiniMAL.Internal
             _dictionary = new Dictionary<TMyStatus, List<T>>();
         }
 
-        public IEnumerable<TMyStatus> Status
+        public IEnumerator<T> GetEnumerator()
         {
-            get { return _dictionary.Keys; }
+            return ToList().GetEnumerator();
         }
 
-        public int Count
+        IEnumerator IEnumerable.GetEnumerator()
         {
-            get
-            {
-                return ToList().Count;
-            }
+            return ToList().GetEnumerator();
         }
 
         public void Add(T x)
@@ -31,24 +38,6 @@ namespace MiniMAL.Internal
             if (!_dictionary.ContainsKey(x.MyStatus))
                 _dictionary[x.MyStatus] = new List<T>();
             _dictionary[x.MyStatus].Add(x);
-        }
-
-        public virtual List<T> this[TMyStatus key]
-        {
-            get
-            {
-                return _dictionary.ContainsKey(key) ? _dictionary[key] : new List<T>();
-            }
-        }
-
-        public IEnumerator<T> GetEnumerator()
-        {
-            return ToList().GetEnumerator();
-        }
-
-        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
-        {
-            return ToList().GetEnumerator();
         }
 
         public List<T> ToList()

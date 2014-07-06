@@ -9,7 +9,8 @@ namespace MiniMAL.Console.Commands
         public MangalistCommand(MiniMALClient client)
             : base(client, "mangalist", "Display the manga list from a user.")
         {
-            OptionalArguments.Add(new Argument("user", typeof(string), "a MyAnimeList's username. (connected user if not stated)"));
+            OptionalArguments.Add(new Argument("user", typeof(string),
+                "a MyAnimeList's username. (connected user if not stated)"));
 
             Options.Add(new Option("r", "reading", "Select currently reading entries."));
             Options.Add(new Option("c", "completed", "Select completed entries."));
@@ -20,27 +21,37 @@ namespace MiniMAL.Console.Commands
 
         protected override void Action(ArgumentsValues arguments, OptionsValues options)
         {
-            var mangalist = arguments.ContainsKey("user")
-                ? MiniMALClient.LoadMangalist((string)arguments["user"])
-                : Client.LoadMangalist();
+            MangaList mangalist = arguments.ContainsKey("user")
+                                      ? MiniMALClient.LoadMangalist((string)arguments["user"])
+                                      : Client.LoadMangalist();
 
             IEnumerable<Manga> list = new List<Manga>();
-            foreach (var opt in options.Keys)
+            foreach (string opt in options.Keys)
                 switch (opt)
                 {
-                    case "r": list = list.Concat(mangalist[ReadingStatus.Reading]); break;
-                    case "c": list = list.Concat(mangalist[ReadingStatus.Completed]); break;
-                    case "h": list = list.Concat(mangalist[ReadingStatus.OnHold]); break;
-                    case "d": list = list.Concat(mangalist[ReadingStatus.Dropped]); break;
-                    case "p": list = list.Concat(mangalist[ReadingStatus.PlanToRead]); break;
+                    case "r":
+                        list = list.Concat(mangalist[ReadingStatus.Reading]);
+                        break;
+                    case "c":
+                        list = list.Concat(mangalist[ReadingStatus.Completed]);
+                        break;
+                    case "h":
+                        list = list.Concat(mangalist[ReadingStatus.OnHold]);
+                        break;
+                    case "d":
+                        list = list.Concat(mangalist[ReadingStatus.Dropped]);
+                        break;
+                    case "p":
+                        list = list.Concat(mangalist[ReadingStatus.PlanToRead]);
+                        break;
                 }
 
-            var enumerable = list as IList<Manga> ?? list.ToList();
+            IList<Manga> enumerable = list as IList<Manga> ?? list.ToList();
 
             if (!enumerable.Any())
                 enumerable = mangalist.ToList();
 
-            foreach (var m in enumerable)
+            foreach (Manga m in enumerable)
                 System.Console.WriteLine(m.Title);
             System.Console.WriteLine(enumerable.Count() + " entries");
         }

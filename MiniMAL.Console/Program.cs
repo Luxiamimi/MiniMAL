@@ -2,9 +2,9 @@
 
 namespace MiniMAL.Console
 {
-    internal static class Program
+    static class Program
     {
-        private static void Main(string[] args)
+        static private void Main(string[] args)
         {
             var console = new MiniMALConsole();
 
