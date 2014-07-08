@@ -5,7 +5,7 @@ using MiniMAL.Internal;
 namespace MiniMAL
 {
     [XmlRoot(ElementName = "entry", Namespace = "")]
-    public class MangaRequestData : EntryRequestData
+    public class MangaRequestData : RequestData
     {
         [XmlElement(ElementName = "chapter")]
         public int? Chapter { get; set; }

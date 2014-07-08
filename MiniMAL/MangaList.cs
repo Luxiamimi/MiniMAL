@@ -5,6 +5,8 @@ namespace MiniMAL
 {
     public class MangaList : UserList<Manga, TypeManga, PublishingStatus, ReadingStatus>
     {
+        protected override string XmlEntityName { get { return "manga"; } }
+
         public override List<Manga> this[ReadingStatus key]
         {
             get

@@ -13,7 +13,7 @@ namespace MiniMAL
         public int MyRereadingCount { get; set; }
         public int MyRereadingChapters { get; set; }
 
-        public void LoadFromXmlNode(XmlNode e)
+        public override void LoadFromXmlNode(XmlNode e)
         {
             Id = MALConverter.XmlToInt(e["series_mangadb_id"]);
             Title = MALConverter.XmlToString(e["series_title"]);

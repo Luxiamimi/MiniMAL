@@ -2,11 +2,12 @@
 using System.Text;
 using System.Xml;
 using System.Xml.Serialization;
+using MiniMAL.Internal.Interfaces;
 
 namespace MiniMAL.Internal
 {
     // TODO : Fix tags
-    public abstract class EntryRequestData
+    public abstract class RequestData : IRequestData
     {
         [XmlElement(ElementName = "status")]
         public int Status { get; set; }
@@ -53,7 +54,7 @@ namespace MiniMAL.Internal
         [XmlIgnore]
         public bool TagsSpecified { get { return Tags.HasValue; } }
 
-        internal EntryRequestData() {}
+        internal RequestData() {}
 
         public string SerializeToString()
         {

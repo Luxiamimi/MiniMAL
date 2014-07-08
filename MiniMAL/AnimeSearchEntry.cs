@@ -8,7 +8,7 @@ namespace MiniMAL
     {
         public int Episodes { get; protected set; }
 
-        public void LoadFromXmlNode(XmlNode e)
+        public override void LoadFromXmlNode(XmlNode e)
         {
             Id = MALConverter.XmlToInt(e["id"]);
             Title = MALConverter.XmlToString(e["title"]);

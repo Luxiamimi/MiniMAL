@@ -8,6 +8,7 @@ using System.Web;
 using System.Xml;
 using MiniMAL.Exceptions;
 using MiniMAL.Internal;
+using MiniMAL.Internal.Interfaces;
 
 namespace MiniMAL
 {
@@ -72,121 +73,81 @@ namespace MiniMAL
 
         public AnimeList LoadAnimelist()
         {
-            if (IsConnected)
-                return LoadAnimelist(ClientData.Username);
-            throw new UserNotConnectedException();
+            return LoadUserList<AnimeList>();
         }
 
         static public AnimeList LoadAnimelist(string user)
         {
-            var list = new AnimeList();
-
-            string link = RequestLink.Animelist(user);
-            XmlDocument xml = LoadXml(link);
-
-            if (xml.DocumentElement == null)
-                return list;
-            foreach (XmlNode e in xml.DocumentElement.ChildNodes)
-            {
-                if (e.Name != "anime")
-                    continue;
-                var a = new Anime();
-                a.LoadFromXmlNode(e);
-                list.Add(a);
-            }
-            return list;
-        }
-
-        public void AddAnime(int id, AnimeRequestData data)
-        {
-            string link = RequestLink.AddAnime(id);
-            var requestData = new Dictionary<string, string> {{"data", data.SerializeToString()}};
-
-            HttpWebResponse response;
-            Request(link, requestData, out response);
+            return LoadUserList<AnimeList>(user);
         }
 
         public MangaList LoadMangalist()
         {
-            if (IsConnected)
-                return LoadMangalist(ClientData.Username);
-            throw new UserNotConnectedException();
+            return LoadUserList<MangaList>();
         }
 
         static public MangaList LoadMangalist(string user)
         {
-            if (user == null)
-                throw new ArgumentNullException("user");
-            var list = new MangaList();
+            return LoadUserList<MangaList>(user);
+        }
 
-            string link = RequestLink.Mangalist(user);
-            XmlDocument xml = LoadXml(link);
-
-            if (xml.DocumentElement == null)
-                return list;
-            foreach (XmlNode e in xml.DocumentElement.ChildNodes)
-            {
-                if (e.Name != "manga")
-                    continue;
-
-                var m = new Manga();
-                m.LoadFromXmlNode(e);
-                list.Add(m);
-            }
-            return list;
+        public void AddAnime(int id, AnimeRequestData data)
+        {
+            AddEntry(id, data);
         }
 
         public void AddManga(int id, MangaRequestData data)
         {
-            string link = RequestLink.AddManga(id);
+            AddEntry(id, data);
+        }
+
+        public SearchResult<AnimeSearchEntry> SearchAnime(string[] search)
+        {
+            return Search<SearchResult<AnimeSearchEntry>>(search);
+        }
+
+        public SearchResult<MangaSearchEntry> SearchManga(string[] search)
+        {
+            return Search<SearchResult<MangaSearchEntry>>(search);
+        }
+
+        private TUserList LoadUserList<TUserList>() where TUserList : IUserList, new()
+        {
+            if (IsConnected)
+                return LoadUserList<TUserList>(ClientData.Username);
+            throw new UserNotConnectedException();
+        }
+
+        static private TUserList LoadUserList<TUserList>(string user)
+            where TUserList : IUserList, new()
+        {
+            string link = RequestLink.UserList<TUserList>(user);
+            XmlDocument xml = LoadXml(link);
+
+            var list = new TUserList();
+            list.LoadFromXml(xml);
+            return list;
+        }
+
+        private void AddEntry<TRequestData>(int id, TRequestData data)
+            where TRequestData : IRequestData, new()
+        {
+            string link = RequestLink.AddEntry<TRequestData>(id);
             var requestData = new Dictionary<string, string> {{"data", data.SerializeToString()}};
 
             HttpWebResponse response;
             Request(link, requestData, out response);
         }
 
-        public List<AnimeSearchEntry> SearchAnime(string[] search)
+        public TSearchResult Search<TSearchResult>(string[] search)
+            where TSearchResult : ISearchResult, new()
         {
-            var list = new List<AnimeSearchEntry>();
-
-            string link = RequestLink.SearchAnime(search);
+            string link = RequestLink.Search<TSearchResult>(search);
             XmlDocument xml = RequestXml(link);
 
-            if (xml.DocumentElement == null)
-                return list;
-            foreach (XmlNode e in xml.DocumentElement.ChildNodes)
-            {
-                if (e.Name != "entry")
-                    continue;
-
-                var a = new AnimeSearchEntry();
-                a.LoadFromXmlNode(e);
-                list.Add(a);
-            }
-
-            return list;
-        }
-
-        public List<MangaSearchEntry> SearchManga(string[] search)
-        {
-            var list = new List<MangaSearchEntry>();
-
-            string link = RequestLink.SearchManga(search);
-            XmlDocument xml = RequestXml(link);
-
-            if (xml.DocumentElement == null)
-                return list;
-            foreach (XmlNode e in xml.DocumentElement.ChildNodes)
-            {
-                if (e.Name != "entry")
-                    continue;
-
-                var m = new MangaSearchEntry();
-                m.LoadFromXmlNode(e);
-                list.Add(m);
-            }
-
-            return list;
+            var result = new TSearchResult();
+            result.LoadFromXml(xml);
+            return result;
         }
 
         static private XmlDocument LoadXml(string link)
@@ -196,8 +157,8 @@ namespace MiniMAL
             return xml;
         }
 
-        private StreamReader Request(string link, Dictionary<string, string> data,
-                                     out HttpWebResponse response)
+        private string Request(string link, Dictionary<string, string> data,
+                               out HttpWebResponse response)
         {
             if (!IsConnected)
                 throw new UserNotConnectedException();
@@ -235,14 +196,22 @@ namespace MiniMAL
                 Console.WriteLine(readStream.ReadToEnd());
 
                 readStream.Close();
+                baseStream.Close();
                 throw;
             }
 
-            Stream responseStream = response.GetResponseStream();
-            StreamReader result = null;
-            if (responseStream != null)
-                result = new StreamReader(responseStream);
+            Stream stream = response.GetResponseStream();
+            StreamReader responseStream = null;
+            if (stream != null)
+                responseStream = new StreamReader(stream);
 
+            if (responseStream == null)
+                return "";
+
+            string result = responseStream.ReadToEnd();
+
+            responseStream.Close();
+            stream.Close();
             response.Close();
             return result;
         }
@@ -262,9 +231,8 @@ namespace MiniMAL
                                        out HttpWebResponse response)
         {
             var result = new XmlDocument();
-            StreamReader sr = Request(link, data, out response);
-            result.LoadXml(HtmlDecodeAdvanced(sr.ReadToEnd()));
-            sr.Close();
+            string xml = Request(link, data, out response);
+            result.LoadXml(HtmlDecodeAdvanced(xml));
             return result;
         }
 

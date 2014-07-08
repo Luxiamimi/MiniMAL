@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Xml;
+using MiniMAL.Internal.Interfaces;
 
 namespace MiniMAL.Internal
 {
-    public abstract class Entry<TSeriesType, TSeriesStatus, TMyStatus>
+    public abstract class Entry<TSeriesType, TSeriesStatus, TMyStatus> : IEntry
     {
         public int Id { get; set; }
         public string Title { get; set; }
@@ -19,8 +21,6 @@ namespace MiniMAL.Internal
         public TMyStatus MyStatus { get; set; }
         public MALTags MyTags { get; set; }
 
-        internal Entry() {}
-
         public string TitleForUrl
         {
             get
@@ -31,6 +31,10 @@ namespace MiniMAL.Internal
                     result.Split(new[] {'_'}, StringSplitOptions.RemoveEmptyEntries));
             }
         }
+
+        internal Entry() {}
+
+        public abstract void LoadFromXmlNode(XmlNode e);
 
         public override string ToString()
         {

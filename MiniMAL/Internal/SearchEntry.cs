@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Xml;
+using MiniMAL.Internal.Interfaces;
 
 namespace MiniMAL.Internal
 {
-    public abstract class SearchEntry<TSeriesType, TSeriesStatus>
+    public abstract class SearchEntry<TSeriesType, TSeriesStatus> : ISearchEntry
     {
         public int Id { get; protected set; }
         public string Title { get; protected set; }
@@ -16,8 +18,6 @@ namespace MiniMAL.Internal
         public string Synopsis { get; protected set; }
         public string ImageUrl { get; protected set; }
 
-        internal SearchEntry() {}
-
         public string TitleForUrl
         {
             get
@@ -28,6 +28,10 @@ namespace MiniMAL.Internal
                     result.Split(new[] {'_'}, StringSplitOptions.RemoveEmptyEntries));
             }
         }
+
+        internal SearchEntry() {}
+
+        public abstract void LoadFromXmlNode(XmlNode e);
 
         public override string ToString()
         {

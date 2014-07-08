@@ -5,6 +5,8 @@ namespace MiniMAL
 {
     public class AnimeList : UserList<Anime, TypeAnime, AiringStatus, WatchingStatus>
     {
+        protected override string XmlEntityName { get { return "anime"; } }
+
         public override List<Anime> this[WatchingStatus key]
         {
             get

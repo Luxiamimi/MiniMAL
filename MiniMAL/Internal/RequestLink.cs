@@ -1,4 +1,7 @@
-﻿namespace MiniMAL.Internal
+﻿using System;
+using MiniMAL.Internal.Interfaces;
+
+namespace MiniMAL.Internal
 {
     static internal class RequestLink
     {
@@ -7,10 +10,10 @@
 
         private const string AnimelistFormat =
             "http://myanimelist.net/malappinfo.php?u={0}&type=anime&status=all";
-        private const string AddAnimeFormat = "http://myanimelist.net/api/animelist/add/{0}.xml";
-
         private const string MangalistFormat =
             "http://myanimelist.net/malappinfo.php?u={0}&type=manga&status=all";
+
+        private const string AddAnimeFormat = "http://myanimelist.net/api/animelist/add/{0}.xml";
         private const string AddMangaFormat = "http://myanimelist.net/api/mangalist/add/{0}.xml";
 
         private const string SearchAnimeFormat = "http://myanimelist.net/api/anime/search.xml?q={0}";
@@ -21,34 +24,50 @@
             return VerifyCredentialsFormat;
         }
 
-        static public string Animelist(string user)
+        static public string UserList<TUserList>(string user) where TUserList : IUserList, new()
         {
-            return string.Format(AnimelistFormat, user);
+            string format;
+            var type = new TUserList();
+
+            if (type is AnimeList)
+                format = AnimelistFormat;
+            else if (type is MangaList)
+                format = MangalistFormat;
+            else
+                throw new ArgumentException();
+
+            return string.Format(format, user);
         }
 
-        static public string AddAnime(int id)
+        static public string AddEntry<TRequestData>(int id) where TRequestData : IRequestData, new()
         {
-            return string.Format(AddAnimeFormat, id);
+            string format;
+            var type = new TRequestData();
+
+            if (type is AnimeRequestData)
+                format = AddAnimeFormat;
+            else if (type is MangaRequestData)
+                format = AddMangaFormat;
+            else
+                throw new ArgumentException();
+
+            return string.Format(format, id);
         }
 
-        static public string Mangalist(string user)
+        static public string Search<TSearchResult>(string[] search)
+            where TSearchResult : ISearchResult, new()
         {
-            return string.Format(MangalistFormat, user);
-        }
+            string format;
+            var type = new TSearchResult();
 
-        static public string AddManga(int id)
-        {
-            return string.Format(AddMangaFormat, id);
-        }
+            if (type is SearchResult<AnimeSearchEntry>)
+                format = SearchAnimeFormat;
+            else if (type is SearchResult<MangaSearchEntry>)
+                format = SearchMangaFormat;
+            else
+                throw new ArgumentException();
 
-        static public string SearchAnime(string[] search)
-        {
-            return string.Format(SearchAnimeFormat, string.Join("+", search));
-        }
-
-        static public string SearchManga(string[] search)
-        {
-            return string.Format(SearchMangaFormat, string.Join("+", search));
+            return string.Format(format, string.Join("+", search));
         }
     }
 }

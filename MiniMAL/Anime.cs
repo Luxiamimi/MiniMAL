@@ -11,7 +11,7 @@ namespace MiniMAL
         public int MyRewatchingCount { get; set; }
         public int MyRewatchingEpisodes { get; set; }
 
-        public void LoadFromXmlNode(XmlNode e)
+        public override void LoadFromXmlNode(XmlNode e)
         {
             Id = MALConverter.XmlToInt(e["series_animedb_id"]);
             Title = MALConverter.XmlToString(e["series_title"]);

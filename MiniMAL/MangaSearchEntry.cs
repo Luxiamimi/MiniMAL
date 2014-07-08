@@ -9,7 +9,7 @@ namespace MiniMAL
         public int Chapters { get; protected set; }
         public int Volumes { get; protected set; }
 
-        public void LoadFromXmlNode(XmlNode e)
+        public override void LoadFromXmlNode(XmlNode e)
         {
             Id = MALConverter.XmlToInt(e["id"]);
             Title = MALConverter.XmlToString(e["title"]);

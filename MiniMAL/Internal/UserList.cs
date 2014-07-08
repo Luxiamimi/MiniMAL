@@ -1,16 +1,19 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Xml;
+using MiniMAL.Internal.Interfaces;
 
 namespace MiniMAL.Internal
 {
-    public class UserList<T, TSeriesType, TSeriesStatus, TMyStatus> : IEnumerable<T>
-        where T : Entry<TSeriesType, TSeriesStatus, TMyStatus>
+    public abstract class UserList<T, TSeriesType, TSeriesStatus, TMyStatus>
+        : IUserList, IEnumerable<T>
+        where T : Entry<TSeriesType, TSeriesStatus, TMyStatus>, new()
     {
         public IEnumerable<TMyStatus> Status { get { return _dictionary.Keys; } }
-
         public int Count { get { return ToList().Count; } }
 
+        protected abstract string XmlEntityName { get; }
         public virtual List<T> this[TMyStatus key]
         {
             get { return _dictionary.ContainsKey(key) ? _dictionary[key] : new List<T>(); }
@@ -33,6 +36,23 @@ namespace MiniMAL.Internal
             return ToList().GetEnumerator();
         }
 
+        public void LoadFromXml(XmlDocument xmlDocument)
+        {
+            _dictionary.Clear();
+            if (xmlDocument.DocumentElement == null)
+                return;
+
+            foreach (XmlNode node in xmlDocument.DocumentElement.ChildNodes)
+            {
+                if (node.Name != XmlEntityName)
+                    continue;
+
+                var e = new T();
+                e.LoadFromXmlNode(node);
+                Add(e);
+            }
+        }
+
         public void Add(T x)
         {
             if (!_dictionary.ContainsKey(x.MyStatus))
@@ -46,6 +66,16 @@ namespace MiniMAL.Internal
             foreach (var list in _dictionary.Values)
                 allEntries = allEntries.Concat(list).ToList();
             return allEntries;
+        }
+
+        public float MeanScore(TMyStatus status = default(TMyStatus))
+        {
+            List<T> list = status.Equals(default(TMyStatus)) ? ToList() : this[status];
+
+            if (list != null && list.Any())
+                return (float)list.Sum(e => e.MyScore) / list.Count;
+
+            return 0;
         }
     }
 }
