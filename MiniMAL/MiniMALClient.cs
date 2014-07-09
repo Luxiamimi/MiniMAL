@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
+using System.Threading.Tasks;
 using System.Web;
 using System.Xml;
 using MiniMAL.Exceptions;
@@ -73,92 +74,131 @@ namespace MiniMAL
 
         public AnimeList LoadAnimelist()
         {
-            return LoadUserList<AnimeList>();
+            return LoadAnimelistAsync().Result;
         }
 
         static public AnimeList LoadAnimelist(string user)
         {
-            return LoadUserList<AnimeList>(user);
+            return LoadAnimelistAsync(user).Result;
         }
 
         public MangaList LoadMangalist()
         {
-            return LoadUserList<MangaList>();
+            return LoadMangalistAsync().Result;
         }
 
         static public MangaList LoadMangalist(string user)
         {
-            return LoadUserList<MangaList>(user);
+            return LoadMangalistAsync(user).Result;
         }
 
         public void AddAnime(int id, AnimeRequestData data)
         {
-            AddEntry(id, data);
+            AddAnimeAsync(id, data).Wait();
         }
 
         public void AddManga(int id, MangaRequestData data)
         {
-            AddEntry(id, data);
+            AddMangaAsync(id, data).Wait();
         }
 
         public SearchResult<AnimeSearchEntry> SearchAnime(string[] search)
         {
-            return Search<SearchResult<AnimeSearchEntry>>(search);
+            return SearchAnimeAsync(search).Result;
         }
 
         public SearchResult<MangaSearchEntry> SearchManga(string[] search)
         {
-            return Search<SearchResult<MangaSearchEntry>>(search);
+            return SearchMangaAsync(search).Result;
         }
 
-        private TUserList LoadUserList<TUserList>() where TUserList : IUserList, new()
+        public async Task<AnimeList> LoadAnimelistAsync()
+        {
+            return await LoadUserListAsync<AnimeList>();
+        }
+
+        static public async Task<AnimeList> LoadAnimelistAsync(string user)
+        {
+            return await LoadUserListAsync<AnimeList>(user);
+        }
+
+        public async Task<MangaList> LoadMangalistAsync()
+        {
+            return await LoadUserListAsync<MangaList>();
+        }
+
+        static public async Task<MangaList> LoadMangalistAsync(string user)
+        {
+            return await LoadUserListAsync<MangaList>(user);
+        }
+
+        public async Task AddAnimeAsync(int id, AnimeRequestData data)
+        {
+            await AddEntryAsync(id, data);
+        }
+
+        public async Task AddMangaAsync(int id, MangaRequestData data)
+        {
+            await AddEntryAsync(id, data);
+        }
+
+        public async Task<SearchResult<AnimeSearchEntry>> SearchAnimeAsync(string[] search)
+        {
+            return await SearchAsync<SearchResult<AnimeSearchEntry>>(search);
+        }
+
+        public async Task<SearchResult<MangaSearchEntry>> SearchMangaAsync(string[] search)
+        {
+            return await SearchAsync<SearchResult<MangaSearchEntry>>(search);
+        }
+
+        private Task<TUserList> LoadUserListAsync<TUserList>() where TUserList : IUserList, new()
         {
             if (IsConnected)
-                return LoadUserList<TUserList>(ClientData.Username);
+                return LoadUserListAsync<TUserList>(ClientData.Username);
             throw new UserNotConnectedException();
         }
 
-        static private TUserList LoadUserList<TUserList>(string user)
+        static private async Task<TUserList> LoadUserListAsync<TUserList>(string user)
             where TUserList : IUserList, new()
         {
             string link = RequestLink.UserList<TUserList>(user);
-            XmlDocument xml = LoadXml(link);
+            XmlDocument xml = await LoadXmlAsync(link);
 
             var list = new TUserList();
             list.LoadFromXml(xml);
             return list;
         }
 
-        private void AddEntry<TRequestData>(int id, TRequestData data)
+        private async Task AddEntryAsync<TRequestData>(int id, TRequestData data)
             where TRequestData : IRequestData, new()
         {
             string link = RequestLink.AddEntry<TRequestData>(id);
             var requestData = new Dictionary<string, string> {{"data", data.SerializeToString()}};
 
-            HttpWebResponse response;
-            Request(link, requestData, out response);
+            await RequestAsync(link, requestData);
         }
 
-        public TSearchResult Search<TSearchResult>(string[] search)
+        private async Task<TSearchResult> SearchAsync<TSearchResult>(string[] search)
             where TSearchResult : ISearchResult, new()
         {
             string link = RequestLink.Search<TSearchResult>(search);
-            XmlDocument xml = RequestXml(link);
+            XmlDocument xml = await RequestXmlAsync(link);
 
             var result = new TSearchResult();
             result.LoadFromXml(xml);
             return result;
         }
 
-        static private XmlDocument LoadXml(string link)
+        static private async Task<XmlDocument> LoadXmlAsync(string link)
         {
+            var client = new WebClient();
             var xml = new XmlDocument();
-            xml.Load(link);
+            xml.LoadXml(HtmlDecodeAdvanced(await client.DownloadStringTaskAsync(link)));
             return xml;
         }
 
-        private string Request(string link, Dictionary<string, string> data,
-                               out HttpWebResponse response)
+        private async Task<string> RequestAsync(string link, Dictionary<string, string> data)
         {
             if (!IsConnected)
                 throw new UserNotConnectedException();
@@ -178,9 +218,10 @@ namespace MiniMAL
             request.PreAuthenticate = true;
             request.Timeout = 10 * 1000;
 
+            HttpWebResponse response;
             try
             {
-                response = (HttpWebResponse)request.GetResponse();
+                response = (HttpWebResponse)(await request.GetResponseAsync());
             }
             catch (WebException e)
             {
@@ -188,50 +229,43 @@ namespace MiniMAL
                 if (error == null)
                     throw;
 
-                Stream baseStream = error.GetResponseStream();
-                if (baseStream == null)
-                    throw;
+                using (Stream baseStream = error.GetResponseStream())
+                {
+                    if (baseStream == null)
+                        throw;
 
-                var readStream = new StreamReader(baseStream, Encoding.UTF8);
-                Console.WriteLine(readStream.ReadToEnd());
+                    using (var readStream = new StreamReader(baseStream, Encoding.UTF8))
+                        Console.WriteLine(readStream.ReadToEnd());
+                }
 
-                readStream.Close();
-                baseStream.Close();
+                if (error.StatusCode == HttpStatusCode.NotImplemented)
+                    return "";
+
                 throw;
             }
 
-            Stream stream = response.GetResponseStream();
-            StreamReader responseStream = null;
-            if (stream != null)
-                responseStream = new StreamReader(stream);
+            string result;
+            using (Stream stream = response.GetResponseStream())
+            {
+                if (stream == null)
+                    return "";
 
-            if (responseStream == null)
-                return "";
+                using (var responseStream = new StreamReader(stream))
+                    result = await responseStream.ReadToEndAsync();
+            }
 
-            string result = responseStream.ReadToEnd();
-
-            responseStream.Close();
-            stream.Close();
-            response.Close();
             return result;
         }
 
-        private XmlDocument RequestXml(string link)
+        private async Task<XmlDocument> RequestXmlAsync(string link)
         {
-            return RequestXml(link, new Dictionary<string, string>());
+            return await RequestXmlAsync(link, new Dictionary<string, string>());
         }
 
-        private XmlDocument RequestXml(string link, Dictionary<string, string> data)
-        {
-            HttpWebResponse response;
-            return RequestXml(link, data, out response);
-        }
-
-        private XmlDocument RequestXml(string link, Dictionary<string, string> data,
-                                       out HttpWebResponse response)
+        private async Task<XmlDocument> RequestXmlAsync(string link, Dictionary<string, string> data)
         {
             var result = new XmlDocument();
-            string xml = Request(link, data, out response);
+            string xml = await RequestAsync(link, data);
             result.LoadXml(HtmlDecodeAdvanced(xml));
             return result;
         }
