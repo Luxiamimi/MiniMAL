@@ -16,7 +16,7 @@ namespace MiniMAL.Console.Commands
         {
             ListRequestResult result = Client.AddAnime(args.Value<int>("id"),
                 AnimeRequestData.DefaultAddRequest(args.Value<WatchingStatus>("status")));
-            
+
             switch (result)
             {
                 case ListRequestResult.Created:
