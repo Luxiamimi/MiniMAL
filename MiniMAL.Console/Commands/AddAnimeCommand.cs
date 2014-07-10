@@ -12,10 +12,20 @@ namespace MiniMAL.Console.Commands
                 "status in your list"));
         }
 
-        protected override void Action(ArgumentsValues arguments, OptionsValues options)
+        protected override void Action(ArgumentsValues args, OptionsValues options)
         {
-            Client.AddAnime((int)arguments["id"],
-                AnimeRequestData.DefaultAddRequest((WatchingStatus)arguments["status"]));
+            ListRequestResult result = Client.AddAnime(args.Value<int>("id"),
+                AnimeRequestData.DefaultAddRequest(args.Value<WatchingStatus>("status")));
+            
+            switch (result)
+            {
+                case ListRequestResult.Created:
+                    System.Console.WriteLine("Success");
+                    break;
+                case ListRequestResult.AlreadyInTheList:
+                    System.Console.WriteLine("Already in your list.");
+                    break;
+            }
         }
     }
 }

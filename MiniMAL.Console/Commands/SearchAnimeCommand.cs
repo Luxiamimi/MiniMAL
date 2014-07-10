@@ -13,11 +13,11 @@ namespace MiniMAL.Console.Commands
             Argument = new Argument("query", typeof(string), "query for the anime search");
         }
 
-        protected override void Action(ArgumentsValues arguments, OptionsValues options)
+        protected override void Action(ArgumentsValues args, OptionsValues options)
         {
             try
             {
-                List<AnimeSearchEntry> search = Client.SearchAnime(arguments.Values.ToArray());
+                List<AnimeSearchEntry> search = Client.SearchAnime(args.Values.ToArray());
                 foreach (AnimeSearchEntry a in search)
                     System.Console.WriteLine(a.Title);
                 System.Console.WriteLine(search.Count() + " entries");

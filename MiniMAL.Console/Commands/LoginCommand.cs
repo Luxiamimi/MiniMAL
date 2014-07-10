@@ -7,7 +7,7 @@ namespace MiniMAL.Console.Commands
         public LoginCommand(MiniMALClient client)
             : base(client, "login", "Connect a user at MyAnimeList services.") {}
 
-        protected override void Action(ArgumentsValues arguments, OptionsValues options)
+        protected override void Action(ArgumentsValues args, OptionsValues options)
         {
             System.Console.Write("Enter your username : ");
 

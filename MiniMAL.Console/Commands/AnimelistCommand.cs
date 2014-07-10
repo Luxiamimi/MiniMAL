@@ -19,10 +19,10 @@ namespace MiniMAL.Console.Commands
             Options.Add(new Option("p", "planned", "Select plan to read entries."));
         }
 
-        protected override void Action(ArgumentsValues arguments, OptionsValues options)
+        protected override void Action(ArgumentsValues args, OptionsValues options)
         {
-            AnimeList animelist = arguments.ContainsKey("user")
-                                      ? MiniMALClient.LoadAnimelist((string)arguments["user"])
+            AnimeList animelist = args.ContainsKey("user")
+                                      ? MiniMALClient.LoadAnimelist(args.Value<string>("user"))
                                       : Client.LoadAnimelist();
 
             IEnumerable<Anime> list = new List<Anime>();

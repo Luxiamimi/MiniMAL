@@ -92,14 +92,14 @@ namespace MiniMAL
             return LoadMangalistAsync(user).Result;
         }
 
-        public void AddAnime(int id, AnimeRequestData data)
+        public ListRequestResult AddAnime(int id, AnimeRequestData data)
         {
-            AddAnimeAsync(id, data).Wait();
+            return AddAnimeAsync(id, data).Result;
         }
 
-        public void AddManga(int id, MangaRequestData data)
+        public ListRequestResult AddManga(int id, MangaRequestData data)
         {
-            AddMangaAsync(id, data).Wait();
+            return AddMangaAsync(id, data).Result;
         }
 
         public SearchResult<AnimeSearchEntry> SearchAnime(string[] search)
@@ -132,14 +132,14 @@ namespace MiniMAL
             return await LoadUserListAsync<MangaList>(user);
         }
 
-        public async Task AddAnimeAsync(int id, AnimeRequestData data)
+        public async Task<ListRequestResult> AddAnimeAsync(int id, AnimeRequestData data)
         {
-            await AddEntryAsync(id, data);
+            return await AddEntryAsync(id, data);
         }
 
-        public async Task AddMangaAsync(int id, MangaRequestData data)
+        public async Task<ListRequestResult> AddMangaAsync(int id, MangaRequestData data)
         {
-            await AddEntryAsync(id, data);
+            return await AddEntryAsync(id, data);
         }
 
         public async Task<SearchResult<AnimeSearchEntry>> SearchAnimeAsync(string[] search)
@@ -170,13 +170,19 @@ namespace MiniMAL
             return list;
         }
 
-        private async Task AddEntryAsync<TRequestData>(int id, TRequestData data)
+        private async Task<ListRequestResult> AddEntryAsync<TRequestData>(int id, TRequestData data)
             where TRequestData : IRequestData, new()
         {
             string link = RequestLink.AddEntry<TRequestData>(id);
             var requestData = new Dictionary<string, string> {{"data", data.SerializeToString()}};
 
-            await RequestAsync(link, requestData);
+            string result = await RequestAsync(link, requestData);
+
+            if (result.Contains("Created"))
+                return ListRequestResult.Created;
+            if (result.IndexOf("already", StringComparison.OrdinalIgnoreCase) >= 0)
+                return ListRequestResult.AlreadyInTheList;
+            return ListRequestResult.None;
         }
 
         private async Task<TSearchResult> SearchAsync<TSearchResult>(string[] search)
@@ -235,13 +241,8 @@ namespace MiniMAL
                         throw;
 
                     using (var readStream = new StreamReader(baseStream, Encoding.UTF8))
-                        Console.WriteLine(readStream.ReadToEnd());
+                        return readStream.ReadToEnd();
                 }
-
-                if (error.StatusCode == HttpStatusCode.NotImplemented)
-                    return "";
-
-                throw;
             }
 
             string result;

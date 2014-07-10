@@ -13,11 +13,11 @@ namespace MiniMAL.Console.Commands
             Argument = new Argument("query", typeof(string), "query for the manga search");
         }
 
-        protected override void Action(ArgumentsValues arguments, OptionsValues options)
+        protected override void Action(ArgumentsValues args, OptionsValues options)
         {
             try
             {
-                List<MangaSearchEntry> search = Client.SearchManga(arguments.Values.ToArray());
+                List<MangaSearchEntry> search = Client.SearchManga(args.Values.ToArray());
                 foreach (MangaSearchEntry a in search)
                     System.Console.WriteLine(a.Title);
                 System.Console.WriteLine(search.Count() + " entries");
