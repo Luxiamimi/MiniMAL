@@ -39,13 +39,19 @@ namespace MiniMAL
             string link = RequestLink.AddEntry<TRequestData>(id);
             var requestData = new Dictionary<string, string> { { "data", data.SerializeToString() } };
 
-            string result = await RequestAsync(link, requestData);
+            try
+            {
+                await RequestAsync(link, requestData);
+            }
+            catch (RequestException e)
+            {
+                if (e.Message.IndexOf("already", StringComparison.OrdinalIgnoreCase) >= 0)
+                    return ListRequestResult.AlreadyInTheList;
 
-            if (result.Contains("Created"))
-                return ListRequestResult.Created;
-            if (result.IndexOf("already", StringComparison.OrdinalIgnoreCase) >= 0)
-                return ListRequestResult.AlreadyInTheList;
-            return ListRequestResult.None;
+                throw;
+            }
+
+            return ListRequestResult.Created;
         }
 
         private async Task<TSearchResult> SearchAsync<TSearchResult>(string[] search)
@@ -96,7 +102,7 @@ namespace MiniMAL
                         throw;
 
                     using (var readStream = new StreamReader(baseStream, Encoding.UTF8))
-                        return readStream.ReadToEnd();
+                        throw new RequestException(readStream.ReadToEnd());
                 }
             }
 

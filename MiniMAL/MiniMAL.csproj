@@ -42,6 +42,7 @@
     <Compile Include="AnimeList.cs" />
     <Compile Include="AnimeRequestData.cs" />
     <Compile Include="AnimeSearchEntry.cs" />
+    <Compile Include="Exceptions\RequestException.cs" />
     <Compile Include="Internal\Entry.cs" />
     <Compile Include="Exceptions\ConfigFileCorruptException.cs" />
     <Compile Include="Exceptions\ConfigFileNotFoundException.cs" />

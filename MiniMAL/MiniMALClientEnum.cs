@@ -2,7 +2,6 @@
 {
     public enum ListRequestResult
     {
-        None,
         Created,
         AlreadyInTheList
     }
