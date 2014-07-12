@@ -27,8 +27,7 @@ namespace MiniMAL
             }
 
             var request = (HttpWebRequest)WebRequest.Create(link);
-            request.Credentials = new NetworkCredential(ClientData.Username,
-                ClientData.DecryptedPassword);
+            request.Credentials = new NetworkCredential(ClientData.Username, ClientData.DecryptedPassword);
             request.PreAuthenticate = true;
             request.Timeout = 10 * 1000;
 

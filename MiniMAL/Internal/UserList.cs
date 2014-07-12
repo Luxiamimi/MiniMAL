@@ -6,8 +6,7 @@ using MiniMAL.Internal.Interfaces;
 
 namespace MiniMAL.Internal
 {
-    public abstract class UserList<T, TSeriesType, TSeriesStatus, TMyStatus>
-        : IUserList, IEnumerable<T>
+    public abstract class UserList<T, TSeriesType, TSeriesStatus, TMyStatus> : IUserList, IEnumerable<T>
         where T : Entry<TSeriesType, TSeriesStatus, TMyStatus>, new()
     {
         public IEnumerable<TMyStatus> Status { get { return _dictionary.Keys; } }

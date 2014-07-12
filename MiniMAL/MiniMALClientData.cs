@@ -14,18 +14,8 @@ namespace MiniMAL
         [XmlIgnore]
         public string DecryptedPassword
         {
-            get
-            {
-                return
-                    Encoding.GetString(ProtectedData.Unprotect(Password, null,
-                        DataProtectionScope.CurrentUser));
-            }
-
-            set
-            {
-                Password = ProtectedData.Protect(Encoding.GetBytes(value), null,
-                    DataProtectionScope.CurrentUser);
-            }
+            get { return Encoding.GetString(ProtectedData.Unprotect(Password, null, DataProtectionScope.CurrentUser)); }
+            set { Password = ProtectedData.Protect(Encoding.GetBytes(value), null, DataProtectionScope.CurrentUser); }
         }
         static private readonly ASCIIEncoding Encoding = new ASCIIEncoding();
 

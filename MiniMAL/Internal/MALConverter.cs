@@ -18,9 +18,7 @@ namespace MiniMAL.Internal
 
         static public double XmlToDouble(XmlElement xml)
         {
-            return xml.InnerText != ""
-                       ? Double.Parse(xml.InnerText, CultureInfo.InvariantCulture)
-                       : 0;
+            return xml.InnerText != "" ? Double.Parse(xml.InnerText, CultureInfo.InvariantCulture) : 0;
         }
 
         static public DateTime XmlToDate(XmlElement xml)

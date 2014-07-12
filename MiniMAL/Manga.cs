@@ -25,8 +25,7 @@ namespace MiniMAL
             Chapters = MALConverter.XmlToInt(e["series_chapters"]);
             Volumes = MALConverter.XmlToInt(e["series_volumes"]);
             Status = MALConverter.XmlToString(e["series_status"]) != ""
-                         ? (PublishingStatus)
-                           Int32.Parse(MALConverter.XmlToString(e["series_status"]))
+                         ? (PublishingStatus)Int32.Parse(MALConverter.XmlToString(e["series_status"]))
                          : PublishingStatus.None;
             StartDate = MALConverter.XmlToDate(e["series_start"]);
             EndDate = MALConverter.XmlToDate(e["series_end"]);

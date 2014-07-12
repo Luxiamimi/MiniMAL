@@ -26,10 +26,8 @@ namespace MiniMAL.Internal
         {
             get
             {
-                string result =
-                    Title.Replace(" ", "_").Replace("?", "").Replace(",", "").Replace("\x27", "");
-                return String.Join("_",
-                    result.Split(new[] {'_'}, StringSplitOptions.RemoveEmptyEntries));
+                string result = Title.Replace(" ", "_").Replace("?", "").Replace(",", "").Replace("\x27", "");
+                return String.Join("_", result.Split(new[] {'_'}, StringSplitOptions.RemoveEmptyEntries));
             }
         }
 

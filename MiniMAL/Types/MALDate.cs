@@ -23,8 +23,7 @@ namespace MiniMAL.Types
 
         public void ReadXml(XmlReader reader)
         {
-            _date = DateTime.ParseExact(reader.Value, "MMddyyyy",
-                CultureInfo.CreateSpecificCulture("en"));
+            _date = DateTime.ParseExact(reader.Value, "MMddyyyy", CultureInfo.CreateSpecificCulture("en"));
         }
 
         public void WriteXml(XmlWriter writer)
