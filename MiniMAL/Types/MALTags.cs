@@ -2,7 +2,7 @@
 using System.Xml.Schema;
 using System.Xml.Serialization;
 
-namespace MiniMAL
+namespace MiniMAL.Types
 {
     public struct MALTags : IXmlSerializable
     {
