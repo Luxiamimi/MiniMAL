@@ -3,6 +3,7 @@
     public enum ListRequestResult
     {
         Created,
+        Updated,
         AlreadyInTheList
     }
 }

@@ -7,8 +7,8 @@ namespace MiniMAL.Console.Commands
         public AddMangaCommand(MiniMALClient client)
             : base(client, "add-manga", "Add an manga in the user's mangalist")
         {
-            RequiredArguments.Add(new Argument("id", typeof(int), "manga id in MyAnimeList database"));
-            RequiredArguments.Add(new Argument("status", typeof(ReadingStatus), "status in your list"));
+            RequiredArguments.Add(new Argument<int>("id", "manga id in MyAnimeList database"));
+            RequiredArguments.Add(new Argument<ReadingStatus>("status", "status in your list"));
         }
 
         protected override void Action(ArgumentsValues args, OptionsValues options)
@@ -19,7 +19,7 @@ namespace MiniMAL.Console.Commands
             switch (result)
             {
                 case ListRequestResult.Created:
-                    System.Console.WriteLine("Success");
+                    System.Console.WriteLine("Created");
                     break;
                 case ListRequestResult.AlreadyInTheList:
                     System.Console.WriteLine("Already in your list.");

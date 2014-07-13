@@ -49,6 +49,17 @@ namespace MiniMAL
             return ListRequestResult.Created;
         }
 
+        private async Task<ListRequestResult> UpdateEntryAsync<TRequestData>(int id, TRequestData data)
+            where TRequestData : IRequestData, new()
+        {
+            string link = RequestLink.UpdateEntry<TRequestData>(id);
+            var requestData = new Dictionary<string, string> { { "data", data.SerializeToString() } };
+
+            await RequestAsync(link, requestData);
+
+            return ListRequestResult.Updated;
+        }
+
         private async Task<TSearchResult> SearchAsync<TSearchResult>(string[] search)
             where TSearchResult : ISearchResult, new()
         {

@@ -10,7 +10,7 @@ namespace MiniMAL.Console.Commands
         public SearchMangaCommand(MiniMALClient client)
             : base(client, "search-manga", "Search a manga in MyAnimeList database.")
         {
-            Argument = new Argument("query", typeof(string), "query for the manga search");
+            Argument = new Argument<string>("query", "query for the manga search");
         }
 
         protected override void Action(ArgumentsValues args, OptionsValues options)

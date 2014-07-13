@@ -55,18 +55,6 @@ namespace MiniMAL
         [XmlIgnore]
         public bool FansubGroupSpecified { get { return FansubGroup == ""; } }
 
-        public AnimeRequestData() {}
-
-        public AnimeRequestData(Anime a)
-        {
-            Episode = a.MyWatchedEpisodes;
-            Status = (int)a.MyStatus;
-            Score = a.MyScore;
-            DateStart = a.MyStartDate;
-            DateFinish = a.MyEndDate;
-            Tags = a.MyTags;
-        }
-
         static public AnimeRequestData DefaultAddRequest(WatchingStatus status)
         {
             var result = new AnimeRequestData {Status = (int)status, Episode = 1, Score = 0, DateStart = DateTime.Now};

@@ -96,6 +96,16 @@ namespace MiniMAL
             return AddMangaAsync(id, data).Result;
         }
 
+        public ListRequestResult UpdateAnime(int id, AnimeRequestData data)
+        {
+            return UpdateAnimeAsync(id, data).Result;
+        }
+
+        public ListRequestResult UpdateManga(int id, MangaRequestData data)
+        {
+            return UpdateMangaAsync(id, data).Result;
+        }
+
         public SearchResult<AnimeSearchEntry> SearchAnime(string[] search)
         {
             return SearchAnimeAsync(search).Result;
@@ -134,6 +144,16 @@ namespace MiniMAL
         public async Task<ListRequestResult> AddMangaAsync(int id, MangaRequestData data)
         {
             return await AddEntryAsync(id, data);
+        }
+
+        public async Task<ListRequestResult> UpdateAnimeAsync(int id, AnimeRequestData data)
+        {
+            return await UpdateEntryAsync(id, data);
+        }
+
+        public async Task<ListRequestResult> UpdateMangaAsync(int id, MangaRequestData data)
+        {
+            return await UpdateEntryAsync(id, data);
         }
 
         public async Task<SearchResult<AnimeSearchEntry>> SearchAnimeAsync(string[] search)

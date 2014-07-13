@@ -55,19 +55,6 @@ namespace MiniMAL
         [XmlIgnore]
         public bool RetailVolumesSpecified { get { return RetailVolumes.HasValue; } }
 
-        public MangaRequestData() {}
-
-        public MangaRequestData(Manga m)
-        {
-            Chapter = m.MyReadChapters;
-            Volume = m.MyReadVolumes;
-            Status = (int)m.MyStatus;
-            Score = m.MyScore;
-            DateStart = m.MyStartDate;
-            DateFinish = m.MyEndDate;
-            Tags = m.MyTags;
-        }
-
         static public MangaRequestData DefaultAddRequest(ReadingStatus status)
         {
             var result = new MangaRequestData

@@ -9,7 +9,7 @@ namespace MiniMAL.Console.Commands
         public MangalistCommand(MiniMALClient client)
             : base(client, "mangalist", "Display the manga list from a user.")
         {
-            OptionalArguments.Add(new Argument("user", typeof(string),
+            OptionalArguments.Add(new Argument<string>("user",
                 "a MyAnimeList's username. (connected user if not stated)"));
 
             Options.Add(new Option("r", "reading", "Select currently reading entries."));
