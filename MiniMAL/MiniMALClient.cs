@@ -39,12 +39,12 @@ namespace MiniMAL
                 throw new ConfigFileCorruptException();
             }
 
-            Authentification(ClientData.Username, ClientData.DecryptedPassword);
+            Login(ClientData.Username, ClientData.DecryptedPassword);
         }
 
-        public void Authentification(string username, string password)
+        public void Login(string username, string password)
         {
-            string link = RequestLink.VerifyCredentials();
+            const string link = RequestLink.VerifyCredentials;
             WebRequest request = WebRequest.Create(link);
             request.Credentials = new NetworkCredential(username, password);
 
