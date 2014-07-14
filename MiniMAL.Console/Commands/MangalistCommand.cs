@@ -26,22 +26,22 @@ namespace MiniMAL.Console.Commands
                                       : Client.LoadMangalist();
 
             IEnumerable<Manga> list = new List<Manga>();
-            foreach (string opt in options.Keys)
-                switch (opt)
+            foreach (Option.OptionKeys opt in options.Keys)
+                switch (opt.Long)
                 {
-                    case "r":
+                    case "reading":
                         list = list.Concat(mangalist[ReadingStatus.Reading]);
                         break;
-                    case "c":
+                    case "completed":
                         list = list.Concat(mangalist[ReadingStatus.Completed]);
                         break;
-                    case "h":
+                    case "hold":
                         list = list.Concat(mangalist[ReadingStatus.OnHold]);
                         break;
-                    case "d":
+                    case "dropped":
                         list = list.Concat(mangalist[ReadingStatus.Dropped]);
                         break;
-                    case "p":
+                    case "planned":
                         list = list.Concat(mangalist[ReadingStatus.PlanToRead]);
                         break;
                 }

@@ -26,22 +26,22 @@ namespace MiniMAL.Console.Commands
                                       : Client.LoadAnimelist();
 
             IEnumerable<Anime> list = new List<Anime>();
-            foreach (string opt in options.Keys)
-                switch (opt)
+            foreach (Option.OptionKeys opt in options.Keys)
+                switch (opt.Long)
                 {
-                    case "w":
+                    case "watching":
                         list = list.Concat(animelist[WatchingStatus.Watching]);
                         break;
-                    case "c":
+                    case "completed":
                         list = list.Concat(animelist[WatchingStatus.Completed]);
                         break;
-                    case "h":
+                    case "hold":
                         list = list.Concat(animelist[WatchingStatus.OnHold]);
                         break;
-                    case "d":
+                    case "dropped":
                         list = list.Concat(animelist[WatchingStatus.Dropped]);
                         break;
-                    case "p":
+                    case "planned":
                         list = list.Concat(animelist[WatchingStatus.PlanToWatch]);
                         break;
                 }
