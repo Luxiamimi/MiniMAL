@@ -51,8 +51,10 @@ namespace MiniMAL.Console.Commands
             if (!enumerable.Any())
                 enumerable = animelist.ToList();
 
+            System.Console.WriteLine();
             foreach (Anime a in enumerable)
-                System.Console.WriteLine(a.Title);
+                System.Console.WriteLine("({0}) {1}", a.Id, a.Title);
+            System.Console.WriteLine();
             System.Console.WriteLine(enumerable.Count() + " entries");
         }
     }

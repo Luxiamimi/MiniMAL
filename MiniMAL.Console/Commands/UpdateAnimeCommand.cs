@@ -27,6 +27,9 @@ namespace MiniMAL.Console.Commands
             if (options.ContainsKey("score"))
                 data.Score = options["score"].Value<int>("value");
 
+            if (options.ContainsKey("status"))
+                data.Status = options["status"].Value<WatchingStatus>("value");
+
             ListRequestResult result = Client.UpdateAnime(args.Value<int>("id"), data);
 
             switch (result)

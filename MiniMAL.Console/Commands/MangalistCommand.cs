@@ -51,8 +51,10 @@ namespace MiniMAL.Console.Commands
             if (!enumerable.Any())
                 enumerable = mangalist.ToList();
 
+            System.Console.WriteLine();
             foreach (Manga m in enumerable)
-                System.Console.WriteLine(m.Title);
+                System.Console.WriteLine("({0}) {1}", m.Id, m.Title);
+            System.Console.WriteLine();
             System.Console.WriteLine(enumerable.Count() + " entries");
         }
     }
