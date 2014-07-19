@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Xml;
 using MiniMAL.Exceptions;
+using MiniMAL.Interfaces;
 using MiniMAL.Internal;
-using MiniMAL.Internal.Interfaces;
 
 namespace MiniMAL
 {
@@ -28,11 +28,16 @@ namespace MiniMAL
             return list;
         }
 
-        private async Task<ListRequestResult> AddEntryAsync<TRequestData>(int id, TRequestData data)
+        private async Task<ListRequestResult> AddEntryAsync<TRequestData, TRequestSerializable>(int id,
+                                                                                                TRequestData data)
             where TRequestData : IRequestData, new()
+            where TRequestSerializable : IRequestSerializable<TRequestData>, new()
         {
+            var serialize = new TRequestSerializable();
+            serialize.GetData(data);
+
             string link = RequestLink.AddEntry<TRequestData>(id);
-            var requestData = new Dictionary<string, string> {{"data", data.SerializeToString()}};
+            var requestData = new Dictionary<string, string> {{"data", serialize.SerializeDataToString()}};
 
             try
             {
@@ -49,13 +54,28 @@ namespace MiniMAL
             return ListRequestResult.Created;
         }
 
-        private async Task<ListRequestResult> UpdateEntryAsync<TRequestData>(int id, TRequestData data)
+        private async Task<ListRequestResult> UpdateEntryAsync<TRequestData, TRequestSerializable>(int id,
+                                                                                                   TRequestData data)
             where TRequestData : IRequestData, new()
+            where TRequestSerializable : IRequestSerializable<TRequestData>, new()
         {
-            string link = RequestLink.UpdateEntry<TRequestData>(id);
-            var requestData = new Dictionary<string, string> { { "data", data.SerializeToString() } };
+            var serialize = new TRequestSerializable();
+            serialize.GetData(data);
 
-            await RequestAsync(link, requestData);
+            string link = RequestLink.UpdateEntry<TRequestData>(id);
+            var requestData = new Dictionary<string, string> {{"data", serialize.SerializeDataToString()}};
+
+            try
+            {
+                await RequestAsync(link, requestData);
+            }
+            catch (RequestException e)
+            {
+                if (e.Message.Contains("No parameters passed in"))
+                    return ListRequestResult.NoParametersPassed;
+
+                throw;
+            }
 
             return ListRequestResult.Updated;
         }

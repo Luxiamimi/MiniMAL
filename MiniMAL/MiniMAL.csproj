@@ -38,9 +38,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Anime.cs" />
-    <Compile Include="AnimeEnum.cs" />
     <Compile Include="AnimeList.cs" />
     <Compile Include="AnimeRequestData.cs" />
+    <Compile Include="Internal\AnimeRequestSerializable.cs" />
     <Compile Include="AnimeSearchEntry.cs" />
     <Compile Include="Exceptions\RequestException.cs" />
     <Compile Include="Internal\Entry.cs" />
@@ -49,15 +49,18 @@
     <Compile Include="Exceptions\MiniMALException.cs" />
     <Compile Include="Exceptions\UserNotConnectedException.cs" />
     <Compile Include="Exceptions\UserUnauthorizedException.cs" />
-    <Compile Include="Internal\Interfaces\ISearchEntry.cs" />
-    <Compile Include="Internal\Interfaces\ISearchResult.cs" />
+    <Compile Include="Interfaces\IRequestData.cs" />
+    <Compile Include="Interfaces\ISearchEntry.cs" />
+    <Compile Include="Interfaces\ISearchResult.cs" />
+    <Compile Include="Internal\RequestSerializable.cs" />
+    <Compile Include="Interfaces\IEntry.cs" />
+    <Compile Include="Interfaces\IRequestSerializable.cs" />
+    <Compile Include="Interfaces\IUserList.cs" />
     <Compile Include="Internal\RequestData.cs" />
-    <Compile Include="Internal\Interfaces\IEntry.cs" />
-    <Compile Include="Internal\Interfaces\IRequestData.cs" />
-    <Compile Include="Internal\Interfaces\IUserList.cs" />
     <Compile Include="Internal\RequestLink.cs" />
     <Compile Include="Internal\SearchResult.cs" />
-    <Compile Include="MangaEnum.cs" />
+    <Compile Include="MALEnum.cs" />
+    <Compile Include="Internal\MangaRequestSerializable.cs" />
     <Compile Include="MangaRequestData.cs" />
     <Compile Include="MiniMALClient.Generic.cs">
       <DependentUpon>MiniMALClient.cs</DependentUpon>

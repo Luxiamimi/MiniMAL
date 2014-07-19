@@ -42,6 +42,8 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\UpdateAnimeCommand.cs" />
+    <Compile Include="Commands\UpdateMangaCommand.cs" />
     <Compile Include="Commands\AddMangaCommand.cs" />
     <Compile Include="Commands\AddAnimeCommand.cs" />
     <Compile Include="Commands\AnimelistCommand.cs" />

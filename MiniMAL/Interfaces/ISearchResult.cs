@@ -1,6 +1,6 @@
 ﻿using System.Xml;
 
-namespace MiniMAL.Internal.Interfaces
+namespace MiniMAL.Interfaces
 {
     public interface ISearchResult
     {

@@ -1,8 +1,8 @@
 ﻿using System.Xml;
 
-namespace MiniMAL.Internal.Interfaces
+namespace MiniMAL.Interfaces
 {
-    internal interface IEntry
+    public interface ISearchEntry
     {
         void LoadFromXmlNode(XmlNode e);
     }

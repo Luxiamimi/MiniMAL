@@ -4,6 +4,7 @@
     {
         Created,
         Updated,
-        AlreadyInTheList
+        AlreadyInTheList,
+        NoParametersPassed
     }
 }

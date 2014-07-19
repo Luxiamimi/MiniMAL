@@ -48,7 +48,10 @@ namespace MiniMAL
                         throw;
 
                     using (var readStream = new StreamReader(baseStream, Encoding.UTF8))
-                        throw new RequestException(readStream.ReadToEnd());
+                    {
+                        string errorMessage = readStream.ReadToEnd();
+                        throw new RequestException(errorMessage);
+                    }
                 }
             }
 

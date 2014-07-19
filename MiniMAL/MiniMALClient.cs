@@ -138,22 +138,22 @@ namespace MiniMAL
 
         public async Task<ListRequestResult> AddAnimeAsync(int id, AnimeRequestData data)
         {
-            return await AddEntryAsync(id, data);
+            return await AddEntryAsync<AnimeRequestData, AnimeRequestSerializable>(id, data);
         }
 
         public async Task<ListRequestResult> AddMangaAsync(int id, MangaRequestData data)
         {
-            return await AddEntryAsync(id, data);
+            return await AddEntryAsync<MangaRequestData, MangaRequestSerializable>(id, data);
         }
 
         public async Task<ListRequestResult> UpdateAnimeAsync(int id, AnimeRequestData data)
         {
-            return await UpdateEntryAsync(id, data);
+            return await UpdateEntryAsync<AnimeRequestData, AnimeRequestSerializable>(id, data);
         }
 
         public async Task<ListRequestResult> UpdateMangaAsync(int id, MangaRequestData data)
         {
-            return await UpdateEntryAsync(id, data);
+            return await UpdateEntryAsync<MangaRequestData, MangaRequestSerializable>(id, data);
         }
 
         public async Task<SearchResult<AnimeSearchEntry>> SearchAnimeAsync(string[] search)
