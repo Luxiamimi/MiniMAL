@@ -32,14 +32,14 @@ namespace MiniMAL.Console.Commands
             if (options.ContainsKey("status"))
                 data.Status = options["status"].Value<ReadingStatus>("value");
 
-            MiniMALClient.ListRequestResult result = Client.UpdateManga(args.Value<int>("id"), data);
+            MiniMALClient.UpdateRequestResult result = Client.UpdateManga(args.Value<int>("id"), data);
 
             switch (result)
             {
-                case MiniMALClient.ListRequestResult.Updated:
+                case MiniMALClient.UpdateRequestResult.Updated:
                     System.Console.WriteLine("Updated");
                     break;
-                case MiniMALClient.ListRequestResult.NoParametersPassed:
+                case MiniMALClient.UpdateRequestResult.NoParametersPassed:
                     System.Console.WriteLine("Empty request - use options");
                     break;
             }

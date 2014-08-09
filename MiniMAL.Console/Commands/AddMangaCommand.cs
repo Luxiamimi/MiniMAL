@@ -33,14 +33,14 @@ namespace MiniMAL.Console.Commands
             if (options.ContainsKey("priority"))
                 data.Priority = options["priority"].Value<Priority>("value");
 
-            MiniMALClient.ListRequestResult result = Client.AddManga(args.Value<int>("id"), data);
+            MiniMALClient.AddRequestResult result = Client.AddManga(args.Value<int>("id"), data);
 
             switch (result)
             {
-                case MiniMALClient.ListRequestResult.Created:
+                case MiniMALClient.AddRequestResult.Created:
                     System.Console.WriteLine("Created");
                     break;
-                case MiniMALClient.ListRequestResult.AlreadyInTheList:
+                case MiniMALClient.AddRequestResult.AlreadyInTheList:
                     System.Console.WriteLine("Already in your list.");
                     break;
             }

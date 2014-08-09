@@ -13,11 +13,11 @@ namespace MiniMAL.Console.Commands
 
         protected override void Action(ArgumentsValues args, OptionsValues options)
         {
-            MiniMALClient.ListRequestResult result = Client.DeleteAnime(args.Value<int>("id"));
+            MiniMALClient.DeleteRequestResult result = Client.DeleteAnime(args.Value<int>("id"));
 
             switch (result)
             {
-                case MiniMALClient.ListRequestResult.Deleted:
+                case MiniMALClient.DeleteRequestResult.Deleted:
                     System.Console.WriteLine("Deleted");
                     break;
             }

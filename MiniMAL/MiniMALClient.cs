@@ -95,32 +95,32 @@ namespace MiniMAL
             return LoadMangalistAsync(user).Result;
         }
 
-        public ListRequestResult AddAnime(int id, AnimeRequestData data)
+        public AddRequestResult AddAnime(int id, AnimeRequestData data)
         {
             return AddAnimeAsync(id, data).Result;
         }
 
-        public ListRequestResult AddManga(int id, MangaRequestData data)
+        public AddRequestResult AddManga(int id, MangaRequestData data)
         {
             return AddMangaAsync(id, data).Result;
         }
 
-        public ListRequestResult UpdateAnime(int id, AnimeRequestData data)
+        public UpdateRequestResult UpdateAnime(int id, AnimeRequestData data)
         {
             return UpdateAnimeAsync(id, data).Result;
         }
 
-        public ListRequestResult UpdateManga(int id, MangaRequestData data)
+        public UpdateRequestResult UpdateManga(int id, MangaRequestData data)
         {
             return UpdateMangaAsync(id, data).Result;
         }
 
-        public ListRequestResult DeleteAnime(int id)
+        public DeleteRequestResult DeleteAnime(int id)
         {
             return DeleteAnimeAsync(id).Result;
         }
 
-        public ListRequestResult DeleteManga(int id)
+        public DeleteRequestResult DeleteManga(int id)
         {
             return DeleteMangaAsync(id).Result;
         }
@@ -155,32 +155,32 @@ namespace MiniMAL
             return await LoadUserListAsync<MangaList>(user);
         }
 
-        public async Task<ListRequestResult> AddAnimeAsync(int id, AnimeRequestData data)
+        public async Task<AddRequestResult> AddAnimeAsync(int id, AnimeRequestData data)
         {
             return await AddEntryAsync<AnimeRequestData, AnimeRequestSerializable>(id, data);
         }
 
-        public async Task<ListRequestResult> AddMangaAsync(int id, MangaRequestData data)
+        public async Task<AddRequestResult> AddMangaAsync(int id, MangaRequestData data)
         {
             return await AddEntryAsync<MangaRequestData, MangaRequestSerializable>(id, data);
         }
 
-        public async Task<ListRequestResult> UpdateAnimeAsync(int id, AnimeRequestData data)
+        public async Task<UpdateRequestResult> UpdateAnimeAsync(int id, AnimeRequestData data)
         {
             return await UpdateEntryAsync<AnimeRequestData, AnimeRequestSerializable>(id, data);
         }
 
-        public async Task<ListRequestResult> UpdateMangaAsync(int id, MangaRequestData data)
+        public async Task<UpdateRequestResult> UpdateMangaAsync(int id, MangaRequestData data)
         {
             return await UpdateEntryAsync<MangaRequestData, MangaRequestSerializable>(id, data);
         }
 
-        public async Task<ListRequestResult> DeleteAnimeAsync(int id)
+        public async Task<DeleteRequestResult> DeleteAnimeAsync(int id)
         {
             return await DeleteEntryAsync<AnimeRequestData>(id);
         }
 
-        public async Task<ListRequestResult> DeleteMangaAsync(int id)
+        public async Task<DeleteRequestResult> DeleteMangaAsync(int id)
         {
             return await DeleteEntryAsync<MangaRequestData>(id);
         }
@@ -217,7 +217,7 @@ namespace MiniMAL
             return list;
         }
 
-        private async Task<ListRequestResult> AddEntryAsync<TRequestData, TRequestSerializable>(int id,
+        private async Task<AddRequestResult> AddEntryAsync<TRequestData, TRequestSerializable>(int id,
                                                                                                 TRequestData data)
             where TRequestData : IRequestData, new()
             where TRequestSerializable : IRequestSerializable<TRequestData>, new()
@@ -235,15 +235,15 @@ namespace MiniMAL
             catch (RequestException e)
             {
                 if (e.Message.IndexOf("already", StringComparison.OrdinalIgnoreCase) >= 0)
-                    return ListRequestResult.AlreadyInTheList;
+                    return AddRequestResult.AlreadyInTheList;
 
                 throw;
             }
 
-            return ListRequestResult.Created;
+            return AddRequestResult.Created;
         }
 
-        private async Task<ListRequestResult> UpdateEntryAsync<TRequestData, TRequestSerializable>(int id,
+        private async Task<UpdateRequestResult> UpdateEntryAsync<TRequestData, TRequestSerializable>(int id,
                                                                                                    TRequestData data)
             where TRequestData : IRequestData, new()
             where TRequestSerializable : IRequestSerializable<TRequestData>, new()
@@ -261,22 +261,22 @@ namespace MiniMAL
             catch (RequestException e)
             {
                 if (e.Message.Contains("No parameters passed in"))
-                    return ListRequestResult.NoParametersPassed;
+                    return UpdateRequestResult.NoParametersPassed;
 
                 throw;
             }
 
-            return ListRequestResult.Updated;
+            return UpdateRequestResult.Updated;
         }
 
-        private async Task<ListRequestResult> DeleteEntryAsync<TRequestData>(int id)
+        private async Task<DeleteRequestResult> DeleteEntryAsync<TRequestData>(int id)
             where TRequestData : IRequestData, new()
         {
             string link = RequestLink.DeleteEntry<TRequestData>(id);
 
             await RequestAsync(link);
 
-            return ListRequestResult.Deleted;
+            return DeleteRequestResult.Deleted;
         }
 
         private async Task<TSearchResult> SearchAsync<TSearchResult>(string[] search)
@@ -399,13 +399,21 @@ namespace MiniMAL
 
         #region Enum
 
-        public enum ListRequestResult
+        public enum AddRequestResult
         {
             Created,
+            AlreadyInTheList
+        }
+
+        public enum UpdateRequestResult
+        {
             Updated,
-            Deleted,
-            AlreadyInTheList,
             NoParametersPassed
+        }
+
+        public enum DeleteRequestResult
+        {
+            Deleted
         }
 
         #endregion Enum
