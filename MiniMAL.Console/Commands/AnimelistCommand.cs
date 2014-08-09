@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using MiniMAL.Anime;
 using MiniMAL.Console.Commands.Abstract;
 using StarLess;
 
@@ -26,7 +27,7 @@ namespace MiniMAL.Console.Commands
                                       ? MiniMALClient.LoadAnimelist(args.Value<string>("user"))
                                       : Client.LoadAnimelist();
 
-            IEnumerable<Anime> list = new List<Anime>();
+            IEnumerable<Anime.Anime> list = new List<Anime.Anime>();
             foreach (Option.OptionKeys opt in options.Keys)
                 switch (opt.Long)
                 {
@@ -47,13 +48,13 @@ namespace MiniMAL.Console.Commands
                         break;
                 }
 
-            IList<Anime> enumerable = list as IList<Anime> ?? list.ToList();
+            IList<Anime.Anime> enumerable = list as IList<Anime.Anime> ?? list.ToList();
 
             if (!enumerable.Any())
                 enumerable = animelist.ToList();
 
             System.Console.WriteLine();
-            foreach (Anime a in enumerable)
+            foreach (Anime.Anime a in enumerable)
                 System.Console.WriteLine("({0}) {1}", a.Id, a.Title);
             System.Console.WriteLine();
             System.Console.WriteLine(enumerable.Count() + " entries");

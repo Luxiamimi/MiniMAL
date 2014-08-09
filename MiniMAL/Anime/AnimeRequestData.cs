@@ -1,7 +1,7 @@
 ﻿using System;
 using MiniMAL.Internal;
 
-namespace MiniMAL
+namespace MiniMAL.Anime
 {
     public class AnimeRequestData : RequestData<WatchingStatus>
     {

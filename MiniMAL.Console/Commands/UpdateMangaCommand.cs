@@ -1,4 +1,5 @@
 ﻿using MiniMAL.Console.Commands.Abstract;
+using MiniMAL.Manga;
 using StarLess;
 
 namespace MiniMAL.Console.Commands
@@ -31,14 +32,14 @@ namespace MiniMAL.Console.Commands
             if (options.ContainsKey("status"))
                 data.Status = options["status"].Value<ReadingStatus>("value");
 
-            ListRequestResult result = Client.UpdateManga(args.Value<int>("id"), data);
+            MiniMALClient.ListRequestResult result = Client.UpdateManga(args.Value<int>("id"), data);
 
             switch (result)
             {
-                case ListRequestResult.Updated:
+                case MiniMALClient.ListRequestResult.Updated:
                     System.Console.WriteLine("Updated");
                     break;
-                case ListRequestResult.NoParametersPassed:
+                case MiniMALClient.ListRequestResult.NoParametersPassed:
                     System.Console.WriteLine("Empty request - use options");
                     break;
             }

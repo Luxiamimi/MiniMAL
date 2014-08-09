@@ -6,7 +6,7 @@ using System.Xml.Serialization;
 
 namespace MiniMAL
 {
-    public struct MiniMALClientData
+    public struct ClientData
     {
         public string Username { get; set; }
         public byte[] Password { get; set; }
@@ -19,32 +19,32 @@ namespace MiniMAL
         }
         static private readonly ASCIIEncoding Encoding = new ASCIIEncoding();
 
-        public MiniMALClientData(string username, string password)
+        public ClientData(string username, string password)
             : this()
         {
             Username = username;
             DecryptedPassword = password;
         }
 
-        static public void Save(MiniMALClientData data, string filename)
+        static public void Save(ClientData data, string filename)
         {
-            var serializer = new XmlSerializer(typeof(MiniMALClientData));
+            var serializer = new XmlSerializer(typeof(ClientData));
             var sw = new StreamWriter(filename);
             serializer.Serialize(sw, data);
             sw.Close();
         }
 
-        static public MiniMALClientData Load(string filename)
+        static public ClientData Load(string filename)
         {
             if (!File.Exists(filename))
                 throw new FileNotFoundException();
 
-            var serializer = new XmlSerializer(typeof(MiniMALClientData));
+            var serializer = new XmlSerializer(typeof(ClientData));
             var sr = new StreamReader(filename);
-            MiniMALClientData data;
+            ClientData data;
             try
             {
-                data = (MiniMALClientData)serializer.Deserialize(sr);
+                data = (ClientData)serializer.Deserialize(sr);
             }
             catch (Exception)
             {

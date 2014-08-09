@@ -1,4 +1,7 @@
-﻿namespace MiniMAL.Internal
+﻿using MiniMAL.Interfaces;
+using MiniMAL.Types;
+
+namespace MiniMAL.Internal
 {
     public abstract class RequestData<TMyStatus> : IRequestData
     {

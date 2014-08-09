@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml;
+using MiniMAL.Interfaces;
 
 namespace MiniMAL.Internal
 {

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using MiniMAL.Anime;
 using MiniMAL.Console.Commands.Abstract;
 using MiniMAL.Exceptions;
 using StarLess;

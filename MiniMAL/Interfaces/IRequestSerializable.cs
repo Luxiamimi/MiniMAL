@@ -1,4 +1,4 @@
-﻿namespace MiniMAL
+﻿namespace MiniMAL.Interfaces
 {
     public interface IRequestSerializable<in TRequestData>
         where TRequestData : IRequestData

@@ -2,7 +2,7 @@ using System;
 using System.Xml;
 using MiniMAL.Internal;
 
-namespace MiniMAL
+namespace MiniMAL.Anime
 {
     public class Anime : Entry<TypeAnime, AiringStatus, WatchingStatus>
     {

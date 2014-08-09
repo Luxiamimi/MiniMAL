@@ -2,12 +2,11 @@
 using System.Xml;
 using MiniMAL.Internal;
 
-namespace MiniMAL
+namespace MiniMAL.Anime
 {
-    public class MangaSearchEntry : SearchEntry<TypeManga, PublishingStatus>
+    public class AnimeSearchEntry : SearchEntry<TypeAnime, AiringStatus>
     {
-        public int Chapters { get; protected set; }
-        public int Volumes { get; protected set; }
+        public int Episodes { get; protected set; }
 
         public override void LoadFromXmlNode(XmlNode e)
         {
@@ -16,8 +15,7 @@ namespace MiniMAL
             EnglishTitle = MALConverter.XmlToString(e["english"]);
             Synonyms = MALConverter.XmlToString(e["synonyms"]).
                                     Split(new[] {"; "}, StringSplitOptions.RemoveEmptyEntries);
-            Chapters = MALConverter.XmlToInt(e["chapters"]);
-            Volumes = MALConverter.XmlToInt(e["volumes"]);
+            Episodes = MALConverter.XmlToInt(e["episodes"]);
             Score = MALConverter.XmlToDouble(e["score"]);
             Type = ParseType(e["type"]);
             Status = ParseStatus(e["status"]);
@@ -27,41 +25,39 @@ namespace MiniMAL
             ImageUrl = MALConverter.XmlToString(e["image"]);
         }
 
-        static private TypeManga ParseType(XmlNode xml)
+        static private TypeAnime ParseType(XmlNode xml)
         {
             switch (xml.InnerText)
             {
                 case "":
-                    return TypeManga.None;
-                case "Manga":
-                    return TypeManga.Manga;
-                case "Novel":
-                    return TypeManga.Novel;
-                case "One Shot":
-                    return TypeManga.OneShot;
-                case "Doujin":
-                    return TypeManga.Doujin;
-                case "Manhwa":
-                    return TypeManga.Manhwa;
-                case "Manhua":
-                    return TypeManga.Manhua;
+                    return TypeAnime.None;
+                case "TV":
+                    return TypeAnime.TV;
+                case "OVA":
+                    return TypeAnime.OVA;
+                case "Movie":
+                    return TypeAnime.Movie;
+                case "Special":
+                    return TypeAnime.Special;
+                case "ONA":
+                    return TypeAnime.ONA;
                 default:
                     throw new InvalidOperationException();
             }
         }
 
-        static private PublishingStatus ParseStatus(XmlNode xml)
+        static private AiringStatus ParseStatus(XmlNode xml)
         {
             switch (xml.InnerText)
             {
                 case "":
-                    return PublishingStatus.None;
-                case "Publishing":
-                    return PublishingStatus.Publishing;
-                case "Finished":
-                    return PublishingStatus.Finished;
-                case "Not yet publishing":
-                    return PublishingStatus.NoYetPublished;
+                    return AiringStatus.None;
+                case "Currently Airing":
+                    return AiringStatus.Airing;
+                case "Finished Airing":
+                    return AiringStatus.Finished;
+                case "Not yet aired":
+                    return AiringStatus.NoYetAiring;
                 default:
                     throw new InvalidOperationException();
             }

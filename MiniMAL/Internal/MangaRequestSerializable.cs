@@ -1,4 +1,5 @@
 ﻿using System.Xml.Serialization;
+using MiniMAL.Manga;
 
 namespace MiniMAL.Internal
 {

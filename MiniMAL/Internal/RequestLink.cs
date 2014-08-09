@@ -1,4 +1,7 @@
 ﻿using System;
+using MiniMAL.Anime;
+using MiniMAL.Interfaces;
+using MiniMAL.Manga;
 
 namespace MiniMAL.Internal
 {

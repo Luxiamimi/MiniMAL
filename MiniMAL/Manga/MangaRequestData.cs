@@ -1,7 +1,7 @@
 ﻿using System;
 using MiniMAL.Internal;
 
-namespace MiniMAL
+namespace MiniMAL.Manga
 {
     public class MangaRequestData : RequestData<ReadingStatus>
     {

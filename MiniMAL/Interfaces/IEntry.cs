@@ -1,6 +1,6 @@
 ﻿using System.Xml;
 
-namespace MiniMAL
+namespace MiniMAL.Interfaces
 {
     public interface IEntry
     {

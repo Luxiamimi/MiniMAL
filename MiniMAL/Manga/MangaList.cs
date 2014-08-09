@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using MiniMAL.Internal;
 
-namespace MiniMAL
+namespace MiniMAL.Manga
 {
     public class MangaList : UserList<Manga, TypeManga, PublishingStatus, ReadingStatus>
     {

@@ -2,6 +2,7 @@
 using System.Linq;
 using MiniMAL.Console.Commands.Abstract;
 using MiniMAL.Exceptions;
+using MiniMAL.Manga;
 using StarLess;
 
 namespace MiniMAL.Console.Commands

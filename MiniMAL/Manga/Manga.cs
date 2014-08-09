@@ -2,7 +2,7 @@ using System;
 using System.Xml;
 using MiniMAL.Internal;
 
-namespace MiniMAL
+namespace MiniMAL.Manga
 {
     public class Manga : Entry<TypeManga, PublishingStatus, ReadingStatus>
     {

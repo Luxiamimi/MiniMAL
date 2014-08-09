@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using MiniMAL.Internal;
 
-namespace MiniMAL
+namespace MiniMAL.Anime
 {
     public class AnimeList : UserList<Anime, TypeAnime, AiringStatus, WatchingStatus>
     {

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using MiniMAL.Console.Commands.Abstract;
+using MiniMAL.Manga;
 using StarLess;
 
 namespace MiniMAL.Console.Commands
@@ -26,7 +27,7 @@ namespace MiniMAL.Console.Commands
                                       ? MiniMALClient.LoadMangalist(args.Value<string>("user"))
                                       : Client.LoadMangalist();
 
-            IEnumerable<Manga> list = new List<Manga>();
+            IEnumerable<Manga.Manga> list = new List<Manga.Manga>();
             foreach (Option.OptionKeys opt in options.Keys)
                 switch (opt.Long)
                 {
@@ -47,13 +48,13 @@ namespace MiniMAL.Console.Commands
                         break;
                 }
 
-            IList<Manga> enumerable = list as IList<Manga> ?? list.ToList();
+            IList<Manga.Manga> enumerable = list as IList<Manga.Manga> ?? list.ToList();
 
             if (!enumerable.Any())
                 enumerable = mangalist.ToList();
 
             System.Console.WriteLine();
-            foreach (Manga m in enumerable)
+            foreach (Manga.Manga m in enumerable)
                 System.Console.WriteLine("({0}) {1}", m.Id, m.Title);
             System.Console.WriteLine();
             System.Console.WriteLine(enumerable.Count() + " entries");
