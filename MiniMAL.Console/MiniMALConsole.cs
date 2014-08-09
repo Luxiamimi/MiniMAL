@@ -26,6 +26,8 @@ namespace MiniMAL.Console
             AddCommand(new AddMangaCommand(_client));
             AddCommand(new UpdateAnimeCommand(_client));
             AddCommand(new UpdateMangaCommand(_client));
+            AddCommand(new DeleteAnimeCommand(_client));
+            AddCommand(new DeleteMangaCommand(_client));
         }
 
         protected override void Initialize()

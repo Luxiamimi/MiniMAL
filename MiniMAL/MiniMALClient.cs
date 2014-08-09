@@ -115,6 +115,16 @@ namespace MiniMAL
             return UpdateMangaAsync(id, data).Result;
         }
 
+        public ListRequestResult DeleteAnime(int id)
+        {
+            return DeleteAnimeAsync(id).Result;
+        }
+
+        public ListRequestResult DeleteManga(int id)
+        {
+            return DeleteMangaAsync(id).Result;
+        }
+
         public SearchResult<AnimeSearchEntry> SearchAnime(string[] search)
         {
             return SearchAnimeAsync(search).Result;
@@ -163,6 +173,16 @@ namespace MiniMAL
         public async Task<ListRequestResult> UpdateMangaAsync(int id, MangaRequestData data)
         {
             return await UpdateEntryAsync<MangaRequestData, MangaRequestSerializable>(id, data);
+        }
+
+        public async Task<ListRequestResult> DeleteAnimeAsync(int id)
+        {
+            return await DeleteEntryAsync<AnimeRequestData>(id);
+        }
+
+        public async Task<ListRequestResult> DeleteMangaAsync(int id)
+        {
+            return await DeleteEntryAsync<MangaRequestData>(id);
         }
 
         public async Task<SearchResult<AnimeSearchEntry>> SearchAnimeAsync(string[] search)
@@ -249,6 +269,16 @@ namespace MiniMAL
             return ListRequestResult.Updated;
         }
 
+        private async Task<ListRequestResult> DeleteEntryAsync<TRequestData>(int id)
+            where TRequestData : IRequestData, new()
+        {
+            string link = RequestLink.DeleteEntry<TRequestData>(id);
+
+            await RequestAsync(link);
+
+            return ListRequestResult.Deleted;
+        }
+
         private async Task<TSearchResult> SearchAsync<TSearchResult>(string[] search)
             where TSearchResult : ISearchResult, new()
         {
@@ -263,6 +293,11 @@ namespace MiniMAL
         #endregion Generic
 
         #region Request
+
+        private async Task<string> RequestAsync(string link)
+        {
+            return await RequestAsync(link, new Dictionary<string, string>());
+        }
 
         private async Task<string> RequestAsync(string link, Dictionary<string, string> data)
         {
@@ -368,6 +403,7 @@ namespace MiniMAL
         {
             Created,
             Updated,
+            Deleted,
             AlreadyInTheList,
             NoParametersPassed
         }

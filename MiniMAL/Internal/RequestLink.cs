@@ -19,6 +19,9 @@ namespace MiniMAL.Internal
         private const string UpdateAnimeFormat = "http://myanimelist.net/api/animelist/update/{0}.xml";
         private const string UpdateMangaFormat = "http://myanimelist.net/api/mangalist/update/{0}.xml";
 
+        private const string DeleteAnimeFormat = "http://myanimelist.net/api/animelist/delete/{0}.xml";
+        private const string DeleteMangaFormat = "http://myanimelist.net/api/mangalist/delete/{0}.xml";
+
         private const string SearchAnimeFormat = "http://myanimelist.net/api/anime/search.xml?q={0}";
         private const string SearchMangaFormat = "http://myanimelist.net/api/manga/search.xml?q={0}";
 
@@ -61,6 +64,21 @@ namespace MiniMAL.Internal
                 format = UpdateAnimeFormat;
             else if (type is MangaRequestData)
                 format = UpdateMangaFormat;
+            else
+                throw new ArgumentException();
+
+            return string.Format(format, id);
+        }
+
+        static public string DeleteEntry<TRequestData>(int id) where TRequestData : IRequestData, new()
+        {
+            string format;
+            var type = new TRequestData();
+
+            if (type is AnimeRequestData)
+                format = DeleteAnimeFormat;
+            else if (type is MangaRequestData)
+                format = DeleteMangaFormat;
             else
                 throw new ArgumentException();
 
