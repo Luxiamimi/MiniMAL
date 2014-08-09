@@ -1,4 +1,5 @@
-﻿using StarLess;
+﻿using MiniMAL.Console.Commands.Abstract;
+using StarLess;
 
 namespace MiniMAL.Console.Commands
 {

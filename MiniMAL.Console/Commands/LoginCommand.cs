@@ -1,4 +1,5 @@
 ﻿using System;
+using MiniMAL.Console.Commands.Abstract;
 
 namespace MiniMAL.Console.Commands
 {

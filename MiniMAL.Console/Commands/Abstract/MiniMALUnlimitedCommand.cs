@@ -1,6 +1,6 @@
 ﻿using StarLess;
 
-namespace MiniMAL.Console.Commands
+namespace MiniMAL.Console.Commands.Abstract
 {
     internal abstract class MiniMALUnlimitedCommand : UnlimitedCommand
     {

@@ -49,8 +49,8 @@
     <Compile Include="Commands\AnimelistCommand.cs" />
     <Compile Include="Commands\LoginCommand.cs" />
     <Compile Include="Commands\MangalistCommand.cs" />
-    <Compile Include="Commands\MiniMALCommand.cs" />
-    <Compile Include="Commands\MiniMALUnlimitedCommand.cs" />
+    <Compile Include="Commands\Abstract\MiniMALCommand.cs" />
+    <Compile Include="Commands\Abstract\MiniMALUnlimitedCommand.cs" />
     <Compile Include="Commands\SearchAnimeCommand.cs" />
     <Compile Include="Commands\SearchMangaCommand.cs" />
     <Compile Include="MiniMALConsole.cs" />

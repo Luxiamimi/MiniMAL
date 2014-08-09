@@ -7,7 +7,6 @@ using MiniMAL.Internal;
 
 namespace MiniMAL
 {
-    // TODO : update/edit a list
     public partial class MiniMALClient
     {
         public bool IsConnected { get; private set; }
