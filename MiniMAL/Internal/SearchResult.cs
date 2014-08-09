@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Xml;
-using MiniMAL.Interfaces;
 
 namespace MiniMAL.Internal
 {

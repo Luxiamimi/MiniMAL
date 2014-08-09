@@ -1,5 +1,4 @@
 ﻿using System;
-using MiniMAL.Interfaces;
 
 namespace MiniMAL.Internal
 {

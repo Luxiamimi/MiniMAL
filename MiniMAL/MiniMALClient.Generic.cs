@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Xml;
 using MiniMAL.Exceptions;
-using MiniMAL.Interfaces;
 using MiniMAL.Internal;
 
 namespace MiniMAL

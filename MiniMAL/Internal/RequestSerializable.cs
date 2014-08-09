@@ -2,8 +2,6 @@
 using System.Text;
 using System.Xml;
 using System.Xml.Serialization;
-using MiniMAL.Interfaces;
-using MiniMAL.Types;
 
 namespace MiniMAL.Internal
 {
