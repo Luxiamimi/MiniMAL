@@ -28,11 +28,11 @@ namespace MiniMAL
         static public string UserList<TUserList>(string user) where TUserList : IUserList, new()
         {
             string format;
-            var type = new TUserList();
+            Type type = typeof(TUserList);
 
-            if (type is AnimeList)
+            if (type == typeof(AnimeList))
                 format = AnimelistFormat;
-            else if (type is MangaList)
+            else if (type == typeof(MangaList))
                 format = MangalistFormat;
             else
                 throw new ArgumentException();
@@ -43,11 +43,11 @@ namespace MiniMAL
         static public string AddEntry<TRequestData>(int id) where TRequestData : IRequestData, new()
         {
             string format;
-            var type = new TRequestData();
+            Type type = typeof(TRequestData);
 
-            if (type is AnimeRequestData)
+            if (type == typeof(AnimeRequestData))
                 format = AddAnimeFormat;
-            else if (type is MangaRequestData)
+            else if (type == typeof(MangaRequestData))
                 format = AddMangaFormat;
             else
                 throw new ArgumentException();
@@ -58,11 +58,11 @@ namespace MiniMAL
         static public string UpdateEntry<TRequestData>(int id) where TRequestData : IRequestData, new()
         {
             string format;
-            var type = new TRequestData();
+            Type type = typeof(TRequestData);
 
-            if (type is AnimeRequestData)
+            if (type == typeof(AnimeRequestData))
                 format = UpdateAnimeFormat;
-            else if (type is MangaRequestData)
+            else if (type == typeof(MangaRequestData))
                 format = UpdateMangaFormat;
             else
                 throw new ArgumentException();
@@ -73,11 +73,11 @@ namespace MiniMAL
         static public string DeleteEntry<TRequestData>(int id) where TRequestData : IRequestData, new()
         {
             string format;
-            var type = new TRequestData();
+            Type type = typeof(TRequestData);
 
-            if (type is AnimeRequestData)
+            if (type == typeof(AnimeRequestData))
                 format = DeleteAnimeFormat;
-            else if (type is MangaRequestData)
+            else if (type == typeof(MangaRequestData))
                 format = DeleteMangaFormat;
             else
                 throw new ArgumentException();
@@ -88,11 +88,11 @@ namespace MiniMAL
         static public string Search<TSearchResult>(string[] search) where TSearchResult : ISearchResult, new()
         {
             string format;
-            var type = new TSearchResult();
+            Type type = typeof(TSearchResult);
 
-            if (type is SearchResult<AnimeSearchEntry, AnimeType, AiringStatus>)
+            if (type == typeof(SearchResult<AnimeSearchEntry, AnimeType, AiringStatus>))
                 format = SearchAnimeFormat;
-            else if (type is SearchResult<MangaSearchEntry, MangaType, PublishingStatus>)
+            else if (type == typeof(SearchResult<MangaSearchEntry, MangaType, PublishingStatus>))
                 format = SearchMangaFormat;
             else
                 throw new ArgumentException();

@@ -4,7 +4,7 @@ using MiniMAL.Generic;
 namespace MiniMAL.Manga
 {
     [XmlRoot(ElementName = "entry", Namespace = "")]
-    internal class MangaRequestSerializable : RequestSerializable<MangaRequestData, ReadingStatus>
+    public class MangaRequestSerializable : RequestSerializable<MangaRequestData, ReadingStatus>
     {
         [XmlElement(ElementName = "chapter")]
         public int? Chapter { get; set; }

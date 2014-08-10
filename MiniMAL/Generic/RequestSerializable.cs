@@ -6,8 +6,7 @@ using MiniMAL.Types;
 
 namespace MiniMAL.Generic
 {
-    // TODO : Divide request & serializable data
-    internal abstract class RequestSerializable<TRequestData, TMyStatus> : IRequestSerializable<TRequestData>
+    public abstract class RequestSerializable<TRequestData, TMyStatus> : IRequestSerializable<TRequestData>
         where TRequestData : IRequestData
     {
         [XmlElement(ElementName = "status")]

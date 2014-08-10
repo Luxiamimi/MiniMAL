@@ -216,8 +216,7 @@ namespace MiniMAL
             return list;
         }
 
-        private async Task<AddRequestResult> AddEntryAsync<TRequestData, TRequestSerializable>(int id,
-                                                                                                TRequestData data)
+        private async Task<AddRequestResult> AddEntryAsync<TRequestData, TRequestSerializable>(int id, TRequestData data)
             where TRequestData : IRequestData, new()
             where TRequestSerializable : IRequestSerializable<TRequestData>, new()
         {
@@ -243,7 +242,7 @@ namespace MiniMAL
         }
 
         private async Task<UpdateRequestResult> UpdateEntryAsync<TRequestData, TRequestSerializable>(int id,
-                                                                                                   TRequestData data)
+                                                                                                     TRequestData data)
             where TRequestData : IRequestData, new()
             where TRequestSerializable : IRequestSerializable<TRequestData>, new()
         {
@@ -404,15 +403,15 @@ namespace MiniMAL
             AlreadyInTheList
         }
 
+        public enum DeleteRequestResult
+        {
+            Deleted
+        }
+
         public enum UpdateRequestResult
         {
             Updated,
             NoParametersPassed
-        }
-
-        public enum DeleteRequestResult
-        {
-            Deleted
         }
 
         #endregion Enum

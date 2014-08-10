@@ -4,7 +4,7 @@ using MiniMAL.Generic;
 namespace MiniMAL.Anime
 {
     [XmlRoot(ElementName = "entry", Namespace = "")]
-    internal class AnimeRequestSerializable : RequestSerializable<AnimeRequestData, WatchingStatus>
+    public class AnimeRequestSerializable : RequestSerializable<AnimeRequestData, WatchingStatus>
     {
         [XmlElement(ElementName = "episode")]
         public int? Episode { get; set; }
