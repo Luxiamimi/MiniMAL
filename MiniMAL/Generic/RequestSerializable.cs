@@ -2,13 +2,12 @@
 using System.Text;
 using System.Xml;
 using System.Xml.Serialization;
-using MiniMAL.Interfaces;
 using MiniMAL.Types;
 
-namespace MiniMAL.Internal
+namespace MiniMAL.Generic
 {
     // TODO : Divide request & serializable data
-    public abstract class RequestSerializable<TRequestData, TMyStatus> : IRequestSerializable<TRequestData>
+    internal abstract class RequestSerializable<TRequestData, TMyStatus> : IRequestSerializable<TRequestData>
         where TRequestData : IRequestData
     {
         [XmlElement(ElementName = "status")]

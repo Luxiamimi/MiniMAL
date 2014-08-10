@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Xml;
-using MiniMAL.Interfaces;
 using MiniMAL.Types;
 
-namespace MiniMAL.Internal
+namespace MiniMAL.Generic
 {
-    public abstract class Entry<TSeriesType, TSeriesStatus, TMyStatus> : IEntry
+    public abstract class Entry<TSeriesType, TSeriesStatus, TMyStatus>
     {
         public int Id { get; set; }
         public string Title { get; set; }
@@ -33,7 +32,7 @@ namespace MiniMAL.Internal
 
         internal Entry() {}
 
-        public abstract void LoadFromXmlNode(XmlNode e);
+        internal abstract void LoadFromXmlNode(XmlNode e);
 
         public override string ToString()
         {

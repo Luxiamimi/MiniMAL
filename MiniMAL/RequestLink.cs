@@ -1,9 +1,9 @@
 ﻿using System;
 using MiniMAL.Anime;
-using MiniMAL.Interfaces;
+using MiniMAL.Generic;
 using MiniMAL.Manga;
 
-namespace MiniMAL.Internal
+namespace MiniMAL
 {
     // TODO : use enum parameter for anime or manga
     static internal class RequestLink
@@ -90,9 +90,9 @@ namespace MiniMAL.Internal
             string format;
             var type = new TSearchResult();
 
-            if (type is SearchResult<AnimeSearchEntry>)
+            if (type is SearchResult<AnimeSearchEntry, AnimeType, AiringStatus>)
                 format = SearchAnimeFormat;
-            else if (type is SearchResult<MangaSearchEntry>)
+            else if (type is SearchResult<MangaSearchEntry, MangaType, PublishingStatus>)
                 format = SearchMangaFormat;
             else
                 throw new ArgumentException();

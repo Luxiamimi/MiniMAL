@@ -1,5 +1,5 @@
 ﻿using System;
-using MiniMAL.Internal;
+using MiniMAL.Generic;
 
 namespace MiniMAL.Manga
 {

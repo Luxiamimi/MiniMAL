@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Xml;
-using MiniMAL.Interfaces;
 
-namespace MiniMAL.Internal
+namespace MiniMAL.Generic
 {
-    public abstract class SearchEntry<TSeriesType, TSeriesStatus> : ISearchEntry
+    public abstract class SearchEntry<TSeriesType, TSeriesStatus>
     {
         public int Id { get; protected set; }
         public string Title { get; protected set; }
@@ -29,11 +28,11 @@ namespace MiniMAL.Internal
 
         internal SearchEntry() {}
 
-        public abstract void LoadFromXmlNode(XmlNode e);
-
         public override string ToString()
         {
             return Title;
         }
+
+        internal abstract void LoadFromXmlNode(XmlNode e);
     }
 }

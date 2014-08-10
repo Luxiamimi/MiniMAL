@@ -1,11 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Xml;
-using MiniMAL.Interfaces;
 
-namespace MiniMAL.Internal
+namespace MiniMAL.Generic
 {
-    public class SearchResult<TSearchEntry> : List<TSearchEntry>, ISearchResult
-        where TSearchEntry : ISearchEntry, new()
+    internal class SearchResult<TSearchEntry, TSeriesType, TSeriesStatus> : List<TSearchEntry>, ISearchResult
+        where TSearchEntry : SearchEntry<TSeriesType, TSeriesStatus>, new()
     {
         public void LoadFromXml(XmlDocument xmlDocument)
         {

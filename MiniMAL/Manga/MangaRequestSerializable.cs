@@ -1,10 +1,10 @@
 ﻿using System.Xml.Serialization;
-using MiniMAL.Manga;
+using MiniMAL.Generic;
 
-namespace MiniMAL.Internal
+namespace MiniMAL.Manga
 {
     [XmlRoot(ElementName = "entry", Namespace = "")]
-    public class MangaRequestSerializable : RequestSerializable<MangaRequestData, ReadingStatus>
+    internal class MangaRequestSerializable : RequestSerializable<MangaRequestData, ReadingStatus>
     {
         [XmlElement(ElementName = "chapter")]
         public int? Chapter { get; set; }

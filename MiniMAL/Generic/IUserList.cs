@@ -1,8 +1,8 @@
 ﻿using System.Xml;
 
-namespace MiniMAL.Interfaces
+namespace MiniMAL.Generic
 {
-    public interface ISearchResult
+    internal interface IUserList
     {
         void LoadFromXml(XmlDocument xmlDocument);
     }

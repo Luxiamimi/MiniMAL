@@ -1,25 +1,26 @@
 using System;
 using System.Xml;
-using MiniMAL.Internal;
+using MiniMAL.Generic;
+using MiniMAL.Types;
 
 namespace MiniMAL.Anime
 {
-    public class Anime : Entry<TypeAnime, AiringStatus, WatchingStatus>
+    public class Anime : Entry<AnimeType, AiringStatus, WatchingStatus>
     {
         public int Episodes { get; set; }
         public int MyWatchedEpisodes { get; set; }
         public int MyRewatchingCount { get; set; }
         public int MyRewatchingEpisodes { get; set; }
 
-        public override void LoadFromXmlNode(XmlNode e)
+        internal override void LoadFromXmlNode(XmlNode e)
         {
             Id = MALConverter.XmlToInt(e["series_animedb_id"]);
             Title = MALConverter.XmlToString(e["series_title"]);
             Synonyms = MALConverter.XmlToString(e["series_synonyms"]).
                                     Split(new[] {"; "}, StringSplitOptions.RemoveEmptyEntries);
             Type = MALConverter.XmlToString(e["series_type"]) != ""
-                       ? (TypeAnime)Int32.Parse(MALConverter.XmlToString(e["series_type"]))
-                       : TypeAnime.None;
+                       ? (AnimeType)Int32.Parse(MALConverter.XmlToString(e["series_type"]))
+                       : AnimeType.None;
             Episodes = MALConverter.XmlToInt(e["series_episodes"]);
             Status = MALConverter.XmlToString(e["series_status"]) != ""
                          ? (AiringStatus)Int32.Parse(MALConverter.XmlToString(e["series_status"]))

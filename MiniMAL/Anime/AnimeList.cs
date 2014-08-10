@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
-using MiniMAL.Internal;
+using MiniMAL.Generic;
 
 namespace MiniMAL.Anime
 {
-    public class AnimeList : UserList<Anime, TypeAnime, AiringStatus, WatchingStatus>
+    public class AnimeList : UserList<Anime, AnimeType, AiringStatus, WatchingStatus>
     {
         protected override string XmlEntityName { get { return "anime"; } }
 

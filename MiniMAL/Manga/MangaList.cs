@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
-using MiniMAL.Internal;
+using MiniMAL.Generic;
 
 namespace MiniMAL.Manga
 {
-    public class MangaList : UserList<Manga, TypeManga, PublishingStatus, ReadingStatus>
+    public class MangaList : UserList<Manga, MangaType, PublishingStatus, ReadingStatus>
     {
         protected override string XmlEntityName { get { return "manga"; } }
 

@@ -1,15 +1,16 @@
 ﻿using System;
 using System.Xml;
-using MiniMAL.Internal;
+using MiniMAL.Generic;
+using MiniMAL.Types;
 
 namespace MiniMAL.Manga
 {
-    public class MangaSearchEntry : SearchEntry<TypeManga, PublishingStatus>
+    public class MangaSearchEntry : SearchEntry<MangaType, PublishingStatus>
     {
         public int Chapters { get; protected set; }
         public int Volumes { get; protected set; }
 
-        public override void LoadFromXmlNode(XmlNode e)
+        internal override void LoadFromXmlNode(XmlNode e)
         {
             Id = MALConverter.XmlToInt(e["id"]);
             Title = MALConverter.XmlToString(e["title"]);
@@ -27,24 +28,24 @@ namespace MiniMAL.Manga
             ImageUrl = MALConverter.XmlToString(e["image"]);
         }
 
-        static private TypeManga ParseType(XmlNode xml)
+        static private MangaType ParseType(XmlNode xml)
         {
             switch (xml.InnerText)
             {
                 case "":
-                    return TypeManga.None;
+                    return MangaType.None;
                 case "Manga":
-                    return TypeManga.Manga;
+                    return MangaType.Manga;
                 case "Novel":
-                    return TypeManga.Novel;
+                    return MangaType.Novel;
                 case "One Shot":
-                    return TypeManga.OneShot;
+                    return MangaType.OneShot;
                 case "Doujin":
-                    return TypeManga.Doujin;
+                    return MangaType.Doujin;
                 case "Manhwa":
-                    return TypeManga.Manhwa;
+                    return MangaType.Manhwa;
                 case "Manhua":
-                    return TypeManga.Manhua;
+                    return MangaType.Manhua;
                 default:
                     throw new InvalidOperationException();
             }

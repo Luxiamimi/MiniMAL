@@ -1,6 +1,6 @@
-﻿namespace MiniMAL.Interfaces
+﻿namespace MiniMAL.Generic
 {
-    public interface IRequestSerializable<in TRequestData>
+    internal interface IRequestSerializable<in TRequestData>
         where TRequestData : IRequestData
     {
         void GetData(TRequestData data);

@@ -1,10 +1,10 @@
 ﻿using System.Xml.Serialization;
-using MiniMAL.Anime;
+using MiniMAL.Generic;
 
-namespace MiniMAL.Internal
+namespace MiniMAL.Anime
 {
     [XmlRoot(ElementName = "entry", Namespace = "")]
-    public class AnimeRequestSerializable : RequestSerializable<AnimeRequestData, WatchingStatus>
+    internal class AnimeRequestSerializable : RequestSerializable<AnimeRequestData, WatchingStatus>
     {
         [XmlElement(ElementName = "episode")]
         public int? Episode { get; set; }

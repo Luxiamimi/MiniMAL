@@ -1,14 +1,15 @@
 ﻿using System;
 using System.Xml;
-using MiniMAL.Internal;
+using MiniMAL.Generic;
+using MiniMAL.Types;
 
 namespace MiniMAL.Anime
 {
-    public class AnimeSearchEntry : SearchEntry<TypeAnime, AiringStatus>
+    public class AnimeSearchEntry : SearchEntry<AnimeType, AiringStatus>
     {
         public int Episodes { get; protected set; }
 
-        public override void LoadFromXmlNode(XmlNode e)
+        internal override void LoadFromXmlNode(XmlNode e)
         {
             Id = MALConverter.XmlToInt(e["id"]);
             Title = MALConverter.XmlToString(e["title"]);
@@ -25,22 +26,22 @@ namespace MiniMAL.Anime
             ImageUrl = MALConverter.XmlToString(e["image"]);
         }
 
-        static private TypeAnime ParseType(XmlNode xml)
+        static private AnimeType ParseType(XmlNode xml)
         {
             switch (xml.InnerText)
             {
                 case "":
-                    return TypeAnime.None;
+                    return AnimeType.None;
                 case "TV":
-                    return TypeAnime.TV;
+                    return AnimeType.TV;
                 case "OVA":
-                    return TypeAnime.OVA;
+                    return AnimeType.OVA;
                 case "Movie":
-                    return TypeAnime.Movie;
+                    return AnimeType.Movie;
                 case "Special":
-                    return TypeAnime.Special;
+                    return AnimeType.Special;
                 case "ONA":
-                    return TypeAnime.ONA;
+                    return AnimeType.ONA;
                 default:
                     throw new InvalidOperationException();
             }

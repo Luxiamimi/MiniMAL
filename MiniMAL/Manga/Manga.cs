@@ -1,10 +1,11 @@
 using System;
 using System.Xml;
-using MiniMAL.Internal;
+using MiniMAL.Generic;
+using MiniMAL.Types;
 
 namespace MiniMAL.Manga
 {
-    public class Manga : Entry<TypeManga, PublishingStatus, ReadingStatus>
+    public class Manga : Entry<MangaType, PublishingStatus, ReadingStatus>
     {
         public int Chapters { get; set; }
         public int Volumes { get; set; }
@@ -13,15 +14,15 @@ namespace MiniMAL.Manga
         public int MyRereadingCount { get; set; }
         public int MyRereadingChapters { get; set; }
 
-        public override void LoadFromXmlNode(XmlNode e)
+        internal override void LoadFromXmlNode(XmlNode e)
         {
             Id = MALConverter.XmlToInt(e["series_mangadb_id"]);
             Title = MALConverter.XmlToString(e["series_title"]);
             Synonyms = MALConverter.XmlToString(e["series_synonyms"]).
                                     Split(new[] {"; "}, StringSplitOptions.RemoveEmptyEntries);
             Type = MALConverter.XmlToString(e["series_type"]) != ""
-                       ? (TypeManga)Int32.Parse(MALConverter.XmlToString(e["series_type"]))
-                       : TypeManga.None;
+                       ? (MangaType)Int32.Parse(MALConverter.XmlToString(e["series_type"]))
+                       : MangaType.None;
             Chapters = MALConverter.XmlToInt(e["series_chapters"]);
             Volumes = MALConverter.XmlToInt(e["series_volumes"]);
             Status = MALConverter.XmlToString(e["series_status"]) != ""

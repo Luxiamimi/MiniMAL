@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml;
-using MiniMAL.Interfaces;
 
-namespace MiniMAL.Internal
+namespace MiniMAL.Generic
 {
     public abstract class UserList<T, TSeriesType, TSeriesStatus, TMyStatus> : IUserList, IEnumerable<T>
         where T : Entry<TSeriesType, TSeriesStatus, TMyStatus>, new()

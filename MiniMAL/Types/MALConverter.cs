@@ -2,7 +2,7 @@
 using System.Globalization;
 using System.Xml;
 
-namespace MiniMAL.Internal
+namespace MiniMAL.Types
 {
     static internal class MALConverter
     {
