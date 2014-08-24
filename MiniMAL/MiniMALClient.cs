@@ -124,12 +124,12 @@ namespace MiniMAL
             return DeleteMangaAsync(id).Result;
         }
 
-        public List<AnimeSearchEntry> SearchAnime(string[] search)
+        public List<AnimeSearchEntry> SearchAnime(params string[] search)
         {
             return SearchAnimeAsync(search).Result;
         }
 
-        public List<MangaSearchEntry> SearchManga(string[] search)
+        public List<MangaSearchEntry> SearchManga(params string[] search)
         {
             return SearchMangaAsync(search).Result;
         }
@@ -184,12 +184,12 @@ namespace MiniMAL
             return await DeleteEntryAsync<MangaRequestData>(id);
         }
 
-        public async Task<List<AnimeSearchEntry>> SearchAnimeAsync(string[] search)
+        public async Task<List<AnimeSearchEntry>> SearchAnimeAsync(params string[] search)
         {
             return await SearchAsync<SearchResult<AnimeSearchEntry, AnimeType, AiringStatus>>(search);
         }
 
-        public async Task<List<MangaSearchEntry>> SearchMangaAsync(string[] search)
+        public async Task<List<MangaSearchEntry>> SearchMangaAsync(params string[] search)
         {
             return await SearchAsync<SearchResult<MangaSearchEntry, MangaType, PublishingStatus>>(search);
         }

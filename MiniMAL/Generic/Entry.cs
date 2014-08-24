@@ -4,6 +4,7 @@ using MiniMAL.Types;
 
 namespace MiniMAL.Generic
 {
+    // TODO : Reduce generic impact
     public abstract class Entry<TSeriesType, TSeriesStatus, TMyStatus>
     {
         public int Id { get; set; }

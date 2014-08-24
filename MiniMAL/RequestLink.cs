@@ -5,7 +5,6 @@ using MiniMAL.Manga;
 
 namespace MiniMAL
 {
-    // TODO : use enum parameter for anime or manga
     static internal class RequestLink
     {
         public const string VerifyCredentials = "http://myanimelist.net/api/account/verify_credentials.xml";

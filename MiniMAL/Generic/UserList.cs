@@ -5,6 +5,7 @@ using System.Xml;
 
 namespace MiniMAL.Generic
 {
+    // TODO : Implements synchronizable UserList
     public abstract class UserList<T, TSeriesType, TSeriesStatus, TMyStatus> : IUserList, IEnumerable<T>
         where T : Entry<TSeriesType, TSeriesStatus, TMyStatus>, new()
     {
