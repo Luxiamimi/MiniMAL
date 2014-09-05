@@ -1,17 +1,18 @@
-﻿using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using System.Collections.Generic;
+using System.Linq;
 using MiniMAL.Anime;
 using MiniMAL.Manga;
+using NUnit.Framework;
 
 namespace MiniMAL.Test
 {
-    [TestClass]
+    [TestFixture]
     public class RequestTest
     {
         private const string TestUsername = "TryMiniMAL";
         private const string TestPassword = "tryminimal";
 
-        [TestMethod]
+        [Test]
         public void RemoveAnime()
         {
             var client = new MiniMALClient();
@@ -27,7 +28,7 @@ namespace MiniMAL.Test
             Assert.IsFalse(client.LoadAnimelist().Any(e => e.Id == 1));
         }
 
-        [TestMethod]
+        [Test]
         public void RemoveManga()
         {
             var client = new MiniMALClient();
@@ -43,22 +44,26 @@ namespace MiniMAL.Test
             Assert.IsFalse(client.LoadMangalist().Any(e => e.Id == 1));
         }
 
-        [TestMethod]
+        [Test]
         public void SearchAnime()
         {
             var client = new MiniMALClient();
             client.Login(TestUsername, TestPassword);
 
-            Assert.IsTrue(client.SearchAnime("cowboy", "bebop").Any(e => e.Title == "Cowboy Bebop"));
+            List<AnimeSearchEntry> result = client.SearchAnime("cowboy", "bebop");
+
+            Assert.IsTrue(result.Any(e => e.Title == "Cowboy Bebop"));
         }
 
-        [TestMethod]
+        [Test]
         public void SearchManga()
         {
             var client = new MiniMALClient();
             client.Login(TestUsername, TestPassword);
 
-            Assert.IsTrue(client.SearchAnime("monster").Any(e => e.Title == "Monster"));
+            List<MangaSearchEntry> result = client.SearchManga("monster");
+
+            Assert.IsTrue(result.Any(e => e.Title == "Monster"));
         }
     }
 }

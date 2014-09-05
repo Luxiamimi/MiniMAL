@@ -357,7 +357,8 @@ namespace MiniMAL
         {
             var client = new WebClient();
             var xml = new XmlDocument();
-            xml.LoadXml(HtmlDecodeAdvanced(await client.DownloadStringTaskAsync(link)));
+            string content = await client.DownloadStringTaskAsync(link);
+            xml.LoadXml(HtmlDecodeAdvanced(content));
             return xml;
         }
 
