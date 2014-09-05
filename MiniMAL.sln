@@ -1,19 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
+# Visual Studio 2012
 VisualStudioVersion = 12.0.30723.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MiniMAL.Console", "MiniMAL.Console\MiniMAL.Console.csproj", "{7E707E5E-7C69-417F-B274-E97F8B54F7E6}"
-	ProjectSection(ProjectDependencies) = postProject
-		{102BFC84-17FE-4619-99F4-7EBF8C7D8DAF} = {102BFC84-17FE-4619-99F4-7EBF8C7D8DAF}
-		{745634E7-9B3B-468F-8735-D98775E78E08} = {745634E7-9B3B-468F-8735-D98775E78E08}
-	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MiniMAL", "MiniMAL\MiniMAL.csproj", "{102BFC84-17FE-4619-99F4-7EBF8C7D8DAF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StarLess", "External\StarLess\StarLess\StarLess.csproj", "{745634E7-9B3B-468F-8735-D98775E78E08}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "External", "External", "{5D06637F-663E-48B4-8D6B-70AA92597D9E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StarLess", "External\StarLess\StarLess\StarLess.csproj", "{745634E7-9B3B-468F-8735-D98775E78E08}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MiniMAL.Test", "MiniMAL.Test\MiniMAL.Test.csproj", "{EF7D9B8E-CE10-4307-AFFF-2C5EF8F22DFB}"
 EndProject
@@ -27,16 +23,6 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{7E707E5E-7C69-417F-B274-E97F8B54F7E6}.Debug|Any CPU.ActiveCfg = Debug|x86
-		{7E707E5E-7C69-417F-B274-E97F8B54F7E6}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
-		{7E707E5E-7C69-417F-B274-E97F8B54F7E6}.Debug|Mixed Platforms.Build.0 = Debug|x86
-		{7E707E5E-7C69-417F-B274-E97F8B54F7E6}.Debug|x86.ActiveCfg = Debug|x86
-		{7E707E5E-7C69-417F-B274-E97F8B54F7E6}.Debug|x86.Build.0 = Debug|x86
-		{7E707E5E-7C69-417F-B274-E97F8B54F7E6}.Release|Any CPU.ActiveCfg = Release|x86
-		{7E707E5E-7C69-417F-B274-E97F8B54F7E6}.Release|Mixed Platforms.ActiveCfg = Release|x86
-		{7E707E5E-7C69-417F-B274-E97F8B54F7E6}.Release|Mixed Platforms.Build.0 = Release|x86
-		{7E707E5E-7C69-417F-B274-E97F8B54F7E6}.Release|x86.ActiveCfg = Release|x86
-		{7E707E5E-7C69-417F-B274-E97F8B54F7E6}.Release|x86.Build.0 = Release|x86
 		{102BFC84-17FE-4619-99F4-7EBF8C7D8DAF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{102BFC84-17FE-4619-99F4-7EBF8C7D8DAF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{102BFC84-17FE-4619-99F4-7EBF8C7D8DAF}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
@@ -57,6 +43,16 @@ Global
 		{745634E7-9B3B-468F-8735-D98775E78E08}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{745634E7-9B3B-468F-8735-D98775E78E08}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{745634E7-9B3B-468F-8735-D98775E78E08}.Release|x86.ActiveCfg = Release|Any CPU
+		{7E707E5E-7C69-417F-B274-E97F8B54F7E6}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{7E707E5E-7C69-417F-B274-E97F8B54F7E6}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{7E707E5E-7C69-417F-B274-E97F8B54F7E6}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{7E707E5E-7C69-417F-B274-E97F8B54F7E6}.Debug|x86.ActiveCfg = Debug|x86
+		{7E707E5E-7C69-417F-B274-E97F8B54F7E6}.Debug|x86.Build.0 = Debug|x86
+		{7E707E5E-7C69-417F-B274-E97F8B54F7E6}.Release|Any CPU.ActiveCfg = Release|x86
+		{7E707E5E-7C69-417F-B274-E97F8B54F7E6}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{7E707E5E-7C69-417F-B274-E97F8B54F7E6}.Release|Mixed Platforms.Build.0 = Release|x86
+		{7E707E5E-7C69-417F-B274-E97F8B54F7E6}.Release|x86.ActiveCfg = Release|x86
+		{7E707E5E-7C69-417F-B274-E97F8B54F7E6}.Release|x86.Build.0 = Release|x86
 		{EF7D9B8E-CE10-4307-AFFF-2C5EF8F22DFB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{EF7D9B8E-CE10-4307-AFFF-2C5EF8F22DFB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EF7D9B8E-CE10-4307-AFFF-2C5EF8F22DFB}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
@@ -68,10 +64,13 @@ Global
 		{EF7D9B8E-CE10-4307-AFFF-2C5EF8F22DFB}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{EF7D9B8E-CE10-4307-AFFF-2C5EF8F22DFB}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
-	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{745634E7-9B3B-468F-8735-D98775E78E08} = {5D06637F-663E-48B4-8D6B-70AA92597D9E}
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = MiniMAL.Console\MiniMAL.Console.csproj
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
 	EndGlobalSection
 EndGlobal

@@ -3,8 +3,6 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
-    <ProductVersion>8.0.30703</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{7E707E5E-7C69-417F-B274-E97F8B54F7E6}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -66,11 +64,11 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\External\StarLess\StarLess\StarLess.csproj">
-      <Project>{745634e7-9b3b-468f-8735-d98775e78e08}</Project>
+      <Project>{745634E7-9B3B-468F-8735-D98775E78E08}</Project>
       <Name>StarLess</Name>
     </ProjectReference>
     <ProjectReference Include="..\MiniMAL\MiniMAL.csproj">
-      <Project>{102bfc84-17fe-4619-99f4-7ebf8c7d8daf}</Project>
+      <Project>{102BFC84-17FE-4619-99F4-7EBF8C7D8DAF}</Project>
       <Name>MiniMAL</Name>
     </ProjectReference>
   </ItemGroup>
