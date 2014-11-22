@@ -17,8 +17,11 @@ namespace MiniMAL
     public class MiniMALClient
     {
         public bool IsConnected { get; private set; }
+        public bool IsRequesting { get; private set; }
         public ClientData ClientData { get; private set; }
         private const string ConfigFilename = "configMiniMAL.xml";
+
+        private HttpWebRequest _currentRequest;
 
         public MiniMALClient()
         {
@@ -194,6 +197,15 @@ namespace MiniMAL
             return await SearchAsync<SearchResult<MangaSearchEntry, MangaType, PublishingStatus>>(search);
         }
 
+        public void CancelCurrentRequest()
+        {
+            if (!IsRequesting)
+                return;
+
+            _currentRequest.Abort();
+            IsRequesting = false;
+        }
+
         #endregion Public
 
         #region Generic
@@ -302,6 +314,9 @@ namespace MiniMAL
             if (!IsConnected)
                 throw new UserNotConnectedException();
 
+            if (IsRequesting)
+                throw new NotAvailableException();
+
             if (data.Any())
             {
                 link += "?";
@@ -311,15 +326,16 @@ namespace MiniMAL
                 link += string.Join("&", dataInline);
             }
 
-            var request = (HttpWebRequest)WebRequest.Create(link);
-            request.Credentials = new NetworkCredential(ClientData.Username, ClientData.DecryptedPassword);
-            request.PreAuthenticate = true;
-            request.Timeout = 10 * 1000;
+            _currentRequest = (HttpWebRequest)WebRequest.Create(link);
+            _currentRequest.Credentials = new NetworkCredential(ClientData.Username, ClientData.DecryptedPassword);
+            _currentRequest.PreAuthenticate = true;
+            _currentRequest.Timeout = 10 * 1000;
 
             HttpWebResponse response;
             try
             {
-                response = (HttpWebResponse)(await request.GetResponseAsync());
+                IsRequesting = true;
+                response = (HttpWebResponse)(await _currentRequest.GetResponseAsync());
             }
             catch (WebException e)
             {
@@ -338,6 +354,10 @@ namespace MiniMAL
                         throw new RequestException(errorMessage);
                     }
                 }
+            }
+            finally
+            {
+                IsRequesting = false;
             }
 
             string result;

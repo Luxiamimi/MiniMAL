@@ -45,6 +45,7 @@
     <Compile Include="Anime\AnimeSearchEntry.cs" />
     <Compile Include="Anime\WatchingStatus.cs" />
     <Compile Include="Exceptions\RequestException.cs" />
+    <Compile Include="Exceptions\NotAvailableException.cs" />
     <Compile Include="Generic\Entry.cs" />
     <Compile Include="Exceptions\ConfigFileCorruptException.cs" />
     <Compile Include="Exceptions\ConfigFileNotFoundException.cs" />
