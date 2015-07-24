@@ -26,8 +26,7 @@ namespace MiniMAL.Generic
         {
             get
             {
-                string result = Title.Replace(" ", "_").Replace("?", "").Replace(",", "").Replace("\x27", "");
-                return String.Join("_", result.Split(new[] {'_'}, StringSplitOptions.RemoveEmptyEntries));
+                return Title.Replace(" ", "_").Replace("/", "_").Replace("?", "").Replace(",", "").Replace("\x27", "");
             }
         }
 
