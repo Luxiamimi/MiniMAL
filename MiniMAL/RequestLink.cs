@@ -84,7 +84,7 @@ namespace MiniMAL
             return string.Format(format, id);
         }
 
-        static public string Search<TSearchResult>(string[] search) where TSearchResult : ISearchResult, new()
+        static public string Search<TSearchResult>(string search) where TSearchResult : ISearchResult, new()
         {
             string format;
             Type type = typeof(TSearchResult);
@@ -96,7 +96,7 @@ namespace MiniMAL
             else
                 throw new ArgumentException();
 
-            return string.Format(format, string.Join("+", search));
+            return string.Format(format, string.Join("+", search.Split(' ')));
         }
     }
 }

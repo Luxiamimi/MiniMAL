@@ -50,7 +50,7 @@ namespace MiniMAL.Test
             var client = new MiniMALClient();
             client.Login(TestUsername, TestPassword);
 
-            List<AnimeSearchEntry> result = client.SearchAnime("cowboy", "bebop");
+            List<AnimeSearchEntry> result = client.SearchAnime("cowboy bebop");
 
             Assert.IsTrue(result.Any(e => e.Title == "Cowboy Bebop"));
         }

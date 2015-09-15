@@ -19,7 +19,7 @@ namespace MiniMAL.Console.Commands
         {
             try
             {
-                List<AnimeSearchEntry> search = Client.SearchAnime(args.Values.ToArray());
+                List<AnimeSearchEntry> search = Client.SearchAnime(string.Join(" ", args.Values));
                 foreach (AnimeSearchEntry a in search)
                     System.Console.WriteLine(a.Title);
                 System.Console.WriteLine(search.Count() + " entries");

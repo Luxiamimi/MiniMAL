@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
 using System.Xml;
@@ -17,11 +18,8 @@ namespace MiniMAL
     public class MiniMALClient
     {
         public bool IsConnected { get; private set; }
-        public bool IsRequesting { get; private set; }
         public ClientData ClientData { get; private set; }
         private const string ConfigFilename = "configMiniMAL.xml";
-
-        private HttpWebRequest _currentRequest;
 
         public MiniMALClient()
         {
@@ -99,42 +97,42 @@ namespace MiniMAL
 
         public AddRequestResult AddAnime(int id, AnimeRequestData data)
         {
-            return AddAnimeAsync(id, data).Result;
+            return AddAnimeAsync(id, data, CancellationToken.None).Result;
         }
 
         public AddRequestResult AddManga(int id, MangaRequestData data)
         {
-            return AddMangaAsync(id, data).Result;
+            return AddMangaAsync(id, data, CancellationToken.None).Result;
         }
 
         public UpdateRequestResult UpdateAnime(int id, AnimeRequestData data)
         {
-            return UpdateAnimeAsync(id, data).Result;
+            return UpdateAnimeAsync(id, data, CancellationToken.None).Result;
         }
 
         public UpdateRequestResult UpdateManga(int id, MangaRequestData data)
         {
-            return UpdateMangaAsync(id, data).Result;
+            return UpdateMangaAsync(id, data, CancellationToken.None).Result;
         }
 
         public DeleteRequestResult DeleteAnime(int id)
         {
-            return DeleteAnimeAsync(id).Result;
+            return DeleteAnimeAsync(id, CancellationToken.None).Result;
         }
 
         public DeleteRequestResult DeleteManga(int id)
         {
-            return DeleteMangaAsync(id).Result;
+            return DeleteMangaAsync(id, CancellationToken.None).Result;
         }
 
-        public List<AnimeSearchEntry> SearchAnime(params string[] search)
+        public List<AnimeSearchEntry> SearchAnime(string search)
         {
-            return SearchAnimeAsync(search).Result;
+            return SearchAnimeAsync(search, CancellationToken.None).Result;
         }
 
-        public List<MangaSearchEntry> SearchManga(params string[] search)
+        public List<MangaSearchEntry> SearchManga(string search)
         {
-            return SearchMangaAsync(search).Result;
+            return SearchMangaAsync(search, CancellationToken.None).Result;
         }
 
         public async Task<AnimeList> LoadAnimelistAsync()
@@ -157,53 +155,44 @@ namespace MiniMAL
             return await LoadUserListAsync<MangaList>(user);
         }
 
-        public async Task<AddRequestResult> AddAnimeAsync(int id, AnimeRequestData data)
+        public async Task<AddRequestResult> AddAnimeAsync(int id, AnimeRequestData data, CancellationToken ct)
         {
-            return await AddEntryAsync<AnimeRequestData, AnimeRequestSerializable>(id, data);
+            return await AddEntryAsync<AnimeRequestData, AnimeRequestSerializable>(id, data, ct);
         }
 
-        public async Task<AddRequestResult> AddMangaAsync(int id, MangaRequestData data)
+        public async Task<AddRequestResult> AddMangaAsync(int id, MangaRequestData data, CancellationToken ct)
         {
-            return await AddEntryAsync<MangaRequestData, MangaRequestSerializable>(id, data);
+            return await AddEntryAsync<MangaRequestData, MangaRequestSerializable>(id, data, ct);
         }
 
-        public async Task<UpdateRequestResult> UpdateAnimeAsync(int id, AnimeRequestData data)
+        public async Task<UpdateRequestResult> UpdateAnimeAsync(int id, AnimeRequestData data, CancellationToken ct)
         {
-            return await UpdateEntryAsync<AnimeRequestData, AnimeRequestSerializable>(id, data);
+            return await UpdateEntryAsync<AnimeRequestData, AnimeRequestSerializable>(id, data, ct);
         }
 
-        public async Task<UpdateRequestResult> UpdateMangaAsync(int id, MangaRequestData data)
+        public async Task<UpdateRequestResult> UpdateMangaAsync(int id, MangaRequestData data, CancellationToken ct)
         {
-            return await UpdateEntryAsync<MangaRequestData, MangaRequestSerializable>(id, data);
+            return await UpdateEntryAsync<MangaRequestData, MangaRequestSerializable>(id, data, ct);
         }
 
-        public async Task<DeleteRequestResult> DeleteAnimeAsync(int id)
+        public async Task<DeleteRequestResult> DeleteAnimeAsync(int id, CancellationToken ct)
         {
-            return await DeleteEntryAsync<AnimeRequestData>(id);
+            return await DeleteEntryAsync<AnimeRequestData>(id, ct);
         }
 
-        public async Task<DeleteRequestResult> DeleteMangaAsync(int id)
+        public async Task<DeleteRequestResult> DeleteMangaAsync(int id, CancellationToken ct)
         {
-            return await DeleteEntryAsync<MangaRequestData>(id);
+            return await DeleteEntryAsync<MangaRequestData>(id, ct);
         }
 
-        public async Task<List<AnimeSearchEntry>> SearchAnimeAsync(params string[] search)
+        public async Task<List<AnimeSearchEntry>> SearchAnimeAsync(string search, CancellationToken cancellationToken)
         {
-            return await SearchAsync<SearchResult<AnimeSearchEntry, AnimeType, AiringStatus>>(search);
+            return await SearchAsync<SearchResult<AnimeSearchEntry, AnimeType, AiringStatus>>(search, cancellationToken);
         }
 
-        public async Task<List<MangaSearchEntry>> SearchMangaAsync(params string[] search)
+        public async Task<List<MangaSearchEntry>> SearchMangaAsync(string search, CancellationToken cancellationToken)
         {
-            return await SearchAsync<SearchResult<MangaSearchEntry, MangaType, PublishingStatus>>(search);
-        }
-
-        public void CancelCurrentRequest()
-        {
-            if (!IsRequesting)
-                return;
-
-            _currentRequest.Abort();
-            IsRequesting = false;
+            return await SearchAsync<SearchResult<MangaSearchEntry, MangaType, PublishingStatus>>(search, cancellationToken);
         }
 
         #endregion Public
@@ -228,7 +217,7 @@ namespace MiniMAL
             return list;
         }
 
-        private async Task<AddRequestResult> AddEntryAsync<TRequestData, TRequestSerializable>(int id, TRequestData data)
+        private async Task<AddRequestResult> AddEntryAsync<TRequestData, TRequestSerializable>(int id, TRequestData data, CancellationToken ct)
             where TRequestData : IRequestData, new()
             where TRequestSerializable : IRequestSerializable<TRequestData>, new()
         {
@@ -240,7 +229,7 @@ namespace MiniMAL
 
             try
             {
-                await RequestAsync(link, requestData);
+                await RequestAsync(link, requestData, ct);
             }
             catch (RequestException e)
             {
@@ -253,8 +242,7 @@ namespace MiniMAL
             return AddRequestResult.Created;
         }
 
-        private async Task<UpdateRequestResult> UpdateEntryAsync<TRequestData, TRequestSerializable>(int id,
-                                                                                                     TRequestData data)
+        private async Task<UpdateRequestResult> UpdateEntryAsync<TRequestData, TRequestSerializable>(int id, TRequestData data, CancellationToken ct)
             where TRequestData : IRequestData, new()
             where TRequestSerializable : IRequestSerializable<TRequestData>, new()
         {
@@ -266,7 +254,7 @@ namespace MiniMAL
 
             try
             {
-                await RequestAsync(link, requestData);
+                await RequestAsync(link, requestData, ct);
             }
             catch (RequestException e)
             {
@@ -279,21 +267,21 @@ namespace MiniMAL
             return UpdateRequestResult.Updated;
         }
 
-        private async Task<DeleteRequestResult> DeleteEntryAsync<TRequestData>(int id)
+        private async Task<DeleteRequestResult> DeleteEntryAsync<TRequestData>(int id, CancellationToken ct)
             where TRequestData : IRequestData, new()
         {
             string link = RequestLink.DeleteEntry<TRequestData>(id);
 
-            await RequestAsync(link);
+            await RequestAsync(link, ct);
 
             return DeleteRequestResult.Deleted;
         }
 
-        private async Task<TSearchResult> SearchAsync<TSearchResult>(string[] search)
+        private async Task<TSearchResult> SearchAsync<TSearchResult>(string search, CancellationToken ct)
             where TSearchResult : ISearchResult, new()
         {
             string link = RequestLink.Search<TSearchResult>(search);
-            XmlDocument xml = await RequestXmlAsync(link);
+            XmlDocument xml = await RequestXmlAsync(link, ct);
 
             var result = new TSearchResult();
             result.LoadFromXml(xml);
@@ -304,18 +292,17 @@ namespace MiniMAL
 
         #region Request
 
-        private async Task<string> RequestAsync(string link)
+        private async Task<string> RequestAsync(string link, CancellationToken ct)
         {
-            return await RequestAsync(link, new Dictionary<string, string>());
+            return await RequestAsync(link, new Dictionary<string, string>(), ct);
         }
 
-        private async Task<string> RequestAsync(string link, Dictionary<string, string> data)
+        private async Task<string> RequestAsync(string link, Dictionary<string, string> data, CancellationToken ct)
         {
+            ct.ThrowIfCancellationRequested();
+
             if (!IsConnected)
                 throw new UserNotConnectedException();
-
-            if (IsRequesting)
-                throw new NotAvailableException();
 
             if (data.Any())
             {
@@ -326,38 +313,40 @@ namespace MiniMAL
                 link += string.Join("&", dataInline);
             }
 
-            _currentRequest = (HttpWebRequest)WebRequest.Create(link);
-            _currentRequest.Credentials = new NetworkCredential(ClientData.Username, ClientData.DecryptedPassword);
-            _currentRequest.PreAuthenticate = true;
-            _currentRequest.Timeout = 10 * 1000;
+            var request = (HttpWebRequest)WebRequest.Create(link);
+            request.Credentials = new NetworkCredential(ClientData.Username, ClientData.DecryptedPassword);
+            request.PreAuthenticate = true;
+            request.Timeout = 10 * 1000;
 
             HttpWebResponse response;
-            try
+            using (ct.Register(() => request.Abort(), false))
             {
-                IsRequesting = true;
-                response = (HttpWebResponse)(await _currentRequest.GetResponseAsync());
-            }
-            catch (WebException e)
-            {
-                var error = (HttpWebResponse)e.Response;
-                if (error == null)
-                    throw;
-
-                using (Stream baseStream = error.GetResponseStream())
+                try
                 {
-                    if (baseStream == null)
+                    response = (HttpWebResponse)(await request.GetResponseAsync());
+                    ct.ThrowIfCancellationRequested();
+                }
+                catch (WebException e)
+                {
+                    if (ct.IsCancellationRequested)
+                        throw new OperationCanceledException(e.Message, e, ct);
+
+                    var error = (HttpWebResponse)e.Response;
+                    if (error == null)
                         throw;
 
-                    using (var readStream = new StreamReader(baseStream, Encoding.UTF8))
+                    using (Stream baseStream = error.GetResponseStream())
                     {
-                        string errorMessage = readStream.ReadToEnd();
-                        throw new RequestException(errorMessage);
+                        if (baseStream == null)
+                            throw;
+
+                        using (var readStream = new StreamReader(baseStream, Encoding.UTF8))
+                        {
+                            string errorMessage = readStream.ReadToEnd();
+                            throw new RequestException(errorMessage);
+                        }
                     }
                 }
-            }
-            finally
-            {
-                IsRequesting = false;
             }
 
             string result;
@@ -382,15 +371,15 @@ namespace MiniMAL
             return xml;
         }
 
-        private async Task<XmlDocument> RequestXmlAsync(string link)
+        private async Task<XmlDocument> RequestXmlAsync(string link, CancellationToken ct)
         {
-            return await RequestXmlAsync(link, new Dictionary<string, string>());
+            return await RequestXmlAsync(link, new Dictionary<string, string>(), ct);
         }
 
-        private async Task<XmlDocument> RequestXmlAsync(string link, Dictionary<string, string> data)
+        private async Task<XmlDocument> RequestXmlAsync(string link, Dictionary<string, string> data, CancellationToken ct)
         {
             var result = new XmlDocument();
-            string xml = await RequestAsync(link, data);
+            string xml = await RequestAsync(link, data, ct);
             result.LoadXml(HtmlDecodeAdvanced(xml));
             return result;
         }

@@ -19,7 +19,7 @@ namespace MiniMAL.Console.Commands
         {
             try
             {
-                List<MangaSearchEntry> search = Client.SearchManga(args.Values.ToArray());
+                List<MangaSearchEntry> search = Client.SearchManga(string.Join(" ", args.Values));
                 foreach (MangaSearchEntry a in search)
                     System.Console.WriteLine(a.Title);
                 System.Console.WriteLine(search.Count() + " entries");
