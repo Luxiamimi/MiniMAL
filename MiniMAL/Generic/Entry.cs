@@ -24,19 +24,18 @@ namespace MiniMAL.Generic
 
         public string TitleForUrl
         {
-            get
-            {
-                return Title.Replace(" ", "_").Replace("/", "_").Replace("?", "").Replace(",", "").Replace("\x27", "");
-            }
+            get { return Title.Replace(" ", "_").Replace("/", "_").Replace("?", "").Replace(",", "").Replace("\x27", ""); }
         }
 
-        internal Entry() {}
-
-        internal abstract void LoadFromXmlNode(XmlNode e);
+        internal Entry()
+        {
+        }
 
         public override string ToString()
         {
             return Title;
         }
+
+        internal abstract void LoadFromXmlNode(XmlNode e);
     }
 }

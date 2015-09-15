@@ -16,7 +16,10 @@ namespace MiniMAL.Manga
             Title = MALConverter.XmlToString(e["title"]);
             EnglishTitle = MALConverter.XmlToString(e["english"]);
             Synonyms = MALConverter.XmlToString(e["synonyms"]).
-                                    Split(new[] {"; "}, StringSplitOptions.RemoveEmptyEntries);
+                Split(new[]
+                {
+                    "; "
+                }, StringSplitOptions.RemoveEmptyEntries);
             Chapters = MALConverter.XmlToInt(e["chapters"]);
             Volumes = MALConverter.XmlToInt(e["volumes"]);
             Score = MALConverter.XmlToDouble(e["score"]);

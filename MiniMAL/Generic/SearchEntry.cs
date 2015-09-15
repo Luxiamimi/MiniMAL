@@ -22,11 +22,16 @@ namespace MiniMAL.Generic
             get
             {
                 string result = Title.Replace(" ", "_").Replace("?", "").Replace(",", "").Replace("\x27", "");
-                return String.Join("_", result.Split(new[] {'_'}, StringSplitOptions.RemoveEmptyEntries));
+                return String.Join("_", result.Split(new[]
+                {
+                    '_'
+                }, StringSplitOptions.RemoveEmptyEntries));
             }
         }
 
-        internal SearchEntry() {}
+        internal SearchEntry()
+        {
+        }
 
         public override string ToString()
         {

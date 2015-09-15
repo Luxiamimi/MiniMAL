@@ -17,9 +17,9 @@ namespace MiniMAL
 {
     public class MiniMALClient
     {
+        private const string ConfigFilename = "configMiniMAL.xml";
         public bool IsConnected { get; private set; }
         public ClientData ClientData { get; private set; }
-        private const string ConfigFilename = "configMiniMAL.xml";
 
         public MiniMALClient()
         {
@@ -225,7 +225,10 @@ namespace MiniMAL
             serialize.GetData(data);
 
             string link = RequestLink.AddEntry<TRequestData>(id);
-            var requestData = new Dictionary<string, string> {{"data", serialize.SerializeDataToString()}};
+            var requestData = new Dictionary<string, string>
+            {
+                {"data", serialize.SerializeDataToString()}
+            };
 
             try
             {
@@ -250,7 +253,10 @@ namespace MiniMAL
             serialize.GetData(data);
 
             string link = RequestLink.UpdateEntry<TRequestData>(id);
-            var requestData = new Dictionary<string, string> {{"data", serialize.SerializeDataToString()}};
+            var requestData = new Dictionary<string, string>
+            {
+                {"data", serialize.SerializeDataToString()}
+            };
 
             try
             {
@@ -308,8 +314,8 @@ namespace MiniMAL
             {
                 link += "?";
                 var dataInline = new List<string>();
-                foreach (var s in data)
-                    dataInline.Add(string.Format("{0}={1}", s.Key, s.Value));
+                foreach (KeyValuePair<string, string> pair in data)
+                    dataInline.Add(string.Format("{0}={1}", pair.Key, pair.Value));
                 link += string.Join("&", dataInline);
             }
 
@@ -356,7 +362,9 @@ namespace MiniMAL
                     return "";
 
                 using (var responseStream = new StreamReader(stream))
+                {
                     result = await responseStream.ReadToEndAsync();
+                }
             }
 
             return result;

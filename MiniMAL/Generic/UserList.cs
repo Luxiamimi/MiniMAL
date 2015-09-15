@@ -9,28 +9,31 @@ namespace MiniMAL.Generic
     public abstract class UserList<T, TSeriesType, TSeriesStatus, TMyStatus> : IUserList, IEnumerable<T>
         where T : Entry<TSeriesType, TSeriesStatus, TMyStatus>, new()
     {
-        public IEnumerable<TMyStatus> Status { get { return _dictionary.Keys; } }
-        public int Count { get { return ToList().Count; } }
+        private readonly Dictionary<TMyStatus, List<T>> _dictionary;
 
-        protected abstract string XmlEntityName { get; }
-        public virtual List<T> this[TMyStatus key]
+        public IEnumerable<TMyStatus> Status
         {
-            get { return _dictionary.ContainsKey(key) ? _dictionary[key] : new List<T>(); }
+            get { return _dictionary.Keys; }
         }
 
-        private readonly Dictionary<TMyStatus, List<T>> _dictionary;
+        public int Count
+        {
+            get { return ToList().Count; }
+        }
+
+        protected abstract string XmlEntityName { get; }
 
         internal UserList()
         {
             _dictionary = new Dictionary<TMyStatus, List<T>>();
         }
 
-        public IEnumerator<T> GetEnumerator()
+        public virtual List<T> this[TMyStatus key]
         {
-            return ToList().GetEnumerator();
+            get { return _dictionary.ContainsKey(key) ? _dictionary[key] : new List<T>(); }
         }
 
-        IEnumerator IEnumerable.GetEnumerator()
+        public IEnumerator<T> GetEnumerator()
         {
             return ToList().GetEnumerator();
         }
@@ -62,7 +65,7 @@ namespace MiniMAL.Generic
         public List<T> ToList()
         {
             var allEntries = new List<T>();
-            foreach (var list in _dictionary.Values)
+            foreach (List<T> list in _dictionary.Values)
                 allEntries = allEntries.Concat(list).ToList();
             return allEntries;
         }
@@ -75,6 +78,11 @@ namespace MiniMAL.Generic
                 return (float)list.Sum(e => e.MyScore) / list.Count;
 
             return 0;
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return ToList().GetEnumerator();
         }
     }
 }

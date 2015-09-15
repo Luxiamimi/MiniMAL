@@ -13,6 +13,8 @@ namespace MiniMAL.Generic
         public string Comments { get; set; }
         public MALTags? Tags { get; set; }
 
-        internal RequestData() {}
+        internal RequestData()
+        {
+        }
     }
 }

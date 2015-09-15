@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using MiniMAL.Console.Commands.Abstract;
 using MiniMAL.Exceptions;
 using MiniMAL.Manga;
@@ -22,7 +21,7 @@ namespace MiniMAL.Console.Commands
                 List<MangaSearchEntry> search = Client.SearchManga(string.Join(" ", args.Values));
                 foreach (MangaSearchEntry a in search)
                     System.Console.WriteLine(a.Title);
-                System.Console.WriteLine(search.Count() + " entries");
+                System.Console.WriteLine(search.Count + " entries");
             }
             catch (UserNotConnectedException e)
             {

@@ -1,4 +1,6 @@
 ﻿namespace MiniMAL.Generic
 {
-    public interface IRequestData {}
+    public interface IRequestData
+    {
+    }
 }

@@ -1,4 +1,6 @@
-﻿namespace MiniMAL.Anime
+﻿// ReSharper disable InconsistentNaming
+
+namespace MiniMAL.Anime
 {
     public enum AnimeType
     {

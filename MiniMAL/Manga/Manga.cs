@@ -19,15 +19,18 @@ namespace MiniMAL.Manga
             Id = MALConverter.XmlToInt(e["series_mangadb_id"]);
             Title = MALConverter.XmlToString(e["series_title"]);
             Synonyms = MALConverter.XmlToString(e["series_synonyms"]).
-                                    Split(new[] {"; "}, StringSplitOptions.RemoveEmptyEntries);
+                Split(new[]
+                {
+                    "; "
+                }, StringSplitOptions.RemoveEmptyEntries);
             Type = MALConverter.XmlToString(e["series_type"]) != ""
-                       ? (MangaType)Int32.Parse(MALConverter.XmlToString(e["series_type"]))
-                       : MangaType.None;
+                ? (MangaType)Int32.Parse(MALConverter.XmlToString(e["series_type"]))
+                : MangaType.None;
             Chapters = MALConverter.XmlToInt(e["series_chapters"]);
             Volumes = MALConverter.XmlToInt(e["series_volumes"]);
             Status = MALConverter.XmlToString(e["series_status"]) != ""
-                         ? (PublishingStatus)Int32.Parse(MALConverter.XmlToString(e["series_status"]))
-                         : PublishingStatus.None;
+                ? (PublishingStatus)Int32.Parse(MALConverter.XmlToString(e["series_status"]))
+                : PublishingStatus.None;
             StartDate = MALConverter.XmlToDate(e["series_start"]);
             EndDate = MALConverter.XmlToDate(e["series_end"]);
             ImageUrl = MALConverter.XmlToString(e["series_image"]);
@@ -38,8 +41,8 @@ namespace MiniMAL.Manga
             MyEndDate = MALConverter.XmlToDate(e["my_finish_date"]);
             MyScore = MALConverter.XmlToInt(e["my_score"]);
             MyStatus = MALConverter.XmlToString(e["my_status"]) != ""
-                           ? (ReadingStatus)Int32.Parse(MALConverter.XmlToString(e["my_status"]))
-                           : ReadingStatus.None;
+                ? (ReadingStatus)Int32.Parse(MALConverter.XmlToString(e["my_status"]))
+                : ReadingStatus.None;
             MyRereadingCount = MALConverter.XmlToInt(e["my_rereadingg"]);
             MyRereadingChapters = MALConverter.XmlToInt(e["my_rereading_chap"]);
             MyTags = MALConverter.XmlToString(e["my_tags"]).Split(',');

@@ -6,7 +6,9 @@ namespace MiniMAL.Console.Commands
     internal class LoginCommand : MiniMALCommand
     {
         public LoginCommand(MiniMALClient client)
-            : base(client, "login", "Connect a user at MyAnimeList services.") {}
+            : base(client, "login", "Connect a user at MyAnimeList services.")
+        {
+        }
 
         protected override void Action(ArgumentsValues args, OptionsValues options)
         {

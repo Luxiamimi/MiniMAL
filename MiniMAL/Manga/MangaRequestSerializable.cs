@@ -31,31 +31,58 @@ namespace MiniMAL.Manga
         public int? RetailVolumes { get; set; }
 
         [XmlIgnore]
-        public override bool StatusSpecified { get { return Status != ReadingStatus.None; } }
+        public override bool StatusSpecified
+        {
+            get { return Status != ReadingStatus.None; }
+        }
 
         [XmlIgnore]
-        public bool ChapterSpecified { get { return Chapter.HasValue; } }
+        public bool ChapterSpecified
+        {
+            get { return Chapter.HasValue; }
+        }
 
         [XmlIgnore]
-        public bool VolumeSpecified { get { return Volume.HasValue; } }
+        public bool VolumeSpecified
+        {
+            get { return Volume.HasValue; }
+        }
 
         [XmlIgnore]
-        public bool DownloadedChaptersSpecified { get { return DownloadedChapters.HasValue; } }
+        public bool DownloadedChaptersSpecified
+        {
+            get { return DownloadedChapters.HasValue; }
+        }
 
         [XmlIgnore]
-        public bool TimesRereadSpecified { get { return TimesReread.HasValue; } }
+        public bool TimesRereadSpecified
+        {
+            get { return TimesReread.HasValue; }
+        }
 
         [XmlIgnore]
-        public bool RereadValueSpecified { get { return RereadValue.HasValue; } }
+        public bool RereadValueSpecified
+        {
+            get { return RereadValue.HasValue; }
+        }
 
         [XmlIgnore]
-        public bool EnableRereadingSpecified { get { return EnableRereading.HasValue; } }
+        public bool EnableRereadingSpecified
+        {
+            get { return EnableRereading.HasValue; }
+        }
 
         [XmlIgnore]
-        public bool ScanGroupSpecified { get { return ScanGroup == ""; } }
+        public bool ScanGroupSpecified
+        {
+            get { return ScanGroup == ""; }
+        }
 
         [XmlIgnore]
-        public bool RetailVolumesSpecified { get { return RetailVolumes.HasValue; } }
+        public bool RetailVolumesSpecified
+        {
+            get { return RetailVolumes.HasValue; }
+        }
 
         public override void GetData(MangaRequestData data)
         {

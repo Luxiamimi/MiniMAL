@@ -36,25 +36,46 @@ namespace MiniMAL.Generic
         public abstract bool StatusSpecified { get; }
 
         [XmlIgnore]
-        public bool ScoreSpecified { get { return Score.HasValue; } }
+        public bool ScoreSpecified
+        {
+            get { return Score.HasValue; }
+        }
 
         [XmlIgnore]
-        public bool DateStartSpecified { get { return DateStart.HasValue; } }
+        public bool DateStartSpecified
+        {
+            get { return DateStart.HasValue; }
+        }
 
         [XmlIgnore]
-        public bool DateFinishSpecified { get { return DateFinish.HasValue; } }
+        public bool DateFinishSpecified
+        {
+            get { return DateFinish.HasValue; }
+        }
 
         [XmlIgnore]
-        public bool PrioritySpecified { get { return Priority.HasValue; } }
+        public bool PrioritySpecified
+        {
+            get { return Priority.HasValue; }
+        }
 
         [XmlIgnore]
-        public bool EnableDiscussionSpecified { get { return EnableDiscussion.HasValue; } }
+        public bool EnableDiscussionSpecified
+        {
+            get { return EnableDiscussion.HasValue; }
+        }
 
         [XmlIgnore]
-        public bool CommentsSpecified { get { return Comments == ""; } }
+        public bool CommentsSpecified
+        {
+            get { return Comments == ""; }
+        }
 
         [XmlIgnore]
-        public bool TagsSpecified { get { return Tags.HasValue; } }
+        public bool TagsSpecified
+        {
+            get { return Tags.HasValue; }
+        }
 
         public abstract void GetData(TRequestData data);
 
@@ -72,8 +93,12 @@ namespace MiniMAL.Generic
 
         public class CustomStringWriter : StringWriter
         {
-            public override Encoding Encoding { get { return _encoding; } }
             private readonly Encoding _encoding;
+
+            public override Encoding Encoding
+            {
+                get { return _encoding; }
+            }
 
             public CustomStringWriter(Encoding encoding)
             {
@@ -84,7 +109,9 @@ namespace MiniMAL.Generic
         public class CustomXmlWriter : XmlTextWriter
         {
             public CustomXmlWriter(TextWriter stringWriter)
-                : base(stringWriter) {}
+                : base(stringWriter)
+            {
+            }
 
             public override void WriteEndElement()
             {

@@ -15,7 +15,10 @@ namespace MiniMAL.Anime
             Title = MALConverter.XmlToString(e["title"]);
             EnglishTitle = MALConverter.XmlToString(e["english"]);
             Synonyms = MALConverter.XmlToString(e["synonyms"]).
-                                    Split(new[] {"; "}, StringSplitOptions.RemoveEmptyEntries);
+                Split(new[]
+                {
+                    "; "
+                }, StringSplitOptions.RemoveEmptyEntries);
             Episodes = MALConverter.XmlToInt(e["episodes"]);
             Score = MALConverter.XmlToDouble(e["score"]);
             Type = ParseType(e["type"]);

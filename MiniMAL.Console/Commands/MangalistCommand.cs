@@ -24,8 +24,8 @@ namespace MiniMAL.Console.Commands
         protected override void Action(ArgumentsValues args, OptionsValues options)
         {
             MangaList mangalist = args.ContainsKey("user")
-                                      ? MiniMALClient.LoadMangalist(args.Value<string>("user"))
-                                      : Client.LoadMangalist();
+                ? MiniMALClient.LoadMangalist(args.Value<string>("user"))
+                : Client.LoadMangalist();
 
             IEnumerable<Manga.Manga> list = new List<Manga.Manga>();
             foreach (Option.OptionKeys opt in options.Keys)
@@ -57,7 +57,7 @@ namespace MiniMAL.Console.Commands
             foreach (Manga.Manga m in enumerable)
                 System.Console.WriteLine("({0}) {1}", m.Id, m.Title);
             System.Console.WriteLine();
-            System.Console.WriteLine(enumerable.Count() + " entries");
+            System.Console.WriteLine(enumerable.Count + " entries");
         }
     }
 }

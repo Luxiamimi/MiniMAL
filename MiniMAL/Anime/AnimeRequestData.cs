@@ -16,7 +16,13 @@ namespace MiniMAL.Anime
 
         static public AnimeRequestData DefaultAddRequest(WatchingStatus status)
         {
-            var result = new AnimeRequestData {Status = status, Episode = 1, Score = 0, DateStart = DateTime.Now};
+            var result = new AnimeRequestData
+            {
+                Status = status,
+                Episode = 1,
+                Score = 0,
+                DateStart = DateTime.Now
+            };
             return result;
         }
     }

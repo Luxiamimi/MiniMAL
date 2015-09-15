@@ -5,7 +5,10 @@ namespace MiniMAL.Manga
 {
     public class MangaList : UserList<Manga, MangaType, PublishingStatus, ReadingStatus>
     {
-        protected override string XmlEntityName { get { return "manga"; } }
+        protected override string XmlEntityName
+        {
+            get { return "manga"; }
+        }
 
         public override List<Manga> this[ReadingStatus key]
         {
@@ -15,6 +18,7 @@ namespace MiniMAL.Manga
 
                 if (key != ReadingStatus.Reading)
                     return result;
+
                 foreach (Manga m in base[ReadingStatus.Completed])
                     if (m.MyReadChapters < m.Chapters)
                         result.Add(m);

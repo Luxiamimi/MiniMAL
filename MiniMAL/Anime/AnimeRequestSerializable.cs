@@ -31,31 +31,58 @@ namespace MiniMAL.Anime
         public string FansubGroup { get; set; }
 
         [XmlIgnore]
-        public override bool StatusSpecified { get { return Status != WatchingStatus.None; } }
+        public override bool StatusSpecified
+        {
+            get { return Status != WatchingStatus.None; }
+        }
 
         [XmlIgnore]
-        public bool EpisodeSpecified { get { return Episode.HasValue; } }
+        public bool EpisodeSpecified
+        {
+            get { return Episode.HasValue; }
+        }
 
         [XmlIgnore]
-        public bool DownloadedEpisodesSpecified { get { return DownloadedEpisodes.HasValue; } }
+        public bool DownloadedEpisodesSpecified
+        {
+            get { return DownloadedEpisodes.HasValue; }
+        }
 
         [XmlIgnore]
-        public bool StorageTypeSpecified { get { return StorageType.HasValue; } }
+        public bool StorageTypeSpecified
+        {
+            get { return StorageType.HasValue; }
+        }
 
         [XmlIgnore]
-        public bool StorageValueSpecified { get { return StorageValue.HasValue; } }
+        public bool StorageValueSpecified
+        {
+            get { return StorageValue.HasValue; }
+        }
 
         [XmlIgnore]
-        public bool TimesRewatchedSpecified { get { return TimesRewatched.HasValue; } }
+        public bool TimesRewatchedSpecified
+        {
+            get { return TimesRewatched.HasValue; }
+        }
 
         [XmlIgnore]
-        public bool RewatchValueSpecified { get { return RewatchValue.HasValue; } }
+        public bool RewatchValueSpecified
+        {
+            get { return RewatchValue.HasValue; }
+        }
 
         [XmlIgnore]
-        public bool EnableRewatchingSpecified { get { return EnableRewatching.HasValue; } }
+        public bool EnableRewatchingSpecified
+        {
+            get { return EnableRewatching.HasValue; }
+        }
 
         [XmlIgnore]
-        public bool FansubGroupSpecified { get { return FansubGroup == ""; } }
+        public bool FansubGroupSpecified
+        {
+            get { return FansubGroup == ""; }
+        }
 
         public override void GetData(AnimeRequestData data)
         {

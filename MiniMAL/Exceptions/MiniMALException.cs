@@ -4,7 +4,9 @@ namespace MiniMAL.Exceptions
 {
     public abstract class MiniMALException : Exception
     {
-        protected internal MiniMALException(string message)
-            : base(message) {}
+        internal protected MiniMALException(string message)
+            : base(message)
+        {
+        }
     }
 }

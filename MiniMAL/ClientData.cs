@@ -17,6 +17,7 @@ namespace MiniMAL
             get { return Encoding.GetString(ProtectedData.Unprotect(Password, null, DataProtectionScope.CurrentUser)); }
             set { Password = ProtectedData.Protect(Encoding.GetBytes(value), null, DataProtectionScope.CurrentUser); }
         }
+
         static private readonly ASCIIEncoding Encoding = new ASCIIEncoding();
 
         public ClientData(string username, string password)
