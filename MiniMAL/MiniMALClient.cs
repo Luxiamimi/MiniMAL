@@ -75,6 +75,12 @@ namespace MiniMAL
             IsConnected = true;
         }
 
+        public void Logout()
+        {
+            ClientData = new ClientData();
+            IsConnected = false;
+        }
+
         public AnimeList LoadAnimelist()
         {
             return LoadAnimelistAsync().Result;
